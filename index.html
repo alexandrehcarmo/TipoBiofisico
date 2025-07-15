@@ -23,10 +23,15 @@
 
     html {
         box-sizing: border-box;
-        scrollbar-width: none; /* Esconde a barra de rolagem*/
+        scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
         margin: 0 !important;   /*Garante que não haja margem externa */
         padding: 0 !important;  /* Garante que não haja padding externo */
         overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
+    }
+
+    /* Melhor esconder scrollbar no Chrome/Safari:  */
+      body::-webkit-scrollbar {
+      display: none;
     }
 
     /* Regra para herdar box-sizing para todos os elementos */
@@ -45,7 +50,7 @@
         font-family: var(--font-body); /*  Usará Poppins */
         padding-bottom: 50px;
         color: var(--brand-neutral-dark); /* Usará o novo preto */
-        max-width: 800px; /*  Limita a largura máxima do corpo da página */
+        max-width: 1200px; /*  Limita a largura máxima do corpo da página */
         margin-left: auto; /*  Centraliza o corpo da página */
         margin-right: auto; /*  Centraliza o corpo da página */
         box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
@@ -99,22 +104,22 @@
     }
     .quiz-img {
         max-width: 100%;
-        aspect-ratio: 1/1;
+        aspect-ratio: 1/1; 
         object-fit: contain;
         border: 4px solid transparent;
         border-radius: 12px;
         cursor: pointer;
-        margin: 0;
+        margin: 0 auto;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        min-height: 200px; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
+        min-height: 300px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
         display: flex; /* Ativa o flexbox para centralizar a imagem */
         justify-content: center; /* Centraliza horizontalmente o item flex (a imagem) */
         align-items: center; /* Centraliza verticalmente o item flex (a imagem) */        
         height: auto; /* Mantém a proporção da imagem */
         display: block; /* Remove espaços extras que podem surgir com imagens inline */
         max-height: 100%; /* Garante que a imagem não ultrapasse a altura do seu contêiner pai (útil em conjunto com object-fit) */
-        width: 100%;
+        width: 100% !important;
         height: auto;
     }
     .quiz-img:hover {
@@ -161,7 +166,7 @@
         border-radius: 20px;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        text-align: center;
+        text-align: left;
         margin-top: 50px;
     }
     #final-resultado.show { display: block; opacity: 1; transform: translateY(0); }
@@ -214,7 +219,7 @@
     }
 
     .style-icon { font-size: 1.5rem; margin-right: 10px; }
-    .style-name { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; display: block; text-align: center; }
+    .style-name { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; display: block; text-align: center; }
 
     .primary-style .style-name {
         background: linear-gradient(45deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 80%, white) 100%); /*  Gradiente com a cor primária */
@@ -232,7 +237,7 @@
         -webkit-text-fill-color: transparent;
     }
 
-    .style-result p.style-description { font-size: 1.05rem; line-height: 1.7; color: #34495e; text-align: justify; }
+    .style-result p.style-description { font-size: 1.05rem; line-height: 1.7; color: #34495e; text-align: left; }
 
     /* Fundo da seção de resultados */
     #final-resultado {
@@ -299,7 +304,7 @@
     /* Esta regra tem mais especificidade e será aplicada APENAS se houver uma imagem no contêiner */
     .row.justify-content-center.phase-1:has(.quiz-img) {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important; /* Layout para Fase 1 com imagens */
+    grid-template-columns: repeat(3, 1fr) !important; /* Layout para Fase 1 com imagens */
     grid-template-rows: auto auto !important;
     gap: 0.2cm 0.2cm !important;
     justify-items: center; 
@@ -308,7 +313,7 @@
     .row.justify-content-center.phase-2:has(.quiz-img),
     .row.justify-content-center.phase-3:has(.quiz-img) {
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important; /* Layout para Fase 2 e 3 com imagens */
+    grid-template-columns: repeat(2, 1fr) !important; /* Layout para Fase 2 e 3 com imagens */
     grid-template-rows: auto auto !important;
     gap: 0.3cm 0.5cm !important;
     justify-items: center;
@@ -326,7 +331,7 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 8px !important; /* Padding interno da caixa da imagem */
-    min-height: 240px !important; /* Mantém a altura mínima APENAS para colunas que possuem quiz-img */
+    min-height: 350px !important; /* Mantém a altura mínima APENAS para colunas que possuem quiz-img */
     overflow: visible !important;
     display: flex !important; /* Reativa flexbox para alinhar conteúdo dentro da caixa da imagem */
     flex-direction: column !important; /* Conteúdo em coluna (imagem + texto) */
@@ -420,30 +425,51 @@
     }    
     
     @media (max-width: 768px) {
-    .row.justify-content-center.phase-1:has(.quiz-img) {
-        grid-template-columns: repeat(2, 1fr) !important;
+    .row.justify-content-center.phase-1:has(.quiz-img),
+    .row.justify-content-center.phase-2:has(.quiz-img),
+    .row.justify-content-center.phase-3:has(.quiz-img) {
+        display: block !important; /* Isso fará com que as divs de imagem se empilhem */
+      /* Remove as configurações de grid que estavam ativas para telas maiores */
+          grid-template-columns: unset !important;
+          grid-template-rows: unset !important;
+          gap: unset !important;
       }
 
-    h3, h4, .lead {
-        font-size: 1.1rem;
-        text-align: center;
+      h3, h4, .lead {
+          font-size: 1.1rem;
+          text-align: center;
       }
 
-    .style-description {
-        font-size: 0.95rem;
+      .style-description {
+          font-size: 0.95rem;
+      }
+    .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
+    .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
+    .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
+       padding: 5px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
+       min-height: 280px !important; /* Aumenta a altura mínima para as imagens em celulares */
       }
     }
 
     @media (max-width: 576px) {
     body {
         max-width: 100% !important;
-        padding: 15px !important;
+        padding: 10px !important;
       }
 
-    .quiz-img {
-        min-height: 120px !important;
-      }
+    /* Media Queries Mobile */
+    @media (max-width: 740px) {
+    /* Disposição vertical, ocupando a largura total */
+    .pergunta-com-img > div[class*="col-"] {
+        padding: 5px !important;
+        min-height: 280px !important;
+    } 
     }
+
+    /* .quiz-img {
+        min-height: 120px !important;
+      } */
+    } 
 
     .btn {
         font-size: 1rem;
@@ -492,7 +518,7 @@ let respostasPorPergunta = {};
 let estilosPrimarioSecundario = { primary: null, secondary: null, tertiary: null };
 let perguntaAtualIndice = -1;
 let faseAtual = 1;
-const totalPerguntas = 43;
+const totalPerguntas = 35;
 const todosOsEstilos = ["clássica", "tradicional", "dramática", "romântica", "sexy", "criativa", "básica"];
 const labelsOpcoes = ["A", "B", "C", "D", "E", "F", "G"];
 let todasAsPerguntas = [];
@@ -506,55 +532,26 @@ const faseCounts = {
 };
 
 // Mapeamentos
-const imagemRanges = { 23: [3, 9], 24: [11, 17], 25: [19, 25], 26: [27, 33], 27: [35, 41], 28: [43, 49], 29: [51, 57], 30: [59, 65], 31: [67, 73], 32: [75, 81], 33: [83, 89], 34: [91, 97], 35: [99, 105], 36: [107, 113], 37: [115, 121], 38: [123, 129], 39: [131, 137], 40: [139, 145], 41: [147, 153], 42: [155, 161], 43: [163, 169] };
+const imagemRanges = { 15: [3, 9], 16: [11, 17], 17: [19, 25], 18: [27, 33], 19: [35, 41], 20: [43, 49], 21: [51, 57], 22: [59, 65], 23: [67, 73], 24: [75, 81], 25: [83, 89], 26: [91, 97], 27: [99, 105], 28: [107, 113], 29: [115, 121], 30: [123, 129], 31: [131, 137], 32: [139, 145], 33: [147, 153], 34: [155, 161], 35: [163, 169] };
 const detalhesEstiloMapCompleto = { "clássica": "Você é elegante, refinada e feminina, prezando por acabamentos impecáveis e atemporalidade. Seu estilo é sofisticado, discreto, e você gosta de se enfeitar, encontrando prazer em combinar peças clássicas com detalhes que revelam uma sofisticação natural.", "tradicional": "Você é elegante, refinada e prática, valorizando a funcionalidade acima de tudo. Gosta de estar bem vestida com peças atemporais, clássicas e sóbrias, sem precisar dedicar muito tempo a isso. Discrição e eficiência são a sua marca.", "dramática": "Você é elegante, moderna e poderosa, buscando impacto sem dizer uma palavra. Adora misturar elementos diferentes para criar contrapontos, com roupas clássicas que possuem toques modernos, cores e elementos marcantes, sempre em busca de um visual interessante e contemporâneo.", "romântica": "Você é elegante, feminina e delicada, expressando leveza através das suas roupas. Prefere elementos femininos, como laços, pérolas e mangas bufantes, e se veste para realçar sua feminilidade de forma fofa e encantadora.", "sexy": "Você é elegante, feminina e atraente, buscando se sentir poderosa e desejada. Suas roupas e acessórios valorizam seu corpo de forma elegante e magnética, mostrando o suficiente para ser atraente sem ser vulgar.", "criativa": "Você é elegante, moderna e fashionista, adorando ousar e brincar com combinações inusitadas. Acompanha tendências e usa a moda como forma de expressar sua criatividade e personalidade única, sem medo de experimentar e de se destacar.", "básica": "Você é elegante, prática e natural, priorizando o conforto e a discrição. Ama roupas confortáveis, fáceis de combinar e que não chamem muita atenção, evitando formalidade excessiva e prezando por um estilo simples, chique e sem frescura." };
-const ordemDesempate = [23, 29, 37, 41, 42, 43, 40, 39, 36, 33, 28, 27, 26, 25];
+const ordemDesempate = [15, 21, 29, 33, 34, 35, 32, 31, 28, 25, 20, 19, 18, 17];
 
 // --- Conteúdo das páginas de introdução (Exatamente como no documento original) ---
 const introPages = [
     { 
         id: "intro-page-1", 
-        title: "Carta da Marina:", 
+        title:"", 
         content: `
-            <p>Seja bem-vinda ao nosso teste de estilos. Aqui você responderá uma série de perguntas que foram cuidadosamente formuladas por mim, Marina, juntamente a uma equipe de consultoras e psicopedagogas. Este teste segue a metodologia Armário Perfeito de Consultoria de Imagem, método desenvolvido por mim e validado pelo MEC. Orgulhosamente posso dizer que o método AP já transformou a vida de mais de 10 mil mulheres ao redor do mundo e tudo aqui foi projetado para que ele transforme a sua vida também!</p>
-            <p>Estilo é o ponto central da consultoria, é a forma que a sua identidade, personalidade e valores se expressam ao mundo. É uma forma de contar a sua história, sem que você precise dizer uma palavra.</p>
-            <p>Estilo é a expressão da sua autoimagem, é como você se vê e como você decide se mostrar. Por isso, tudo começa pelo estilo. Ele será seu mapa pra tomar decisões, pra entender como você mais gosta de combinar uma peça de roupa, pra entender o que vale a pena ou não comprar, pra entender porque algumas coisas podem funcionar pra outra pessoa mas pra você não fazem sentido…</p>
-            <p>Conhecer seu estilo é como ter um manual sempre em mãos, e a partir disso tomar as decisões que mais fazem sentido na sua vida… e no seu armário!</p>
-            <p>Faça o teste com calma, refletindo carinhosamente sobre cada uma das perguntas e ao final você vai descobrir tudo que precisa para fazer as suas roupas contarem para o mundo, quem é você!</p>
-            <p class="text-end">Beijos,<br>Marina.</p>
-        ` 
-    },
-    { 
-        id: "intro-page-2", 
-        title: "Como funciona o teste:", 
-        content: `
-            <p>Dentro do método Armário Perfeito cada mulher possui 3 estilos predominantes: sendo um estilo primário, que é a sua identidade principal e será o estilo que provavelmente mais se destacará nos seus looks, seguido do estilo secundário e terciário. Estes dois últimos são estilos que acompanham o seu estilo principal e podem aparecer em maior ou menor quantidade.</p>
-            <p>É importante entender que cada um destes estilos podem ser explorados em quantidades diferentes, por exemplo:</p>
-            <p>Você pode querer montar um look com referência dos três ao mesmo tempo, ou pode querer usar apenas dois deles, ou apenas um.</p>
-            <p>Essa variação acontece em função da rotina, dos eventos, dos lugares que você frequenta e das pessoas que você convive. É natural que a medida que o meio em que você está mude, a forma que você deseja se apresentar e ser percebida, mude também.</p>
-            <p>Supondo que uma mulher tenha o mix de estilos clássico, básico e dramático. Pode ser que no trabalho ela se sinta mais confortável em explorar apenas os estilos clássico + dramático e deixe o básico de lado. E ao mesmo tempo nos momentos de lazer ela prefira usar apenas o básico nos almoços de família, mas queira usar apenas o dramático para eventos noturnos, festas e afins… Ou em uma determinada situação ela queira montar um look com referências dos 3, explorando então o clássico, o dramático e o básico ao mesmo tempo.</p>
-            <p>Não existe certo ou errado neste sentido, desde que o look te represente e esteja dentro do seu mix de estilos! Porque se o seu look estiver dentro do seu mix de estilos, é um sinal de que ele te representa, é assim que a roupa terá a sua cara e fará com que você se sinta natural e confiante dentro dela.</p>
-        `
-    },
-    { 
-        id: "intro-page-3", 
-        title: "O teste será dividido em 3 fases:", 
-        content: `
-            <p>O teste será dividido em 3 fases:</p>
+            <p>Seja bem-vinda ao nosso teste de estilos. Aqui você responderá uma série de perguntas que foram cuidadosamente formuladas por mim, Marina, juntamente a uma equipe de consultoras e psicopedagogas. Este teste segue a metodologia Armário Perfeito de Consultoria de Imagem, método desenvolvido por mim e validado pelo MEC.</p>
+            <p>Dentro do método AP cada mulher possui 3 estilos predominantes: sendo um estilo primário, que é a sua identidade principal, seguido do estilo secundário e terciário.</p>
+            <p>Vamos descobrir cada um deles e para isso o teste será dividido em 3 etapas:</p>
             <ol>
-                <li> Estilo Primário</li>
-                <li> Estilo Secundário</li>
-                <li> Estilo Terciário</li>
+                <li> a descoberta do estilo primário</li>
+                <li> a descoberta do estilo secundário</li>
+                <li> a descoberta do estilo terciário</li>
             </ol>
             <p>Vamos começar? Separe de 30 a 40 minutos para responder.</p>
-        `
-    },
-    { 
-        id: "intro-page-4", 
-        title: "FASE 1 - Selecione as perguntas que você mais se identifica:", 
-        content: `
-            <p>Selecione as perguntas que você mais se identifica, sempre levando em consideração apenas o seu gosto, neste momento não é a hora de pensar se algo funciona para o seu corpo, sua altura, ou sua cartela de cores… para que o teste seja eficiente, nós precisamos identificar apenas o que esteticamente te brilha os olhos.</p>
-        `
+        ` 
     }
 ];
 let currentIntroPageIndex = 0;
@@ -748,15 +745,21 @@ function displayFinalResults() {
   const count2 = faseCounts[2][secondary] ?? 0;
   const count3 = faseCounts[3][tertiary]  ?? 0;
 
+  const totalQuestionsForPercentage = totalPerguntas; // Base para o cálculo da porcentagem (35 perguntas totais)
+
+  const perc1 = Math.round((count1 / totalQuestionsForPercentage) * 100);
+  const perc2 = Math.round((count2 / totalQuestionsForPercentage) * 100);
+  const perc3 = Math.round((count3 / totalQuestionsForPercentage) * 100);
+
   // Monta o HTML de resultado
   const html = `
     <div class="final-results-header">
       <h3>Diagnóstico de estilo finalizado.</h3>
       <p class="lead mb-1">Parabéns! Os seus estilos são:</p>
       <p class="text-center mb-4">
-        <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções</em>)<br>
-        <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções</em>)<br>
-        <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções</em>)
+        <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
+        <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
+        <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>)
       </p>
     </div>
     <div class="row justify-content-center">
@@ -873,18 +876,7 @@ function loadAllQuestions() {
                 { label: "G", text: `Eu não gosto de chamar atenção, prefiro estar discreta porque isso me deixa mais à vontade… E me sentir à vontade é uma das coisas mais importantes pra mim! Então por isso amo roupas confortáveis, fáceis de combinar e que não tenham uma cara muito formal… Eu gosto de me sentir arrumada mas desde que a roupa não fique me incomodando de alguma forma, ou eu não precise estar formal demais.  (básico)`, estilo: "básica" }
             ]
         },
-        { numero: 3, texto: "Qual destas afirmações você diria ser a mais frustrante no seu ponto de vista?", tipo: "text",
-            opcoes: [
-                { label: "A", text: "Eu visto e me acho desleixada, não gosto da sensação de quando não estou sempre arrumada e elegante. (clássica)", estilo: "clássica" },
-                { label: "B", text: "Eu olho no espelho e a roupa me faz parecer uma menininha ou uma pessoa muito romântica. (tradicional)", estilo: "tradicional" },
-                { label: "C", text: "Eu me visto e não me sinto clássica e moderna ao mesmo tempo. Só um dos dois não adianta, eu preciso ver as duas coisas na roupa. (dramático)", estilo: "dramática" },
-                { label: "D", text: "Eu olho no espelho e acho o resultado muito grosseiro ou meio masculino, sinto que falta leveza e feminilidade em mim. (romântico)", estilo: "romântica" },
-                { label: "E", text: "Eu olho no espelho e acho o resultado muito sério ou muito formal, sinto que falta sensualidade ou algum magnetismo no look. (sensual)", estilo: "sexy" },
-                { label: "F", text: "Eu visto a roupa e ela é formal demais, então parece que fico muito séria, ou muito arrumada… Eu preciso estar com o look mais casual pra gostar (básica)", estilo: "básica" },
-                { label: "G", text: "Eu visto a roupa e ela é sem sal, ou parece com algo que todo mundo usava no ano passado e hoje em dia só os atrasados nas tendências é que estão comprando. (criativo)", estilo: "criativa" }
-            ]
-        },
-        { numero: 4, texto: "O que é mais importante dentre todas as alternativas?", tipo: "text",
+        { numero: 3, texto: "O que é mais importante dentre todas as alternativas?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Ser elegante (clássico)", estilo: "clássica" },
                 { label: "B", text: "Ser prática (tradicional)", estilo: "tradicional" },
@@ -895,40 +887,7 @@ function loadAllQuestions() {
                 { label: "G", text: "Ser confortável (básico)", estilo: "básica" }
             ]
         },
-        { numero: 5, texto: "Qual das afirmações mais se parece com você em relação a maquiagem?", tipo: "text",
-            opcoes: [
-                { label: "A", text: "Gosto de maquiagens que realçam a minha beleza, mas sempre prefiro uma make elegante e discreta sem muitas cores. (clássico)", estilo: "clássica" },
-                { label: "B", text: "Não gosto de me maquiar, mas me maquio pra estar apresentável, então faço o básico de forma bem rápida, como um filtro solar com cor e hidratante labial. (tradicional)", estilo: "tradicional" },
-                { label: "C", text: "Gosto de me maquiar e tendo a preferir uma make um pouco mais aparente no rosto, as vezes elejo um ponto de cor como olhos ou boca. (dramático)", estilo: "dramática" },
-                { label: "D", text: "Amo me maquiar, pra mim faz toda diferença e eu me sinto muito mais confiante quando estou maquiada! É um recurso pra me deixar ainda mais feminina! Gosto muito de blush, delineador e batons que deixem meus lábios bem desenhados. (romântica)", estilo: "romântica" },
-                { label: "E", text: "Amo me maquiar, pra mim faz toda diferença, eu me sinto mais confiante quando estou maquiada. É um recurso pra me deixar ainda mais poderosa e eu normalmente prefiro tons escuros quando a ocasião permite, claro! (sensual)", estilo: "sexy" },
-                { label: "F", text: "A maquiagem pra mim faz parte da roupa, eu adoro explorar cores e texturas aqui também! É algo divertido e que incrementa o look!  (criativo)", estilo: "criativa" },
-                { label: "G", text: "Eu não gosto de me maquiar, me incomoda sentir que tem algo no rosto e eu evito ao máximo! Só me maquio em casos de muita necessidade. (básico)", estilo: "básica" }
-            ]
-        },
-        { numero: 6, texto: "Qual das afirmações mais se parece com você em relação a acessórios?", tipo: "text",
-            opcoes: [
-                { label: "A", text: "Prefiro usar joias ou bijouterias delicadas que se parecem com jóias, assim me sinto sempre elegante.  (clássico)", estilo: "clássica" },
-                { label: "B", text: "Tenho preguiça de ficar pensando em acessórios, então uso os mesmos todos os dias pra não precisar trocar, eles são delicados como joias pra não me incomodarem. (tradicional)", estilo: "tradicional" },
-                { label: "C", text: "Adoro acessórios com ar moderno e de impacto, eu prefiro um acessório que percebo mais personalidade, não me incomodo quando são um pouco maiores. (dramático)", estilo: "dramática" },
-                { label: "D", text: "Adoro acessórios femininos, com elementos tipo laços, corações, pérolas ou peças antigas de família. (romântico)", estilo: "romântica" },
-                { label: "E", text: "Adoro acessórios grandes que aparecem mais no look! Especialmente os metalizados dourados ou com pedras coloridas que tenham um brilho bonito. (sensual)", estilo: "sexy" },
-                { label: "F", text: "Adoro acessórios de todos os tipos, cores e tamanhos, porque eles incrementam muito o look, não tenho tanto uma restrição… tudo depende de como vou combinar! (criativo)", estilo: "criativa" },
-                { label: "G", text: "Não gosto de acessórios, tenho preguiça de colocar e às vezes eles me incomodam… Mas tenho alguns pra usar as vezes… são pequenos e neutros, alguns são parecidos com joias outros não. (básico)", estilo: "básica" }
-            ]
-        },
-        { numero: 7, texto: "Qual das afirmações mais se parece com você em relação a sapatos?", tipo: "text",
-            opcoes: [
-                { label: "A", text: "Adoro modelos que são clássicos e ao mesmo tempo femininos e delicados. Sei que eles não saem de moda e sempre tem um ar elegante que eu amo. (clássico)", estilo: "clássica" },
-                { label: "B", text: "Gosto de sapatos clássicos e práticos, mas eles precisam ser confortáveis e discretos, sem saltos muito finos ou muito delicados, do contrário, sem chance! (tradicional)", estilo: "tradicional" },
-                { label: "C", text: "Adoro sapatos que consigo me sentir clássica e moderna ao mesmo tempo, sem ser algo muito criativo mas também sem ser muito previsível, muitas vezes uso o sapato como ponto de criatividade em uma roupa mais comum… (dramático)", estilo: "dramática" },
-                { label: "D", text: "Gosto de sapatos delicados e femininos, sem peso visual, meus pés precisam estar sempre leves. Elementos como laços e flores deixam eles ainda mais encantadores (romântico)", estilo: "romântica" },
-                { label: "E", text: "Gosto de sapatos que sejam delicados, especialmente os que deixam os pés mais à mostra, sinto que são um elemento de sensualidade discreta no look! (sensual)", estilo: "sexy" },
-                { label: "F", text: "Gosto de sapatos com informação de moda! Cores, texturas, estampas, enfeites… isso é comigo mesmo! Não me incomodo em experimentar, arriscar e até usar modelos que as pessoas normalmente não gostam (criativo)", estilo: "criativa" },
-                { label: "G", text: "Só gosto de sapatos confortáveis, mesmo que eles não sejam os mais bonitos. (básico)", estilo: "básica" }
-            ]
-        },
-        { numero: 8, texto: "Para usar com um jeans e uma camiseta básica por baixo… Qual das terceiras peças é mais a sua cara?", tipo: "text",
+        { numero: 4, texto: "Para usar com um jeans e uma camiseta básica por baixo… Qual das terceiras peças é mais a sua cara?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Um blazer acinturado bege com botões dourados (clássico)", estilo: "clássica" },
                 { label: "B", text: "Um blazer reto, risca de giz marinho (tradicional)", estilo: "tradicional" },
@@ -939,7 +898,7 @@ function loadAllQuestions() {
                 { label: "G", text: "Uma jaqueta de couro preta (básico)", estilo: "básica" }
             ]
         },
-        { numero: 9, texto: "Qual frase mais combina com o seu jeito de se vestir no dia a dia?", tipo: "text",
+        { numero: 5, texto: "Qual frase mais combina com o seu jeito de se vestir no dia a dia?", tipo: "text",
             opcoes: [
                 { label: "A", text: `“É possível ser feminina e formal ao mesmo tempo.” (Clássico)`, estilo: "clássica" },
                 { label: "B", text: `“Discrição é o último grau de sofisticação.” (Tradicional)`, estilo: "tradicional" },
@@ -950,18 +909,7 @@ function loadAllQuestions() {
                 { label: "G", text: `“Me visto com praticidade e zero frescura.” (Básico)`, estilo: "básica" }
             ]
         },
-        { numero: 10, texto: "Suponha que alguém te chamou pra montar um look com mix de estampas, qual das reações abaixo você mais se identifica?", tipo: "text",
-            opcoes: [
-                { label: "A", text: `“Não há nada que me faça passar por isso, eu não gosto de misturar estampas, isso provoca um exagero no look e pra mim nunca fica elegante, quando uso estampas é sempre em apenas uma peça no look, em uma versão com cores neutras e tamanho discreto” (Clássico)`, estilo: "clássica" },
-                { label: "B", text: `Eu mal tenho cores no meu armário, que dirá estampas… Além do mais, combinar uma só com roupas lisas já tem chances de dar errado… imagine o trabalho ter que ficar pensando nisso e ainda correr o risco de errar.  (Tradicional)`, estilo: "tradicional" },
-                { label: "C", text: `Ok, prefiro cores fortes e com mais contraste… mas não quero misturar nada muito colorido, se você me der algumas peças em preto e branco eu me viro bem! (Dramático)`, estilo: "dramática" },
-                { label: "D", text: `Hummm… não é muito a minha cara, sabe? Eu gosto de usar estampas, mas uma por vez! Prefero algumas mais delicadas em cores alegres e suaves! Posso usar um vestido inteiro floral? (Romântico)`, estilo: "romântica" },
-                { label: "E", text: `Eu gosto de estampas de fundo escuro… adoro estampa de onça! Posso usar ela sozinha no look inteiro ao invés de misturar com outra? Eu vou me sentir melhor… (Sexy)`, estilo: "sexy" },
-                { label: "F", text: `Adorei o desafio! Monto sim! Bora! (Criativo)`, estilo: "criativa" },
-                { label: "G", text: `Neeeeem… eu não gosto de chamar atenção e você me vem com essa de misturar estampas?(Básico)`, estilo: "básica" }
-            ]
-        },
-        { numero: 11, texto: "Qual é o melhor elogio sobre o seu look?", tipo: "text",
+        { numero: 6, texto: "Qual é o melhor elogio sobre o seu look?", tipo: "text",
             opcoes: [
                 { label: "A", text: `“Você está chiquíssima.” (Clássico)`, estilo: "clássica" },
                 { label: "B", text: `“Você está simples e elegante.” (Tradicional)`, estilo: "tradicional" },
@@ -972,7 +920,7 @@ function loadAllQuestions() {
                 { label: "G", text: `“Você parece tão confortável e natural!” (Básico)`, estilo: "básica" }
             ]
         },
-        { numero: 12, texto: "Qual estilo de loja te atrai mais, considerando que todas elas tem o mesmo preço e qualidade?", tipo: "text",
+        { numero: 7, texto: "Qual estilo de loja te atrai mais, considerando que todas elas tem o mesmo preço e qualidade?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Uma loja de peças clássicas com toque de feminilidade. (Clássico)", estilo: "clássica" },
                 { label: "B", text: "Uma loja de peças clássicas e confortáveis . (Tradicional)", estilo: "tradicional" },
@@ -983,18 +931,7 @@ function loadAllQuestions() {
                 { label: "G", text: "Uma loja com peças básicas, confortáveis, sem modismos. (Básico)", estilo: "básica" }
             ]
         },
-        { numero: 13, texto: "Se você tivesse que escolher uma única peça pra gastar uma boa quantidade de dinheiro nela… digamos, que seja o triplo do valor que você está acostumada a gastar com uma peça de mesmo estilo… qual delas seria?", tipo: "text",
-            opcoes: [
-                { label: "A", text: "Um blazer clássico de alfaiataria com corte levemente acinturado. (Clássico)", estilo: "clássica" },
-                { label: "B", text: "Um blazer reto, risca de giz marinho. (Tradicional)", estilo: "tradicional" },
-                { label: "C", text: "Um blazer clássico porém em um tecido diferente como couro ou veludo. (Dramático)", estilo: "dramática" },
-                { label: "D", text: "Um vestido incrível, com fluidez, que realçasse minha feminilidade. (Romântico)", estilo: "romântica" },
-                { label: "E", text: "Um vestido incrível,mais ajustado, que eu ficasse atraente e elegante ao mesmo tempo. (Sensual)", estilo: "sexy" },
-                { label: "F", text: "Uma jaqueta statement cheia de informação de moda. (Criativo)", estilo: "criativa" },
-                { label: "G", text: "Um cardigan confortável que combine com tudo. (Básico)", estilo: "básica" }
-            ]
-        },
-        { numero: 14, texto: "Qual frase define melhor a sua relação com as tendências?", tipo: "text",
+        { numero: 8, texto: "Qual frase define melhor a sua relação com as tendências?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Prefiro peças que resistem ao tempo, assim vou me sentir sempre elegante, então não sou muito fã de tendências. (Clássico)", estilo: "clássica" },
                 { label: "B", text: "Acho chato essa coisa da moda ficar mudando, prefiro estar sempre igual porque assim não erro e ganho mais tempo  (Tradicional)", estilo: "tradicional" },
@@ -1005,18 +942,7 @@ function loadAllQuestions() {
                 { label: "G", text: "Não tenho paciência para acompanhar tendências, nem costumo saber o que está acontecendo, gosto de roupas confortáveis e fáceis. (Básico)", estilo: "básica" }
             ]
         },
-        { numero: 15, texto: "Quais destes conjuntos de cores você mais gostaria de usar?", tipo: "text",
-            opcoes: [
-                { label: "A", text: "Preto, branco, cinza, bege e os tons mais claros das cores (como rosa ou azul claro) (clássico)", estilo: "clássica" },
-                { label: "B", text: "Preto, branco, cinza, bege e os tons mais escuros das cores (como vinho ou marinho)  (tradicional)", estilo: "tradicional" },
-                { label: "C", text: "Preto, branco, cinza bege e os tons mais escuros e mais vivos das cores (como vinho, marinho, vermelho vivo e rosa vivo) (dramático)", estilo: "dramática" },
-                { label: "D", text: "Tons mais claros e tons vivos das cores (como rosa e azul claro ou rosa vivo e azul vivo), não gosto tanto de tons escuros  (romântico)", estilo: "romântica" },
-                { label: "E", text: "Tons mais escuros e vivos (como marinho e vinho ou azul vivo e vermelho vivo), não gosto tanto de tons claros (sensual)", estilo: "sexy" },
-                { label: "F", text: "Uso todos os tons com facilidade  (criativo)", estilo: "criativa" },
-                { label: "G", text: "Preto, branco, cinza, bege… e no geral evito cores coloridas (básico)", estilo: "básica" }
-            ]
-        },
-        { numero: 16, texto: "Qual destas situações te faria repensar uma roupa?", tipo: "text",
+        { numero: 9, texto: "Qual destas situações te faria repensar uma roupa?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Parecer informal demais. (Clássico)", estilo: "clássica" },
                 { label: "B", text: "Sentir que a roupa me deixou muito doce . (Tradicional)", estilo: "tradicional" },
@@ -1027,7 +953,7 @@ function loadAllQuestions() {
                 { label: "G", text: "Sentir que está chamando atenção demais. (Básico)", estilo: "básica" }
             ]
         },
-        { numero: 17, texto: "Qual reação você mais gostaria de ouvir a respeito do seu look?", tipo: "text",
+        { numero: 10, texto: "Qual reação você mais gostaria de ouvir a respeito do seu look?", tipo: "text",
             opcoes: [
                 { label: "A", text: `“Você é sempre elegante e sofisticada!” (Clássico)`, estilo: "clássica" },
                 { label: "B", text: `“Você é sempre elegante e transmite força!” (Tradicional)`, estilo: "tradicional" },
@@ -1038,7 +964,7 @@ function loadAllQuestions() {
                 { label: "G", text: `“Você parece tão confortável e natural!” (Básico)`, estilo: "básica" }
             ]
         },
-        { numero: 18, texto: "Quando você entra em uma loja pra olhar as novidades casualmente (sem ser uma situação onde você precisa de comprar algo específico) qual é a sua reação?", tipo: "text",
+        { numero: 11, texto: "Quando você entra em uma loja pra olhar as novidades casualmente (sem ser uma situação onde você precisa de comprar algo específico) qual é a sua reação?", tipo: "text",
             opcoes: [
                 { label: "A", text: `Vai direto na sessão de peças clássicas e tende a gostar das peças clássicas que tem um toque mais feminino como uma camisa com laço, ou casacos que tenham algum botão especial... (Clássico)`, estilo: "clássica" },
                 { label: "B", text: `Vai direto na sessão de peças clássicas e procura pelos cortes mais simples, com acabamentos sem muitos detalhes ou muitas "firulas”. (Tradicional)`, estilo: "tradicional" },
@@ -1049,7 +975,7 @@ function loadAllQuestions() {
                 { label: "G", text: `Busca peças práticas, confortáveis e que deixam arrumada e elegante sem precisar de fazer tanto esforço... (Básico)`, estilo: "básica" }
             ]
         },
-        { numero: 19, texto: "O que você prefere parecer?", tipo: "text",
+        { numero: 12, texto: "O que você prefere parecer?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Parecer polida e uma verdadeira dama (clássico)", estilo: "clássica" },
                 { label: "B", text: "Parecer reservada, racional e eficiente (tradicional)", estilo: "tradicional" },
@@ -1060,7 +986,7 @@ function loadAllQuestions() {
                 { label: "G", text: "Parecer simples, natural e elegante sem nenhum excesso (básico)", estilo: "básica" }
             ]
         },
-        { numero: 20, texto: "Se você fosse um sapato, qual você seria?", tipo: "text",
+        { numero: 13, texto: "Se você fosse um sapato, qual você seria?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Um scarpin de bico fino (clássico)", estilo: "clássica" },
                 { label: "B", text: "Um mocassim (tradicional)", estilo: "tradicional" },
@@ -1071,7 +997,7 @@ function loadAllQuestions() {
                 { label: "G", text: "Uma rasteira fácil de calçar (básico)", estilo: "básica" }
             ]
         },
-        { numero: 21, texto: "Qual das afirmações mais se aproxima de você?", tipo: "text",
+        { numero: 14, texto: "Qual das afirmações mais se aproxima de você?", tipo: "text",
             opcoes: [
                 { label: "A", text: "Gosto de roupas clássicas porque gosto de estar sempre bem vestida e refinada (clássico)", estilo: "clássica" },
                 { label: "B", text: "Gosto de roupas clássicas porque gosto de estar bem vestida de forma prática(tradicional)", estilo: "tradicional" },
@@ -1082,41 +1008,30 @@ function loadAllQuestions() {
                 { label: "G", text: "Gostou de roupas fáceis, simples e que eu não pareça muito montada (básico)", estilo: "básica" }
             ]
         },
-        { numero: 22, texto: "O que você acha de roupas com zíper?", tipo: "text",
-            opcoes: [
-                { label: "A", text: "Zíper é um acabamento que não deve aparecer, serve pra fechar as roupas, mas pessoalmente prefiro botões, acho que são um acabamento mais delicado (clássico)", estilo: "clássica" },
-                { label: "B", text: "Zíper é um  acabamento que não deve aparecer, serve para fechar as roupas, eu acho prático e rápido, prefiro ele do que outros que dão mais trabalho(tradicional)", estilo: "tradicional" },
-                { label: "C", text: "Zíper é uma acabamento mas dependendo da forma que for colocado pode fazer parte do design da roupa também… por exemplo eu adoro jaquetas pesadas de couro com zíperes mais grossos e aparentes  (dramático)", estilo: "dramática" },
-                { label: "D", text: "Zíper é um detalhe de acabamento que eu não gosto muito, a não ser quando ele fica invisível na roupa… acho que ele tira a feminilidade quando é alguma versão daquelas mais grossas   (romântico)", estilo: "romântica" },
-                { label: "E", text: "Eu acho o zíper interessante, ele pode fazer parte da construção da roupa sim, além de ser um material de acabamento… inclusive é um recurso interessante pra trazer uma sensualidade sutil.. por exemplo saias com fenda com detalhes de zíper… (sensual)", estilo: "sexy" },
-                { label: "F", text: "Adoro, pra mim não tem essa de servir pra uma coisa só… se o look ficar legal é o que importa!   (criativo)", estilo: "criativa" },
-                { label: "G", text: "Eu acho super prático, não me incomodo dele aparecer, até acho bonito em alguns looks… o importante é que vou me vestir mais rápido (básico)", estilo: "básica" }
-            ]
-        },
-        { numero: 23, texto: "Qual dos looks abaixo você olha e imediatamente identifica mais a sua personalidade?", tipo: "image" },
-        { numero: 24, texto: "Escolha um modelo de brinco de pérola que tem mais a sua cara:", tipo: "image" },
-        { numero: 25, texto: "Escolha qual dos vestidos você acha mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-        { numero: 26, texto: "Escolha qual das camisas você acha mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-        { numero: 27, texto: "Escolha qual dos modelos de calça tem mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-        { numero: 28, texto: "Escolha qual das saias tem mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-        { numero: 29, texto: "Com qual look você iria em um jantar romântico em um restaurante elegante:", tipo: "image" },
-        { numero: 30, texto: "Escolha qual dos tênis você usaria para compor um look básico com jeans e camiseta:", tipo: "image" },
-        { numero: 31, texto: "Escolha qual das sandálias imediatamente você olha e percebe que tem mais a sua cara?", tipo: "image" },
-        { numero: 32, texto: "Escolha qual dos sapatos você olha e percebe que tem mais a sua cara?", tipo: "image" },
-        { numero: 33, texto: "Qual dos grupos de estampas você olha e imediatamente já gosta mais?", tipo: "image" },
-        { numero: 34, texto: "Qual dos modelos de bolsa você acha mais bonito? Desconsidere fatores como tamanho, funcionalidade ou ocasião para usar… pense apenas no que seus olhos se encantam.", tipo: "image" },
-        { numero: 35, texto: "Qual modelo de óculos você acha mais bonito? Desconsidere fatores como seu formato de rosto, ocasião para usar ou qualquer outra coisa que não seja uma decisão baseada no seu gosto… pense apenas no que seus olhos se encantam.", tipo: "image" },
-        { numero: 36, texto: "Qual look você usaria para um baile de gala?", tipo: "image" },
-        { numero: 37, texto: "Todos estes looks tem a mesma base, mas os acessórios e a modelagem das roupas variam. Qual deles é mais a sua cara?", tipo: "image" },
-        { numero: 38, texto: "Qual relógio é mais a sua cara?", tipo: "image" },
-        { numero: 39, texto: "Como você usaria este vestido dentro do seu gosto? (mesmo que você não goste dele e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-        { numero: 40, texto: "Como você usaria essa calça de paetês prateados dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-        { numero: 41, texto: "Como você usaria esta mini saia de couro dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-        { numero: 42, texto: "Como você usaria essa camiseta básica branca dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-        { numero: 43, texto: "Como você usaria esta camisa social listrada azul e branca dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" }
+        { numero: 15, texto: "Qual dos looks abaixo você olha e imediatamente identifica mais a sua personalidade?", tipo: "image" },
+        { numero: 16, texto: "Escolha um modelo de brinco de pérola que tem mais a sua cara:", tipo: "image" },
+        { numero: 17, texto: "Escolha qual dos vestidos você acha mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
+        { numero: 18, texto: "Escolha qual das camisas você acha mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
+        { numero: 19, texto: "Escolha qual dos modelos de calça tem mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
+        { numero: 20, texto: "Escolha qual das saias tem mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
+        { numero: 21, texto: "Com qual look você iria em um jantar romântico em um restaurante elegante:", tipo: "image" },
+        { numero: 22, texto: "Escolha qual dos tênis você usaria para compor um look básico com jeans e camiseta:", tipo: "image" },
+        { numero: 23, texto: "Escolha qual das sandálias imediatamente você olha e percebe que tem mais a sua cara?", tipo: "image" },
+        { numero: 24, texto: "Escolha qual dos sapatos você olha e percebe que tem mais a sua cara?", tipo: "image" },
+        { numero: 25, texto: "Qual dos grupos de estampas você olha e imediatamente já gosta mais?", tipo: "image" },
+        { numero: 26, texto: "Qual dos modelos de bolsa você acha mais bonito? Desconsidere fatores como tamanho, funcionalidade ou ocasião para usar… pense apenas no que seus olhos se encantam.", tipo: "image" },
+        { numero: 27, texto: "Qual modelo de óculos você acha mais bonito? Desconsidere fatores como seu formato de rosto, ocasião para usar ou qualquer outra coisa que não seja uma decisão baseada no seu gosto… pense apenas no que seus olhos se encantam.", tipo: "image" },
+        { numero: 28, texto: "Qual look você usaria para um baile de gala?", tipo: "image" },
+        { numero: 29, texto: "Todos estes looks tem a mesma base, mas os acessórios e a modelagem das roupas variam. Qual deles é mais a sua cara?", tipo: "image" },
+        { numero: 30, texto: "Qual relógio é mais a sua cara?", tipo: "image" },
+        { numero: 31, texto: "Como você usaria este vestido dentro do seu gosto? (mesmo que você não goste dele e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
+        { numero: 32, texto: "Como você usaria essa calça de paetês prateados dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
+        { numero: 33, texto: "Como você usaria esta mini saia de couro dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
+        { numero: 34, texto: "Como você usaria essa camiseta básica branca dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
+        { numero: 35, texto: "Como você usaria esta camisa social listrada azul e branca dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" }
     ];
     // Popula opções de imagem
-    for (let i = 22; i < totalPerguntas; i++) {
+    for (let i = 14; i < totalPerguntas; i++) {
         const q = todasAsPerguntas[i];
         if (q.tipo === 'image') {
             const [startImg, endImg] = imagemRanges[q.numero];
@@ -1124,7 +1039,7 @@ function loadAllQuestions() {
             for (let imgNum = startImg, j = 0; imgNum <= endImg; imgNum++, j++) {
                 if (todosOsEstilos[j]) {
                     q.opcoes.push({ label: labelsOpcoes[j], image: `imagens/${imgNum}.png`, estilo: todosOsEstilos[j] });
-    // Prepare displayText for text questions (1-22)
+    // Prepare displayText for text questions (1-14)
     todasAsPerguntas.forEach(q => {
         if (q.tipo === 'text') {
             q.opcoes.forEach(o => {
