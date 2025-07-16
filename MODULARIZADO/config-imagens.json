@@ -1,0 +1,66 @@
+{
+  "quiz": {
+    "perguntas": [
+      {
+        "texto": "Qual look você prefere para um evento importante?",
+        "opcoes": [
+          {
+            "estilo": "Clássico",
+            "imagem": "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",
+            "descricao": "Aparência atemporal e elegante"
+          },
+          {
+            "estilo": "Moderno",
+            "imagem": "https://images.pexels.com/photos/7679724/pexels-photo-7679724.jpeg",
+            "descricao": "Design limpo e contemporâneo"
+          }
+        ]
+      },
+      {
+        "texto": "Qual acessório reflete melhor sua personalidade?",
+        "opcoes": [
+          {
+            "estilo": "Clássico",
+            "imagem": "https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg",
+            "descricao": "Sofisticação tradicional"
+          },
+          {
+            "estilo": "Criativo",
+            "imagem": "https://images.pexels.com/photos/1204468/pexels-photo-1204468.jpeg",
+            "descricao": "Originalidade e ousadia"
+          }
+        ]
+      },
+      {
+        "texto": "Qual tipo de estampa mais te atrai?",
+        "opcoes": [
+          {
+            "estilo": "Clássico",
+            "imagem": "https://images.pexels.com/photos/4050345/pexels-photo-4050345.jpeg",
+            "descricao": "Padronagens discretas e elegantes"
+          },
+          {
+            "estilo": "Criativo",
+            "imagem": "https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg",
+            "descricao": "Estampas vibrantes e artísticas"
+          }
+        ]
+      }
+    ]
+  },
+  "bonecas": [
+    "imagens/boneca-selecao-1.svg",
+    "imagens/boneca-selecao-2.svg",
+    "imagens/boneca-selecao-3.svg",
+    "imagens/boneca-selecao-4.svg",
+    "imagens/boneca-selecao-5.svg"
+  ],
+  "tiposFisicos": {
+    "Ampulheta": "imagens/tipo-fisico-ampulheta.png",
+    "Retângulo": "imagens/tipo-fisico-retangulo.png",
+    "Triângulo (Pêra)": "imagens/tipo-fisico-triangulo.png",
+    "Triângulo Invertido": "imagens/tipo-fisico-triangulo-invertido.png",
+    "Oval (Maçã)": "imagens/tipo-fisico-oval.png",
+    "Indefinido": "imagens/tipo-fisico-indefinido.png"
+  }
+}

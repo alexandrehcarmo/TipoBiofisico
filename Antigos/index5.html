@@ -1,0 +1,161 @@
+<!-- Estrutura inicial do MVP - Calculadora de Estilo e Tipo Físico -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Estilo e Tipo Físico</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .quiz-img { max-width: 100%; border: 2px solid #ccc; border-radius: 8px; cursor: pointer; margin: 5px; }
+    .boneca-img { max-width: 120px; margin: 10px; border: 2px solid transparent; cursor: pointer; }
+    .boneca-img.selected { border-color: #28a745; }
+    .pergunta { display: none; }
+    .pergunta.ativa { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Calculadora de Estilo</h2>
+  <div id="quiz-section">
+    <div class="pergunta ativa" id="pergunta1">
+      <p><strong>Pergunta 1:</strong> Qual look você prefere?</p>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&h=400" class="quiz-img" onclick="escolherEstilo('Clássico', 1)">
+        </div>
+        <div class="col-md-6">
+          <img src="https://source.unsplash.com/600x400/?casual-fashion" class="quiz-img" onclick="escolherEstilo('Moderno', 1)">
+        </div>
+      </div>
+    </div>
+    <div class="pergunta" id="pergunta2">
+      <p><strong>Pergunta 2:</strong> Qual acessório usaria?</p>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="https://source.unsplash.com/600x400/?pearl-necklace" class="quiz-img" onclick="escolherEstilo('Clássico', 2)">
+        </div>
+        <div class="col-md-6">
+          <img src="https://source.unsplash.com/600x400/?colorful-earrings" class="quiz-img" onclick="escolherEstilo('Criativo', 2)">
+        </div>
+      </div>
+    </div>
+    <div class="pergunta" id="pergunta3">
+      <p><strong>Pergunta 3:</strong> Qual tipo de estampa mais gosta?</p>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="https://source.unsplash.com/600x400/?striped-clothing" class="quiz-img" onclick="escolherEstilo('Clássico', 3)">
+        </div>
+        <div class="col-md-6">
+          <img src="https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg?auto=compress&cs=tinysrgb&h=400" class="quiz-img" onclick="escolherEstilo('Criativo', 3)">
+        </div>
+      </div>
+    </div>
+    <button id="btn-ver-estilo" class="btn btn-primary mt-4" onclick="mostrarResultadoEstilo()" style="display: none">Ver Estilo</button>
+  </div>
+
+  <hr class="my-5">
+
+  <h2 class="mb-4">Calculadora de Tipo Físico</h2>
+  <div id="tipo-fisico-section">
+    <p>Insira suas medidas (em cm):</p>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Ombro a ombro:</label>
+        <input type="number" class="form-control" id="ombros">
+      </div>
+      <div class="col-md-4">
+        <label>Cintura:</label>
+        <input type="number" class="form-control" id="cintura">
+      </div>
+      <div class="col-md-4">
+        <label>Quadril:</label>
+        <input type="number" class="form-control" id="quadril">
+      </div>
+    </div>
+
+    <button class="btn btn-success mt-4" onclick="mostrarResultadoTipoFisico()">Ver Tipo Físico</button>
+
+    <div class="mt-4">
+      <p>Selecione qual boneca parece mais com você:</p>
+      <img src="Escolha_Bonecas.png" class="boneca-img" onclick="selecionarBoneca(1)">
+      <img src="Escolha_Bonecas.png" class="boneca-img" onclick="selecionarBoneca(2)">
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <button class="btn btn-secondary" onclick="exportarResultados()">Exportar Resultados</button>
+  </div>
+</div>
+
+<script>
+  let pontuacaoEstilos = {
+    "Clássico": 0,
+    "Moderno": 0,
+    "Criativo": 0
+  };
+  let respostasEstilo = [];
+  let bonecaSelecionada = null;
+
+  function escolherEstilo(estilo, pergunta) {
+    pontuacaoEstilos[estilo] += 1;
+    respostasEstilo.push(estilo);
+    document.getElementById(`pergunta${pergunta}`).classList.remove("ativa");
+    const prox = document.getElementById(`pergunta${pergunta + 1}`);
+    if (prox) {
+      prox.classList.add("ativa");
+    } else {
+      document.getElementById("btn-ver-estilo").style.display = "inline-block";
+    }
+  }
+
+  function mostrarResultadoEstilo() {
+    let estiloFinal = Object.keys(pontuacaoEstilos).reduce((a, b) => pontuacaoEstilos[a] > pontuacaoEstilos[b] ? a : b);
+    alert(`Seu estilo predominante é: ${estiloFinal}`);
+  }
+
+  function mostrarResultadoTipoFisico() {
+    const ombros = parseFloat(document.getElementById('ombros').value);
+    const cintura = parseFloat(document.getElementById('cintura').value);
+    const quadril = parseFloat(document.getElementById('quadril').value);
+
+    if (!ombros || !cintura || !quadril) return alert("Preencha todas as medidas.");
+
+    let tipo = "Desconhecido";
+    if (ombros > quadril && cintura < quadril) tipo = "Triângulo Invertido";
+    else if (quadril > ombros && cintura < ombros) tipo = "Triângulo";
+    else if (Math.abs(ombros - quadril) < 3 && cintura < ombros) tipo = "Ampulheta";
+    else tipo = "Oval ou Retângulo";
+
+    alert(`Seu tipo físico estimado é: ${tipo}`);
+  }
+
+  function selecionarBoneca(numero) {
+    document.querySelectorAll('.boneca-img').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.boneca-img')[numero - 1].classList.add('selected');
+    bonecaSelecionada = numero;
+  }
+
+  function exportarResultados() {
+    const data = {
+      estilo: respostasEstilo,
+      estiloPontuado: pontuacaoEstilos,
+      tipoFisico: bonecaSelecionada,
+      medidas: {
+        ombros: document.getElementById('ombros').value,
+        cintura: document.getElementById('cintura').value,
+        quadril: document.getElementById('quadril').value
+      }
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'resultado.json';
+    a.click();
+  }
+</script>
+
+</body>
+</html>
