@@ -210,6 +210,10 @@
     }
     .style-result:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
 
+    .style-result p.text-muted small {
+        white-space: nowrap; /* Impede a quebra de linha para o texto da porcentagem */
+    }
+
     /* Ajustar cores de texto menores no resultado */
     .style-result h4 {
         font-size: 1.4rem;
@@ -238,6 +242,10 @@
     }
 
     .style-result p.style-description { font-size: 1.05rem; line-height: 1.7; color: #34495e; text-align: left; }
+
+    .style-result p.text-muted small {
+         white-space: nowrap; /* Impede a quebra de linha para o texto da porcentagem */
+    }
 
     /* Fundo da seção de resultados */
     #final-resultado {
@@ -280,6 +288,18 @@
     margin-right: 0 !important;
     --bs-gutter-x: 0 !important;
     --bs-gutter-y: 0 !important;
+    }
+    
+    .sticky-header {
+         padding: 5px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
+    }
+    
+    .sticky-header .logo-link img {
+         height: 60px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+    }
+    
+    body {
+         padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -425,51 +445,67 @@
     }    
     
     @media (max-width: 768px) {
-    .row.justify-content-center.phase-1:has(.quiz-img),
-    .row.justify-content-center.phase-2:has(.quiz-img),
-    .row.justify-content-center.phase-3:has(.quiz-img) {
+        .row.justify-content-center.phase-1:has(.quiz-img),
+        .row.justify-content-center.phase-2:has(.quiz-img),
+        .row.justify-content-center.phase-3:has(.quiz-img) {
         display: block !important; /* Isso fará com que as divs de imagem se empilhem */
-      /* Remove as configurações de grid que estavam ativas para telas maiores */
+        /* Remove as configurações de grid que estavam ativas para telas maiores */
           grid-template-columns: unset !important;
           grid-template-rows: unset !important;
           gap: unset !important;
-      }
+        }
 
-      h3, h4, .lead {
+        h3, h4, .lead {
           font-size: 1.1rem;
           text-align: center;
-      }
+        }
 
-      .style-description {
+        .style-description {
           font-size: 0.95rem;
-      }
-    .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
-    .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
-    .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
-       padding: 5px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
-       min-height: 280px !important; /* Aumenta a altura mínima para as imagens em celulares */
-      }
+        }
+        .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
+        .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
+        .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
+            padding: 5px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
+            min-height: 280px !important; /* Aumenta a altura mínima para as imagens em celulares */
+        }
+
+        #final-resultado {
+            padding: 20px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
+        }
+
+        .style-name {
+            font-size: clamp(1.8rem, 8vw, 2.5rem); /* Ajusta o clamp para ser mais responsivo em telas pequenas, permitindo que o texto diminua mais */
+            word-break: break-word; /* Permite que palavras longas quebrem para evitar transbordamento */
+        }
+
+        .style-result {
+            padding: 15px !important; /* Reduz o padding interno de cada card de resultado para mais espaço para o texto */
+        }
+
+        .sticky-header {
+            padding: 5px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
+        }
+        
+        .sticky-header .logo-link img {
+             height: 60px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+        }
+        
+        body {
+            padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+        }
+      
     }
 
     @media (max-width: 576px) {
-    body {
-        max-width: 100% !important;
-        padding: 10px !important;
-      }
-
-    /* Media Queries Mobile */
-    @media (max-width: 740px) {
-    /* Disposição vertical, ocupando a largura total */
-    .pergunta-com-img > div[class*="col-"] {
-        padding: 5px !important;
-        min-height: 280px !important;
-    } 
-    }
-
-    /* .quiz-img {
-        min-height: 120px !important;
-      } */
-    } 
+        body {
+            max-width: 100% !important;
+            padding-left: 10px !important;   /* Mantém o padding horizontal */
+            padding-right: 10px !important;  /* Mantém o padding horizontal */
+            padding-bottom: 10px !important; /* Mantém o padding inferior */
+        /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral, garantindo que o cabeçalho fixo não esconda o conteúdo. */
+        }
+    }    
 
     .btn {
         font-size: 1rem;
@@ -562,6 +598,7 @@ function initQuiz() {
     document.getElementById('final-resultado').style.display = 'none';
     document.getElementById('exportButtonContainer').style.display = 'none';
     showIntroPage();
+    window.scrollTo(0, 0); // Para garantir que a página role para o topo ao iniciar
 }
 
 function showIntroPage() {
@@ -1484,50 +1521,50 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     }    
     
     @media (max-width: 768px) {
-    .row.justify-content-center.phase-1:has(.quiz-img),
-    .row.justify-content-center.phase-2:has(.quiz-img),
-    .row.justify-content-center.phase-3:has(.quiz-img) {
+        .row.justify-content-center.phase-1:has(.quiz-img),
+        .row.justify-content-center.phase-2:has(.quiz-img),
+        .row.justify-content-center.phase-3:has(.quiz-img) {
         display: block !important; /* Isso fará com que as divs de imagem se empilhem */
       /* Remove as configurações de grid que estavam ativas para telas maiores */
           grid-template-columns: unset !important;
           grid-template-rows: unset !important;
           gap: unset !important;
-      }
+        }
 
       h3, h4, .lead {
           font-size: 1.1rem;
           text-align: center;
-      }
+        }
 
       .style-description {
           font-size: 0.95rem;
-      }
-    .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
-    .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
-    .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
-       padding: 5px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
-       min-height: 280px !important; /* Aumenta a altura mínima para as imagens em celulares */
-      }
+        }
+        .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
+        .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
+        .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
+            padding: 5px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
+            min-height: 280px !important; /* Aumenta a altura mínima para as imagens em celulares */
+        }
     }
+
+        #final-resultado {
+            padding: 20px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
+        }
+        .style-name {
+            font-size: clamp(1.8rem, 8vw, 2.5rem); /* Ajusta o clamp para ser mais responsivo em telas pequenas, permitindo que o texto diminua mais */
+            word-break: break-word; /* Permite que palavras longas quebrem para evitar transbordamento */
+        }
+        .style-result {
+            padding: 15px !important; /* Reduz o padding interno de cada card de resultado para mais espaço para o texto */
+        }
 
     @media (max-width: 576px) {
-    body {
-        max-width: 100% !important;
-        padding: 10px !important;
-      }
-
-    /* Media Queries Mobile */
-    @media (max-width: 740px) {
-    /* Disposição vertical, ocupando a largura total */
-    .pergunta-com-img > div[class*="col-"] {
-        padding: 5px !important;
-        min-height: 280px !important;
-    } 
-    }
-
-    /* .quiz-img {
-        min-height: 120px !important;
-      } */
+        body {
+            max-width: 100% !important;
+            padding-left: 10px !important;   /* Mantém o padding horizontal */
+            padding-right: 10px !important;  /* Mantém o padding horizontal */
+            padding-bottom: 10px !important; /* Mantém o padding inferior */
+        }
     } 
 
     .btn {
