@@ -29,6 +29,10 @@
         overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
     }
 
+    input[type="radio"]:checked + .quiz-img {
+      /* remove estilos aqui, se estiverem aplicando seleção automaticamente */
+    }
+
     /* Melhor esconder scrollbar no Chrome/Safari:  */
       body::-webkit-scrollbar {
       display: none;
@@ -112,7 +116,8 @@
         margin: 0 auto;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        min-height: 300px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
+        padding: 4px !important;       
+        min-height: 350px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
         display: flex; /* Ativa o flexbox para centralizar a imagem */
         justify-content: center; /* Centraliza horizontalmente o item flex (a imagem) */
         align-items: center; /* Centraliza verticalmente o item flex (a imagem) */        
@@ -291,15 +296,15 @@
     }
     
     .sticky-header {
-         padding: 5px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
+         padding: 2px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
     }
     
     .sticky-header .logo-link img {
-         height: 35px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+         height: 30px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
     }
     
     body {
-         padding-top: 45px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+         padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -443,16 +448,17 @@
         justify-content: center;
         align-items: center;
     }    
-    
+        
     @media (max-width: 768px) {
         .row.justify-content-center.phase-1:has(.quiz-img),
         .row.justify-content-center.phase-2:has(.quiz-img),
         .row.justify-content-center.phase-3:has(.quiz-img) {
-        display: block !important; /* Isso fará com que as divs de imagem se empilhem */
-        /* Remove as configurações de grid que estavam ativas para telas maiores */
-          grid-template-columns: unset !important;
-          grid-template-rows: unset !important;
-          gap: unset !important;
+            padding: 2px !important; /* Mantido como antes */
+            min-height: 320px !important; /* Mantido como antes */
+            display: block !important; /* Isso fará com que as divs de imagem se empilhem */
+            grid-template-columns: unset !important;
+            grid-template-rows: unset !important;
+            gap: unset !important;
         }
 
         h3, h4, .lead {
@@ -466,7 +472,7 @@
         .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
         .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
         .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
-            padding: 5px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
+            padding: 2px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
             min-height: 280px !important; /* Aumenta a altura mínima para as imagens em celulares */
         }
 
@@ -488,7 +494,7 @@
         }
         
         .sticky-header .logo-link img {
-             height: 60px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+             height: 30px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
         }
         
         body {
@@ -506,8 +512,8 @@
         /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral, garantindo que o cabeçalho fixo não esconda o conteúdo. */
         }
         #final-resultado {
-362         padding: 5px !important; /* Reduz ainda mais o padding para telas muito pequenas */
-363     }
+         padding: 5px !important; /* Reduz ainda mais o padding para telas muito pequenas */
+     }
     }    
 
     .btn {
@@ -647,6 +653,12 @@ function startQuiz() {
 function resetPontuacao() { todosOsEstilos.forEach(estilo => { pontuacaoEstilos[estilo] = 0; }); }
 
 function renderQuestion() {
+    window.scrollTo(0, 0);
+    
+    setTimeout(() => {
+        perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
+    }, 100); // dá tempo de renderizar completamente
+    
     const quizSection = document.getElementById('quiz-section');
     quizSection.innerHTML = '';
     if (perguntaAtualIndice >= totalPerguntas) {
@@ -1209,8 +1221,8 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         max-width: 100%;
         aspect-ratio: 1/1; 
         object-fit: contain;
-        border: 4px solid transparent;
-        border-radius: 12px;
+        border: 2px solid transparent;
+        border-radius: 10px;
         cursor: pointer;
         margin: 0 auto;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1409,7 +1421,7 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important; /* Layout para Fase 1 com imagens */
     grid-template-rows: auto auto !important;
-    gap: 0.2cm 0.2cm !important;
+    gap: 0.1cm 0.1cm !important;
     justify-items: center; 
 
     }
@@ -1418,7 +1430,7 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important; /* Layout para Fase 2 e 3 com imagens */
     grid-template-rows: auto auto !important;
-    gap: 0.3cm 0.5cm !important;
+    gap: 0.2cm 0.2cm !important;
     justify-items: center;
     }
 
@@ -1527,34 +1539,8 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         align-items: center;
     }    
     
-    @media (max-width: 768px) {
-      .row.justify-content-center.phase-1:has(.quiz-img),
-      .row.justify-content-center.phase-2:has(.quiz-img),
-      .row.justify-content-center.phase-3:has(.quiz-img) {
-          display: block !important; /* Isso fará com que as divs de imagem se empilhem */
-          grid-template-columns: unset !important;
-          grid-template-rows: unset !important;
-          gap: unset !important;
-        }
-
-      h3, h4, .lead {
-          font-size: 1.1rem;
-          text-align: center;
-        }
-
-      .style-description {
-          font-size: 0.95rem;
-        }
-        .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
-        .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
-        .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
-            padding: 2px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
-            min-height: 320px !important; /* Aumenta a altura mínima para as imagens em celulares */
-        }
-    }
-
     #final-resultado {
-        padding: 10px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
+        padding: 6px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
     }
     
     .style-name {
@@ -1563,19 +1549,19 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     }
     
     .style-result {
-        padding: 15px !important; /* Reduz o padding interno de cada card de resultado para mais espaço para o texto */
+        padding: 10px !important; /* Reduz o padding interno de cada card de resultado para mais espaço para o texto */
     }
 
     @media (max-width: 576px) {
         body {
             max-width: 100% !important;
-            padding-left: 10px !important;   /* Mantém o padding horizontal */
-            padding-right: 10px !important;  /* Mantém o padding horizontal */
-            padding-bottom: 10px !important; /* Mantém o padding inferior */
+            padding-left: 2px !important;   /* Mantém o padding horizontal */
+            padding-right: 2px !important;  /* Mantém o padding horizontal */
+            padding-bottom: 5px !important; /* Mantém o padding inferior */
         }
 
         #final-resultado {
-            padding: 5px !important; /* Reduz ainda mais o padding para telas muito pequenas */
+            padding: 2px !important; /* Reduz ainda mais o padding para telas muito pequenas */
         }
 
     } 
@@ -1587,12 +1573,19 @@ document.addEventListener('DOMContentLoaded', initQuiz);
 
     .btn:focus,
     .btn:active,
+    .btn:focus-visible, /* Adicionado para capturar o anel de foco padrão */
     .quiz-img:focus,
     .quiz-img:active,
-    input[type="radio"]:focus + label, /* Aplica ao label associado a radio buttons com foco */
-    input[type="radio"]:checked + label { /* Garante que a seleção também não tenha o outline/shadow */
-         outline: none !important;
-         box-shadow: none !important; /* Remove qualquer sombra padrão de foco */
+    .quiz-img:focus-visible,
+    input[type="radio"]:focus + label,
+    input[type="radio"]:active + label,
+    input[type="radio"]:focus-visible + label,
+    .option:focus,
+    .option:active,
+    .option:focus-visible,
+    .option:hover { /* Adicionado :hover para garantir que não haja sombra no hover que pareça selecionada */
+        outline: none !important;
+        box-shadow: none !important; /* Remove qualquer sombra padrão de foco/ativação/hover */
     }
 </style>
 </head>
@@ -1726,6 +1719,10 @@ function resetPontuacao() { todosOsEstilos.forEach(estilo => { pontuacaoEstilos[
 
 function renderQuestion() {
     const quizSection = document.getElementById('quiz-section');
+    setTimeout(() => {
+      perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
+    }, 100); // dá tempo de renderizar completamente
+
     quizSection.innerHTML = '';
     if (perguntaAtualIndice >= totalPerguntas) {
         processPhaseResults();
