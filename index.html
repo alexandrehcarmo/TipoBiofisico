@@ -1547,16 +1547,18 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         }
     }
 
-        #final-resultado {
-            padding: 20px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
-        }
-        .style-name {
-            font-size: clamp(1.8rem, 8vw, 2.5rem); /* Ajusta o clamp para ser mais responsivo em telas pequenas, permitindo que o texto diminua mais */
-            word-break: break-word; /* Permite que palavras longas quebrem para evitar transbordamento */
-        }
-        .style-result {
-            padding: 15px !important; /* Reduz o padding interno de cada card de resultado para mais espaço para o texto */
-        }
+    #final-resultado {
+        padding: 20px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
+    }
+    
+    .style-name {
+        font-size: clamp(1.8rem, 8vw, 2.5rem); /* Ajusta o clamp para ser mais responsivo em telas pequenas, permitindo que o texto diminua mais */
+        word-break: break-word; /* Permite que palavras longas quebrem para evitar transbordamento */
+    }
+    
+    .style-result {
+        padding: 15px !important; /* Reduz o padding interno de cada card de resultado para mais espaço para o texto */
+    }
 
     @media (max-width: 576px) {
         body {
