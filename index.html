@@ -1413,21 +1413,41 @@ document.addEventListener('DOMContentLoaded', initQuiz);
 
     /* NOVO BLOCO: REATIVAR display: grid PARA FASES QUE CONTÊM IMAGENS */
     /* Esta regra tem mais especificidade e será aplicada APENAS se houver uma imagem no contêiner */
-    .row.justify-content-center.phase-1:has(.quiz-img) {
+
+/*    .row.justify-content-center.phase-1:has(.quiz-img) {
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important; /* Layout para Fase 1 com imagens */
+    grid-template-columns: repeat(3, 1fr) !important; /* Layout para Fase 1 com imagens 
     grid-template-rows: auto auto !important;
     gap: 0.1cm 0.1cm !important;
     justify-items: center; 
-
     }
+
     .row.justify-content-center.phase-2:has(.quiz-img),
     .row.justify-content-center.phase-3:has(.quiz-img) {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* Layout para Fase 2 e 3 com imagens */
+    grid-template-columns: repeat(2, 1fr) !important; /* Layout para Fase 2 e 3 com imagens 
     grid-template-rows: auto auto !important;
     gap: 0.2cm 0.2cm !important;
     justify-items: center;
+    } */
+
+    @media (min-width: 769px) {
+    .row.justify-content-center.phase-1:has(.quiz-img) {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: auto auto !important;
+        gap: 0.2cm 0.2cm !important;
+        justify-items: center;
+        }
+
+    .row.justify-content-center.phase-2:has(.quiz-img),
+    .row.justify-content-center.phase-3:has(.quiz-img) {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: auto auto !important;
+        gap: 0.3cm 0.5cm !important;
+        justify-items: center;
+        }
     }
 
     /* NOVO BLOCO: Estilo para os ITENS DO GRID (colunas que contêm imagens) */
