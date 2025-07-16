@@ -295,11 +295,11 @@
     }
     
     .sticky-header .logo-link img {
-         height: 60px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+         height: 40px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
     }
     
     body {
-         padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+         padding-top: 50px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -471,7 +471,7 @@
         }
 
         #final-resultado {
-            padding: 20px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
+            padding: 10px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
         }
 
         .style-name {
@@ -697,6 +697,10 @@ function renderQuestion() {
     if (!hasRenderableOptions) {
         opcoesContainer.innerHTML = `<p class="text-center text-muted">Não há mais opções de estilo para esta fase. Avançando...</p>`;
         document.getElementById('btn-proxima').disabled = false;
+    }
+
+    if (opcoesContainer) {
+        opcoesContainer.scrollIntoView({ block: "start", behavior: "smooth" });
     }
 }
 
@@ -1258,7 +1262,7 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         opacity: 0;
         transform: translateY(30px);
         transition: opacity 0.8s ease, transform 0.8s ease;
-        padding: 50px;
+        padding: 40px;
         border-radius: 20px;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
@@ -1521,11 +1525,10 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     }    
     
     @media (max-width: 768px) {
-        .row.justify-content-center.phase-1:has(.quiz-img),
-        .row.justify-content-center.phase-2:has(.quiz-img),
-        .row.justify-content-center.phase-3:has(.quiz-img) {
-        display: block !important; /* Isso fará com que as divs de imagem se empilhem */
-      /* Remove as configurações de grid que estavam ativas para telas maiores */
+      .row.justify-content-center.phase-1:has(.quiz-img),
+      .row.justify-content-center.phase-2:has(.quiz-img),
+      .row.justify-content-center.phase-3:has(.quiz-img) {
+          display: block !important; /* Isso fará com que as divs de imagem se empilhem */
           grid-template-columns: unset !important;
           grid-template-rows: unset !important;
           gap: unset !important;
@@ -1542,8 +1545,8 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
         .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
         .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
-            padding: 5px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
-            min-height: 280px !important; /* Aumenta a altura mínima para as imagens em celulares */
+            padding: 3px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
+            min-height: 320px !important; /* Aumenta a altura mínima para as imagens em celulares */
         }
     }
 
@@ -1567,6 +1570,11 @@ document.addEventListener('DOMContentLoaded', initQuiz);
             padding-right: 10px !important;  /* Mantém o padding horizontal */
             padding-bottom: 10px !important; /* Mantém o padding inferior */
         }
+
+        #final-resultado {
+            padding: 5px !important; /* Reduz ainda mais o padding para telas muito pequenas */
+        }
+
     } 
 
     .btn {
@@ -1854,7 +1862,7 @@ function displayFinalResults() {
     <div class="final-results-header">
       <h3>Diagnóstico de estilo finalizado.</h3>
       <p class="lead mb-1">Parabéns! Os seus estilos são:</p>
-      <p class="text-center mb-4">
+      <p class="text-start mb-4">
         <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
         <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
         <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>)
