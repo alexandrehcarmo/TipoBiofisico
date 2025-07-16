@@ -295,11 +295,11 @@
     }
     
     .sticky-header .logo-link img {
-         height: 40px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+         height: 35px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
     }
     
     body {
-         padding-top: 50px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+         padding-top: 45px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -500,11 +500,14 @@
     @media (max-width: 576px) {
         body {
             max-width: 100% !important;
-            padding-left: 10px !important;   /* Mantém o padding horizontal */
-            padding-right: 10px !important;  /* Mantém o padding horizontal */
-            padding-bottom: 10px !important; /* Mantém o padding inferior */
+            padding-left: 5px !important;   /* Mantém o padding horizontal */
+            padding-right: 5px !important;  /* Mantém o padding horizontal */
+            padding-bottom: 8px !important; /* Mantém o padding inferior */
         /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral, garantindo que o cabeçalho fixo não esconda o conteúdo. */
         }
+        #final-resultado {
+362         padding: 5px !important; /* Reduz ainda mais o padding para telas muito pequenas */
+363     }
     }    
 
     .btn {
@@ -699,8 +702,8 @@ function renderQuestion() {
         document.getElementById('btn-proxima').disabled = false;
     }
 
-    if (opcoesContainer) {
-        opcoesContainer.scrollIntoView({ block: "start", behavior: "smooth" });
+   if (perguntaDiv) { // Certifica-se de que a perguntaDiv existe
+       perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
     }
 }
 
@@ -1545,13 +1548,13 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         .row.justify-content-center.phase-1:has(.quiz-img) > div[class*="col-"],
         .row.justify-content-center.phase-2:has(.quiz-img) > div[class*="col-"],
         .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
-            padding: 3px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
+            padding: 2px !important; /* Reduz o padding para a imagem ocupar mais espaço na horizontal */
             min-height: 320px !important; /* Aumenta a altura mínima para as imagens em celulares */
         }
     }
 
     #final-resultado {
-        padding: 20px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
+        padding: 10px !important; /* Reduz o padding do container principal de resultados para dar mais espaço ao conteúdo */
     }
     
     .style-name {
@@ -1582,6 +1585,15 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         padding: 0.5rem 1rem;
     }  
 
+    .btn:focus,
+    .btn:active,
+    .quiz-img:focus,
+    .quiz-img:active,
+    input[type="radio"]:focus + label, /* Aplica ao label associado a radio buttons com foco */
+    input[type="radio"]:checked + label { /* Garante que a seleção também não tenha o outline/shadow */
+         outline: none !important;
+         box-shadow: none !important; /* Remove qualquer sombra padrão de foco */
+    }
 </style>
 </head>
 <body>
@@ -1862,7 +1874,7 @@ function displayFinalResults() {
     <div class="final-results-header">
       <h3>Diagnóstico de estilo finalizado.</h3>
       <p class="lead mb-1">Parabéns! Os seus estilos são:</p>
-      <p class="text-start mb-4">
+      <p class="text-left mb-4">
         <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
         <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
         <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>)
