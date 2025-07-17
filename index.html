@@ -44,9 +44,7 @@
         background: transparent;  /* Garante que não haja fundo visível */
     }
 
-    body {
-
-        background-color: var(--brand-neutral-light); /*  Usará o novo bege */
+    body { background-color: var(--brand-neutral-light); /*  Usará o novo bege */
         font-family: var(--font-body); /*  Usará Poppins */
         padding-bottom: 50px;
         color: var(--brand-neutral-dark); /* Usará o novo preto */
@@ -106,13 +104,15 @@
         max-width: 100%;
         aspect-ratio: 1/1; 
         object-fit: contain;
-        border: 4px solid transparent;
+        border: 2px solid transparent;
+        /* border: 4px solid transparent; */
         border-radius: 12px;
         cursor: pointer;
         margin: 0 auto;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        padding: 4px !important;       
+        padding: 2px !important;       
+        /* padding: 4px !important;        */
         min-height: 350px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
         display: flex; /* Ativa o flexbox para centralizar a imagem */
         justify-content: center; /* Centraliza horizontalmente o item flex (a imagem) */
@@ -163,7 +163,11 @@
         opacity: 0;
         transform: translateY(30px);
         transition: opacity 0.8s ease, transform 0.8s ease;
-        padding: 50px;
+        /* padding: 50px;
+        border-radius: 20px;*/
+        padding: 70px;
+        max-width: 900px;      /* se quiser um limite maior */
+        margin: 0 auto;        /* mantém centralizado */
         border-radius: 20px;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
@@ -269,7 +273,7 @@
     }
 
     /* LAYOUT PADRÃO PARA TODAS AS FASES: agora é 'display: block' (para empilhar em linhas) */
-    .row.justify-content-center.phase-1 {
+    /* .row.justify-content-center.phase-1 {
     display: block !important; 
     margin-left: 0 !important; 
     margin-right: 0 !important;
@@ -289,7 +293,17 @@
     margin-right: 0 !important;
     --bs-gutter-x: 0 !important;
     --bs-gutter-y: 0 !important;
+    } */
+
+    .row.justify-content-center.phase-1,
+    .row.justify-content-center.phase-2,
+    .row.justify-content-center.phase-3 {
+    display: block !important;
+    margin: 0 !important;
+    --bs-gutter-x: 0 !important;
+    --bs-gutter-y: 0 !important;
     }
+
     
     .sticky-header {
          padding: 2px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
@@ -410,7 +424,8 @@
         position: fixed; /* Isso faz com que o cabeçalho permaneça no lugar, mesmo ao rolar */
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
-        width: 100vw;     /* Faz com que o cabeçalho ocupe toda a largura */
+        width: 100%;
+        /* width: 100vw;     /* Faz com que o cabeçalho ocupe toda a largura */
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
         padding: 10px 20px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
@@ -649,11 +664,11 @@ function startQuiz() {
 function resetPontuacao() { todosOsEstilos.forEach(estilo => { pontuacaoEstilos[estilo] = 0; }); }
 
 function renderQuestion() {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     
-    setTimeout(() => {
-        perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
-    }, 100); // dá tempo de renderizar completamente
+    // setTimeout(() => {
+        // perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
+    // }, 100); // dá tempo de renderizar completamente
     
     const quizSection = document.getElementById('quiz-section');
     quizSection.innerHTML = '';
@@ -1155,21 +1170,6 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         background: transparent;  /* Garante que não haja fundo visível */
     }
 
-    body {
-
-        background-color: var(--brand-neutral-light); /*  Usará o novo bege */
-        font-family: var(--font-body); /*  Usará Poppins */
-        padding-bottom: 50px;
-        color: var(--brand-neutral-dark); /* Usará o novo preto */
-        max-width: 1200px; /*  Limita a largura máxima do corpo da página */
-        margin-left: auto; /*  Centraliza o corpo da página */
-        margin-right: auto; /*  Centraliza o corpo da página */
-        box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
-        padding-top: 70px; /*  Ajuste este valor. Deve ser a altura do seu cabeçalho fixo (50px da logo + 10px de padding superior + 10px de padding inferior = 70px) */
-        overflow-x: hidden !important;/*  Previne rolagem horizontal */
-        -ms-overflow-style: none;
-    }
-
     .intro-page {
         padding: 40px !important; /*  Aumenta o padding interno para dar mais "ar" */
         border-radius: 15px; /* Cantos arredondados para um visual mais suave */
@@ -1371,7 +1371,7 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     }
 
     /* LAYOUT PADRÃO PARA TODAS AS FASES: agora é 'display: block' (para empilhar em linhas) */
-    .row.justify-content-center.phase-1 {
+    /* .row.justify-content-center.phase-1 {
     display: block !important; 
     margin-left: 0 !important; 
     margin-right: 0 !important;
@@ -1389,6 +1389,15 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     display: block !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    --bs-gutter-x: 0 !important;
+    --bs-gutter-y: 0 !important;
+    } */
+
+    .row.justify-content-center.phase-1,
+    .row.justify-content-center.phase-2,
+    .row.justify-content-center.phase-3 {
+    display: block !important;
+    margin: 0 !important;
     --bs-gutter-x: 0 !important;
     --bs-gutter-y: 0 !important;
     }
