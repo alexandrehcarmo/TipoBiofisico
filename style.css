@@ -29,7 +29,7 @@
         margin-left: auto; /*  Centraliza o corpo da página */
         margin-right: auto; /*  Centraliza o corpo da página */
         box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
-        padding-top: 100px; /*  Ajuste este valor. Deve ser a altura do seu cabeçalho fixo (70px da logo + 10px de padding superior + 10px de padding inferior = 70px) */
+        padding-top: 110px; /*  Ajuste este valor. Deve ser a altura do seu cabeçalho fixo (70px da logo + 10px de padding superior + 10px de padding inferior = 70px) */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
         -ms-overflow-style: none;
     }
