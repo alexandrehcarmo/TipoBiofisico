@@ -395,7 +395,7 @@
     }
  
     .sticky-header .logo-link img {
-        height: 90px; /* Sua altura atual, ajuste se necessário */
+        height: 80px; /* Sua altura atual, ajuste se necessário */
         width: auto;
         max-width: 120px;
         display: block;
@@ -465,7 +465,7 @@
         }
         
         .sticky-header .logo-link img {
-             height: 90px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+             height: 90px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
         }
         
         body {
