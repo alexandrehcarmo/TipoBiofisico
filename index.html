@@ -166,13 +166,14 @@
         /* padding: 50px;
         border-radius: 20px;*/
         padding: 70px;
-        max-width: 900px;      /* se quiser um limite maior */
-        margin: 0 auto;        /* mantém centralizado */
+        max-width: 360px;      /* se quiser um limite maior */
+        margin: 0 auto 20px;        /* mantém centralizado */
         border-radius: 20px;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         text-align: left;
         margin-top: 50px;
+        line-height: 1.4;
     }
     #final-resultado.show { display: block; opacity: 1; transform: translateY(0); }
 
@@ -425,8 +426,10 @@
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
         width: 100%;
+        max-width: 480px;/* <— largura máxima que você desejar */
         /* width: 100vw;     /* Faz com que o cabeçalho ocupe toda a largura */
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
+        margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
         padding: 10px 20px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
         box-shadow: none !important; /* Para testar se a sombra é o problema */
@@ -438,9 +441,9 @@
     }
  
     .sticky-header .logo-link img {
-        height: 100px; /* Sua altura atual, ajuste se necessário */
+        height: 50px; /* Sua altura atual, ajuste se necessário */
         width: auto;
-        max-width: 150px;
+        max-width: 120px;
         display: block;
         background-color: transparent !important; /* Reforça o fundo transparente */
         border: none !important; /* Reforça a remoção de bordas */
@@ -728,6 +731,9 @@ function renderQuestion() {
    if (perguntaDiv) { // Certifica-se de que a perguntaDiv existe
        perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
     }
+    
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderOptions(pergunta);
 }
 
 function handleAnswerSelection(questionNumber, selectedStyle, selectedOptionLabel) {
@@ -797,6 +803,9 @@ function proceedToNextStep() {
 }
 
 function displayFinalResults() {
+  window.scrollTo(0, 0);
+  const finalDiv = document.getElementById('final-resultado');
+
   // Esconde tudo o que não interessa mais
   document.getElementById('intro-section').style.display = 'none';
   document.getElementById('quiz-section').style.display  = 'none';
@@ -1530,6 +1539,7 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
         width: 100vw;     /* Faz com que o cabeçalho ocupe toda a largura */
+        max-width: 480px;/* <— largura máxima que você desejar */
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
         padding: 10px 20px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
@@ -1542,9 +1552,9 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     }
  
     .sticky-header .logo-link img {
-        height: 100px; /* Sua altura atual, ajuste se necessário */
+        height: 60px; /* Sua altura atual, ajuste se necessário */
         width: auto;
-        max-width: 150px;
+        max-width: 120px;
         display: block;
         background-color: transparent !important; /* Reforça o fundo transparente */
         border: none !important; /* Reforça a remoção de bordas */
@@ -1870,7 +1880,10 @@ function proceedToNextStep() {
 }
 
 function displayFinalResults() {
-  // Esconde tudo o que não interessa mais
+  window.scrollTo(0, 0);
+  const finalDiv = document.getElementById('final-resultado');
+  
+    // Esconde tudo o que não interessa mais
   document.getElementById('intro-section').style.display = 'none';
   document.getElementById('quiz-section').style.display  = 'none';
   document.getElementById('exportButtonContainer').style.display = 'block'; // mantém export
