@@ -66,7 +66,7 @@
     .intro-page h1 {
         margin-bottom: 2rem !important; /*  Mais espaço abaixo do título principal */
         font-weight: 800; /* Mais impactante, se houver o peso na fonte */
-        font-size: 2.5rem; /*  Um pouco menor, para melhor encaixe na página */
+        font-size: 2.2rem; /*  Um pouco menor, para melhor encaixe na página */
         line-height: 1.2; /*  Espaçamento entre linhas do título */
         color: var(--brand-primary); /*  Usar a cor primária da marca para o título */
         text-align: center; 
@@ -113,7 +113,7 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         padding: 2px !important;       
         /* padding: 4px !important;        */
-        min-height: 350px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
+        min-height: 450px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
         display: flex; /* Ativa o flexbox para centralizar a imagem */
         justify-content: center; /* Centraliza horizontalmente o item flex (a imagem) */
         align-items: center; /* Centraliza verticalmente o item flex (a imagem) */        
@@ -467,8 +467,8 @@
         .row.justify-content-center.phase-1:has(.quiz-img),
         .row.justify-content-center.phase-2:has(.quiz-img),
         .row.justify-content-center.phase-3:has(.quiz-img) {
-            padding: 2px !important; /* Mantido como antes */
-            min-height: 320px !important; /* Mantido como antes */
+            /* padding: 2px !important; /* Mantido como antes */
+            min-height: 450px !important; /* Mantido como antes */
             display: block !important; /* Isso fará com que as divs de imagem se empilhem */
             grid-template-columns: unset !important;
             grid-template-rows: unset !important;
@@ -832,7 +832,7 @@ function displayFinalResults() {
     <div class="final-results-header">
       <h3>Diagnóstico de estilo finalizado.</h3>
       <p class="lead mb-1">Parabéns! Os seus estilos são:</p>
-      <p class="text-center mb-4">
+      <p class="text-left mb-4">
         <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
         <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
         <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>)
@@ -1188,7 +1188,7 @@ document.addEventListener('DOMContentLoaded', initQuiz);
     .intro-page h1 {
         margin-bottom: 2rem !important; /*  Mais espaço abaixo do título principal */
         font-weight: 800; /* Mais impactante, se houver o peso na fonte */
-        font-size: 2.5rem; /*  Um pouco menor, para melhor encaixe na página */
+        font-size: 2.2rem; /*  Um pouco menor, para melhor encaixe na página */
         line-height: 1.2; /*  Espaçamento entre linhas do título */
         color: var(--brand-primary); /*  Usar a cor primária da marca para o título */
         text-align: center; 
@@ -1232,7 +1232,7 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         margin: 0 auto;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        min-height: 300px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
+        min-height: 450px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
         display: flex; /* Ativa o flexbox para centralizar a imagem */
         justify-content: center; /* Centraliza horizontalmente o item flex (a imagem) */
         align-items: center; /* Centraliza verticalmente o item flex (a imagem) */        
