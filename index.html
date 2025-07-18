@@ -111,18 +111,18 @@
         margin: 0 auto;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        padding: 2px !important;       
+        padding: 0 !important;
         /* padding: 4px !important;        */
-        min-height: 650px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
+        min-height: 750px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
         display: flex; /* Ativa o flexbox para centralizar a imagem */
         justify-content: center; /* Centraliza horizontalmente o item flex (a imagem) */
         align-items: center; /* Centraliza verticalmente o item flex (a imagem) */        
         height: auto; /* Mantém a proporção da imagem */
         /* display: block; /* Remove espaços extras que podem surgir com imagens inline */
         /* max-height: 100%; /* Garante que a imagem não ultrapasse a altura do seu contêiner pai (útil em conjunto com object-fit) */
-        /* max-height: none; */
-        width: 100% !important;
+        width: auto;
         height: 100%;
+        max-height: none;
     }
     .quiz-img:hover {
         transform: translateY(-5px);
@@ -1229,20 +1229,21 @@ document.addEventListener('DOMContentLoaded', initQuiz);
         object-fit: contain;
         border: 2px solid transparent;
         border-radius: 10px;
+        padding: 0 !important;
         cursor: pointer;
         margin: 0 auto;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        min-height: 650px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
+        min-height: 750px !important; /* Define uma altura mínima para o contêiner da imagem. Ajuste este valor se 200px for muito pequeno ou muito grande, visando um equilíbrio visual. */
         display: flex; /* Ativa o flexbox para centralizar a imagem */
         justify-content: center; /* Centraliza horizontalmente o item flex (a imagem) */
         align-items: center; /* Centraliza verticalmente o item flex (a imagem) */        
         height: auto; /* Mantém a proporção da imagem */
         /* display: block; /* Remove espaços extras que podem surgir com imagens inline */
         /* max-height: 100%; /* Garante que a imagem não ultrapasse a altura do seu contêiner pai (útil em conjunto com object-fit) */
-        /* max-height: none; */
-        width: 100% !important;
+        width: auto;
         height: 100%;
+        max-height: none;
     }
     .quiz-img:hover {
         transform: translateY(-5px);
