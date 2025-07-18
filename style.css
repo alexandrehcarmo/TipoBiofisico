@@ -267,7 +267,7 @@
     }
     
     .sticky-header .logo-link img {
-         height: 70px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+         height: 80px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
     }
     
     body {
@@ -389,7 +389,7 @@
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        padding: 10px 20px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
+        padding: 5px 20px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
         box-shadow: none !important; /* Para testar se a sombra é o problema */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
@@ -399,7 +399,7 @@
     }
  
     .sticky-header .logo-link img {
-        height: 60px; /* Sua altura atual, ajuste se necessário */
+        height: 80px; /* Sua altura atual, ajuste se necessário */
         width: auto;
         max-width: 120px;
         display: block;
@@ -469,7 +469,7 @@
         }
         
         .sticky-header .logo-link img {
-             height: 70px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
+             height: 80px; /* Reduz o tamanho da logo no mobile para ser mais adequada */
         }
         
         body {
