@@ -28,7 +28,7 @@
             id: "intro-page-1", 
             title:"", 
             content: `
-                <p>Seja bem-vinda ao nosso teste de estilos. Aqui você responderá uma série de perguntas que foram cuidadosamente formuladas por mim, Marina, juntamente a uma equipe de consultoras e psicopedagogas. Este teste segue a metodologia Armário Perfeito de Consultoria de Imagem, método desenvolvido por mim e validado pelo MEC.</p>
+                <p>Seja bem-vinda ao nosso teste de estilos! Aqui você responderá uma série de perguntas que foram cuidadosamente formuladas por mim, Marina, juntamente a uma equipe de consultoras e psicopedagogas. Este teste segue a metodologia Armário Perfeito de Consultoria de Imagem, método desenvolvido por mim e validado pelo MEC.</p>
                 <p>Dentro do método AP cada mulher possui 3 estilos predominantes: sendo um estilo primário, que é a sua identidade principal, seguido do estilo secundário e terciário.</p>
                 <p>Vamos descobrir cada um deles e para isso o teste será dividido em 3 etapas:</p>
                 <ol>
@@ -36,7 +36,7 @@
                     <li> a descoberta do estilo secundário</li>
                     <li> a descoberta do estilo terciário</li>
                 </ol>
-                <p>Vamos começar? Separe de 30 a 40 minutos para responder.</p>
+                <p>Vamos começar? Separe 30 minutos para responder!</p>
             ` 
         }
     ];
@@ -355,179 +355,179 @@
         todasAsPerguntas = [
             { numero: 1, texto: "Como você gostaria de ser percebida ao entrar em um ambiente?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Elegante, refinada e feminina (clássica)", estilo: "clássica" },
-                    { label: "B", text: "Elegante,refinada e prática (tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Elegante, moderna e poderosa (dramática)", estilo: "dramática" },
-                    { label: "D", text: "Elegante, feminina e delicada (romântica)", estilo: "romântica" },
-                    { label: "E", text: "Elegante, feminina, e atraente (sexy)", estilo: "sexy" },
-                    { label: "F", text: "Elegante, Moderna e fashionista (criativa)", estilo: "criativa" },
-                    { label: "G", text: "Elegante, prática e natural (básica)", estilo: "básica" }
+                    { label: "A", text: "Elegante, refinada e feminina.", estilo: "clássica" },
+                    { label: "B", text: "Elegante,refinada e prática.", estilo: "tradicional" },
+                    { label: "C", text: "Elegante, moderna e poderosa.", estilo: "dramática" },
+                    { label: "D", text: "Elegante, feminina e delicada.", estilo: "romântica" },
+                    { label: "E", text: "Elegante, feminina, e atraente.", estilo: "sexy" },
+                    { label: "F", text: "Elegante, Moderna e fashionista.", estilo: "criativa" },
+                    { label: "G", text: "Elegante, prática e natural.", estilo: "básica" }
                 ]
             },
             { numero: 2, texto: "Qual destas afirmações mais combinam com você?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: `Prezo pelo acabamento refinado e pela atemporalidade, gosto de sentir que estou sempre bem vestida e sofisticada, por isso gosto de me enfeitar, pensar nas roupas, mesmo que isso me tome algum tempo, acho prazeroso. Não me identifico com roupas muito modernas, chamativas ou muito oversized, prefiro peças clássicas, femininas, discretas onde os detalhes revelam uma sofisticação natural.  (clássica)`, estilo: "clássica" },
-                    { label: "B", text: `Prezo pelo acabamento refinado e pela atemporalidade, gosto de sentir que estou sempre bem vestida mas antes de qualquer coisa prezo pela funcionalidade. Então não tenho paciência para ficar me enfeitando demais, prefiro ter peças atemporais, clássicas e mais sóbrias, porque considero mais práticas. O importante é que eu esteja sempre bem vestida, mas sem precisar pensar muito sobre isso. (tradicional)`, estilo: "tradicional" },
-                    { label: "C", text: `Prezo pelo acabamento refinado e pela atemporalidade, gosto de sentir que estou sempre bem vestida mas não gosto de me sentir "clássica demais”, porque isso me faz sentir meio careta... Por isso  acho interessante misturar elementos diferentes para criar contrapontos! Adoro roupas clássicas que ao mesmo tempo tenham toque modernos, cores diferentes e elementos marcantes. (dramático)`, estilo: "dramática" },
-                    { label: "D", text: `Adoro me sentir feminina e mostrar delicadeza e leveza através das minhas roupas. Elementos pesados, ou masculinos são os que eu menos me identifico. Às vezes tenho que me policiar para não ficar parecendo uma boneca, porque adoro usar tiaras, laços, mangas bufantes, vestidos rodados… (romântica)`, estilo: "romântica" },
-                    { label: "E", text: `Adoro me sentir feminina e mostrar força ao mesmo tempo, eu quero que minha roupa atraia olhares e mostre que sou uma mulher segura. Eu gosto que minhas roupas, acessórios e maquiagem valorizem meu corpo, mas isso não quer dizer que quero mostrar demais, quero mostrar apenas o suficiente para estar atraente, feminina e ao mesmo tempo elegante.  Roupas muito largas ou peças muito pesadas fazem com que eu me sinta apagada. (sensual)`, estilo: "sexy" },
-                    { label: "F", text: `Adoro ser a pessoa mais estilosa do lugar, amo acompanhar tendências, estou sempre por dentro das novidades e a forma que me visto é pra expressar a minha criatividade. Ao mesmo tempo que gosto de me vestir como uma mulher de negócios também posso gostar de um estilo super romântico… Posso estar super colorida hoje e amanhã toda neutra… às vezes tenho a impressão que não tenho estilo, porque eu gosto de quase tudo e não tenho medo de experimentar nem vergonha do que os outros vão pensar! (criativo)`, estilo: "criativa" },
-                    { label: "G", text: `Eu não gosto de chamar atenção, prefiro estar discreta porque isso me deixa mais à vontade… E me sentir à vontade é uma das coisas mais importantes pra mim! Então por isso amo roupas confortáveis, fáceis de combinar e que não tenham uma cara muito formal… Eu gosto de me sentir arrumada mas desde que a roupa não fique me incomodando de alguma forma, ou eu não precise estar formal demais.  (básico)`, estilo: "básica" }
+                    { label: "A", text: `Gosto de sentir que estou sempre bem vestida e sofisticada.`, estilo: "clássica" },
+                    { label: "B", text: `Gosto de sentir que estou sempre bem vestida mas antes, prezo pela funcionalidade.`, estilo: "tradicional" },
+                    { label: "C", text: `Gosto de sentir que estou sempre bem vestida mas não gosto de me sentir "clássica demais”.`, estilo: "dramática" },
+                    { label: "D", text: `Adoro me sentir feminina e mostrar delicadeza e leveza através das minhas roupas.`, estilo: "romântica" },
+                    { label: "E", text: `Eu quero que minha roupa atraia olhares e mostre que sou uma mulher segura.`, estilo: "sexy" },
+                    { label: "F", text: `Adoro ser a pessoa mais estilosa do lugar, amo acompanhar tendências!`, estilo: "criativa" },
+                    { label: "G", text: `Não gosto de chamar atenção, prefiro estar discreta, isso me deixa mais à vontade.`, estilo: "básica" }
                 ]
             },
             { numero: 3, texto: "O que é mais importante dentre todas as alternativas?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Ser elegante (clássico)", estilo: "clássica" },
-                    { label: "B", text: "Ser prática (tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Ser moderna (dramático)", estilo: "dramática" },
-                    { label: "D", text: "Ser feminina (romântico)", estilo: "romântica" },
-                    { label: "E", text: "Ser atraente (sensual)", estilo: "sexy" },
-                    { label: "F", text: "Ser fashion  (criativo)", estilo: "criativa" },
-                    { label: "G", text: "Ser confortável (básico)", estilo: "básica" }
+                    { label: "A", text: "Ser elegante.", estilo: "clássica" },
+                    { label: "B", text: "Ser prática.", estilo: "tradicional" },
+                    { label: "C", text: "Ser moderna.", estilo: "dramática" },
+                    { label: "D", text: "Ser feminina.", estilo: "romântica" },
+                    { label: "E", text: "Ser atraente.", estilo: "sexy" },
+                    { label: "F", text: "Ser fashion.", estilo: "criativa" },
+                    { label: "G", text: "Ser confortável.", estilo: "básica" }
                 ]
             },
-            { numero: 4, texto: "Para usar com um jeans e uma camiseta básica por baixo… Qual das terceiras peças é mais a sua cara?", tipo: "text",
+            { numero: 4, texto: "Qual das terceiras peças abaixo, você acha mais a sua cara para combinar com um jeans e camiseta básica?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Um blazer acinturado bege com botões dourados (clássico)", estilo: "clássica" },
-                    { label: "B", text: "Um blazer reto, risca de giz marinho (tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Um blazer oversized com ombreiras (dramático)", estilo: "dramática" },
-                    { label: "D", text: "Um casaquinho de tweed rosa (romântico)", estilo: "romântica" },
-                    { label: "E", text: "Uma casaco de pelos vinho (sensual)", estilo: "sexy" },
-                    { label: "F", text: "Um kimono de veludo bordado com paetês coloridos  (criativo)", estilo: "criativa" },
-                    { label: "G", text: "Uma jaqueta de couro preta (básico)", estilo: "básica" }
+                    { label: "A", text: "Um blazer acinturado bege com botões dourados.", estilo: "clássica" },
+                    { label: "B", text: "Um blazer reto, risca de giz marinho.", estilo: "tradicional" },
+                    { label: "C", text: "Um blazer oversized com ombreiras.", estilo: "dramática" },
+                    { label: "D", text: "Um casaquinho de tweed rosa.", estilo: "romântica" },
+                    { label: "E", text: "Uma casaco de pelos vinho.", estilo: "sexy" },
+                    { label: "F", text: "Um kimono de veludo bordado com paetês coloridos.", estilo: "criativa" },
+                    { label: "G", text: "Uma jaqueta de couro preta.", estilo: "básica" }
                 ]
             },
             { numero: 5, texto: "Qual frase mais combina com o seu jeito de se vestir no dia a dia?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: `“É possível ser feminina e formal ao mesmo tempo.” (Clássico)`, estilo: "clássica" },
-                    { label: "B", text: `“Discrição é o último grau de sofisticação.” (Tradicional)`, estilo: "tradicional" },
-                    { label: "C", text: `“Amo causar impacto sem dizer uma palavra.” (Dramático)`, estilo: "dramática" },
-                    { label: "D", text: `“Me visto para expressar minha feminilidade.” (Romântico)`, estilo: "romântica" },
-                    { label: "E", text: `“Quero me sentir poderosa e desejada.” (Sexy)`, estilo: "sexy" },
-                    { label: "F", text: `“Amo brincar com combinações inusitadas.” (Criativo)`, estilo: "criativa" },
-                    { label: "G", text: `“Me visto com praticidade e zero frescura.” (Básico)`, estilo: "básica" }
+                    { label: "A", text: `“É possível ser feminina e formal ao mesmo tempo.”`, estilo: "clássica" },
+                    { label: "B", text: `“Discrição é o último grau de sofisticação.”`, estilo: "tradicional" },
+                    { label: "C", text: `“Amo causar impacto sem dizer uma palavra.”`, estilo: "dramática" },
+                    { label: "D", text: `“Me visto para expressar minha feminilidade.”`, estilo: "romântica" },
+                    { label: "E", text: `“Quero me sentir poderosa e desejada.”`, estilo: "sexy" },
+                    { label: "F", text: `“Amo brincar com combinações inusitadas.”`, estilo: "criativa" },
+                    { label: "G", text: `“Me visto com praticidade e zero frescura.”`, estilo: "básica" }
                 ]
             },
             { numero: 6, texto: "Qual é o melhor elogio sobre o seu look?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: `“Você está chiquíssima.” (Clássico)`, estilo: "clássica" },
-                    { label: "B", text: `“Você está simples e elegante.” (Tradicional)`, estilo: "tradicional" },
-                    { label: "C", text: `“Você está moderna e impactante.” (Dramático)`, estilo: "dramática" },
-                    { label: "D", text: `“Você está tão delicada e feminina!” (Romântico)`, estilo: "romântica" },
-                    { label: "E", text: `“Você está incrível e irresistível.” (Sensual)`, estilo: "sexy" },
-                    { label: "F", text: `“Você está diferente de todos e criativa! ” (Criativo)`, estilo: "criativa" },
-                    { label: "G", text: `“Você parece tão confortável e natural!” (Básico)`, estilo: "básica" }
+                    { label: "A", text: `“Você está chiquíssima.”`, estilo: "clássica" },
+                    { label: "B", text: `“Você está simples e elegante.”`, estilo: "tradicional" },
+                    { label: "C", text: `“Você está moderna e impactante.”`, estilo: "dramática" },
+                    { label: "D", text: `“Você está tão delicada e feminina!”`, estilo: "romântica" },
+                    { label: "E", text: `“Você está incrível e irresistível.”`, estilo: "sexy" },
+                    { label: "F", text: `“Você está diferente de todos e criativa!”`, estilo: "criativa" },
+                    { label: "G", text: `“Você parece tão confortável e natural!”`, estilo: "básica" }
                 ]
             },
             { numero: 7, texto: "Qual estilo de loja te atrai mais, considerando que todas elas tem o mesmo preço e qualidade?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Uma loja de peças clássicas com toque de feminilidade. (Clássico)", estilo: "clássica" },
-                    { label: "B", text: "Uma loja de peças clássicas e confortáveis . (Tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Uma loja de peças clássicas misturada com peças de impacto. (Dramático)", estilo: "dramática" },
-                    { label: "D", text: "Uma loja de peças leves, com ar delicado e feminino. (Romântico)", estilo: "romântica" },
-                    { label: "E", text: "Uma loja de peças elegantes e sensuais ao mesmo tempo. (Sensual)", estilo: "sexy" },
-                    { label: "F", text: "Uma loja com tendencias, e todos os tipos de estilo. (Criativo)", estilo: "criativa" },
-                    { label: "G", text: "Uma loja com peças básicas, confortáveis, sem modismos. (Básico)", estilo: "básica" }
+                    { label: "A", text: "Uma loja de peças clássicas com toque de feminilidade.", estilo: "clássica" },
+                    { label: "B", text: "Uma loja de peças clássicas e confortáveis.", estilo: "tradicional" },
+                    { label: "C", text: "Uma loja de peças clássicas misturada com peças de impacto.", estilo: "dramática" },
+                    { label: "D", text: "Uma loja de peças leves, com ar delicado e feminino.", estilo: "romântica" },
+                    { label: "E", text: "Uma loja de peças elegantes e sensuais ao mesmo tempo.", estilo: "sexy" },
+                    { label: "F", text: "Uma loja com tendencias, e todos os tipos de estilo.", estilo: "criativa" },
+                    { label: "G", text: "Uma loja com peças básicas, confortáveis, sem modismos.", estilo: "básica" }
                 ]
             },
             { numero: 8, texto: "Qual frase define melhor a sua relação com as tendências?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Prefiro peças que resistem ao tempo, assim vou me sentir sempre elegante, então não sou muito fã de tendências. (Clássico)", estilo: "clássica" },
-                    { label: "B", text: "Acho chato essa coisa da moda ficar mudando, prefiro estar sempre igual porque assim não erro e ganho mais tempo  (Tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Gosto de algumas tendências sim, mas sempre misturo com clássicos porque gosto de me sentir atualizada mas sem perder um ar clássico. (Dramático)", estilo: "dramática" },
-                    { label: "D", text: "Gosto de tendências que realçam meu lado feminino de uma forma delicada. (Romântico)", estilo: "romântica" },
-                    { label: "E", text: "Gosto de tendências que realçam meu lado feminino de uma forma mais poderosa. (Sensual)", estilo: "sexy" },
-                    { label: "F", text: "Estou sempre testando tudo que é novo, adoro ousar e me divirto fazendo isso. (Criativo)", estilo: "criativa" },
-                    { label: "G", text: "Não tenho paciência para acompanhar tendências, nem costumo saber o que está acontecendo, gosto de roupas confortáveis e fáceis. (Básico)", estilo: "básica" }
+                    { label: "A", text: "Prefiro peças clássicas e atemporais, assim vou me sentir sempre elegante.", estilo: "clássica" },
+                    { label: "B", text: "Acho chato essa coisa da moda ficar mudando, prefiro estar sempre igual, assim não erro e ganho mais tempo.", estilo: "tradicional" },
+                    { label: "C", text: "Gosto de algumas tendências, mas sempre misturo com clássicos.", estilo: "dramática" },
+                    { label: "D", text: "Gosto de tendências que realçam meu lado feminino de uma forma delicada.", estilo: "romântica" },
+                    { label: "E", text: "Gosto de tendências que realçam meu lado feminino de uma forma mais poderosa.", estilo: "sexy" },
+                    { label: "F", text: "Estou sempre testando tudo que é novo, adoro ousar e me divirto fazendo isso.", estilo: "criativa" },
+                    { label: "G", text: "Não tenho paciência para acompanhar tendências, gosto de roupas confortáveis e fáceis.", estilo: "básica" }
                 ]
             },
             { numero: 9, texto: "Qual destas situações te faria repensar uma roupa?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Parecer informal demais. (Clássico)", estilo: "clássica" },
-                    { label: "B", text: "Sentir que a roupa me deixou muito doce . (Tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Ficar apagada ou sem destaque. (Dramático)", estilo: "dramática" },
-                    { label: "D", text: "Sentir que a roupa endureceu sua imagem. (Romântico)", estilo: "romântica" },
-                    { label: "E", text: "Sentir que a roupa não valoriza seu corpo. (Sensual)", estilo: "sexy" },
-                    { label: "F", text: "Achar que está comum demais (Criativo)", estilo: "criativa" },
-                    { label: "G", text: "Sentir que está chamando atenção demais. (Básico)", estilo: "básica" }
+                    { label: "A", text: "Parecer informal demais.", estilo: "clássica" },
+                    { label: "B", text: "Sentir que a roupa me deixou muito doce.", estilo: "tradicional" },
+                    { label: "C", text: "Ficar apagada ou sem destaque.", estilo: "dramática" },
+                    { label: "D", text: "Sentir que a roupa endureceu sua imagem.", estilo: "romântica" },
+                    { label: "E", text: "Sentir que a roupa não valoriza seu corpo.", estilo: "sexy" },
+                    { label: "F", text: "Achar que está comum demais", estilo: "criativa" },
+                    { label: "G", text: "Sentir que está chamando atenção demais.", estilo: "básica" }
                 ]
             },
             { numero: 10, texto: "Qual reação você mais gostaria de ouvir a respeito do seu look?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: `“Você é sempre elegante e sofisticada!” (Clássico)`, estilo: "clássica" },
-                    { label: "B", text: `“Você é sempre elegante e transmite força!” (Tradicional)`, estilo: "tradicional" },
-                    { label: "C", text: `“Uau, como você tem presença!” (Dramático)`, estilo: "dramática" },
-                    { label: "D", text: `“Que fofa, você está muito linda!” (Romântico)`, estilo: "romântica" },
-                    { label: "E", text: `“Que linda, você tem um magnetismo natural!” (Sensual)`, estilo: "sexy" },
-                    { label: "F", text: `“Você é a mais estilosa!” (Criativo)`, estilo: "criativa" },
-                    { label: "G", text: `“Você parece tão confortável e natural!” (Básico)`, estilo: "básica" }
+                    { label: "A", text: `“Você é sempre elegante e sofisticada!”`, estilo: "clássica" },
+                    { label: "B", text: `“Você é sempre elegante e transmite força!”`, estilo: "tradicional" },
+                    { label: "C", text: `“Uau, como você tem presença!”`, estilo: "dramática" },
+                    { label: "D", text: `“Que fofa, você está muito linda!”`, estilo: "romântica" },
+                    { label: "E", text: `“Que linda, você tem um magnetismo natural!”`, estilo: "sexy" },
+                    { label: "F", text: `“Você é a mais estilosa!”`, estilo: "criativa" },
+                    { label: "G", text: `“Você é natural e chique de uma forma simples.”`, estilo: "básica" }
                 ]
             },
-            { numero: 11, texto: "Quando você entra em uma loja pra olhar as novidades casualmente (sem ser uma situação onde você precisa de comprar algo específico) qual é a sua reação?", tipo: "text",
+            { numero: 11, texto: "Quando você entra em uma loja pra olhar as novidades casualmente, qual é a sua reação?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: `Vai direto na sessão de peças clássicas e tende a gostar das peças clássicas que tem um toque mais feminino como uma camisa com laço, ou casacos que tenham algum botão especial... (Clássico)`, estilo: "clássica" },
-                    { label: "B", text: `Vai direto na sessão de peças clássicas e procura pelos cortes mais simples, com acabamentos sem muitos detalhes ou muitas "firulas”. (Tradicional)`, estilo: "tradicional" },
-                    { label: "C", text: `Vai na sessão dos clássicos mas sempre olha as versões mais modernas deles, como por exemplo um blazer de couro, ou uma saia assimétrica... (Dramático)`, estilo: "dramática" },
-                    { label: "D", text: `Vai na sessão de vestidos e saias, adora as peças com mais movimento e com ar delicado que te deixam bem feminina... (Romântico)`, estilo: "romântica" },
-                    { label: "E", text: `Vai atrás de peças que tenham impacto, que normalmente marquem mais a silhueta mas que sejam elegantes… são peças femininas de um jeito mais poderoso e menos delicado. (Sensual)`, estilo: "sexy" },
-                    { label: "F", text: `Vai direto na arara de tendências pra conhecer tudo que saiu de mais recente e adora as peças mais "diferentonas” onde você sabe que vai se destacar com elas. (Criativo)`, estilo: "criativa" },
-                    { label: "G", text: `Busca peças práticas, confortáveis e que deixam arrumada e elegante sem precisar de fazer tanto esforço... (Básico)`, estilo: "básica" }
+                    { label: "A", text: `Vai direto na sessão de peças clássicas e femininas.`, estilo: "clássica" },
+                    { label: "B", text: `Vai direto na sessão de peças clássicas e cortes mais retos, sem "firula”.`, estilo: "tradicional" },
+                    { label: "C", text: `Vai na sessão dos clássicos mas sempre olha as versões mais modernas deles.`, estilo: "dramática" },
+                    { label: "D", text: `Vai na sessão de  peças com mais movimento e com ar delicado e feminino.`, estilo: "romântica" },
+                    { label: "E", text: `Vai atrás de peças que tenham sensualidade, que são femininas de um jeito mais poderoso.`, estilo: "sexy" },
+                    { label: "F", text: `Vai direto na arara de tendências pra conhecer tudo que saiu de mais recente.`, estilo: "criativa" },
+                    { label: "G", text: `Busca peças práticas, confortáveis e que deixam arrumada em precisar de fazer tanto esforço...`, estilo: "básica" }
                 ]
             },
             { numero: 12, texto: "O que você prefere parecer?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Parecer polida e uma verdadeira dama (clássico)", estilo: "clássica" },
-                    { label: "B", text: "Parecer reservada, racional e eficiente (tradicional)", estilo: "tradicional" },
-                    { label: "C", "text": "Parecer interessante, contemporânea e poderosa(dramático)", estilo: "dramática" },
-                    { label: "D", text: "Parecer feminina, familiar e cuidadosa  (romântico)", estilo: "romântica" },
-                    { label: "E", text: "Parecer feminina, poderosa e magnética (sensual)", estilo: "sexy" },
-                    { label: "F", text: "Parecer ousada, expansiva e divertida  (criativo)", estilo: "criativa" },
-                    { label: "G", text: "Parecer simples, natural e elegante sem nenhum excesso (básico)", estilo: "básica" }
+                    { label: "A", text: "Parecer polida e uma verdadeira dama.", estilo: "clássica" },
+                    { label: "B", text: "Parecer reservada, racional e eficiente.", estilo: "tradicional" },
+                    { label: "C", text: "Parecer interessante, contemporânea e poderosa.", estilo: "dramática" },
+                    { label: "D", text: "Parecer feminina, familiar e cuidadosa.", estilo: "romântica" },
+                    { label: "E", text: "Parecer feminina, poderosa e magnética.", estilo: "sexy" },
+                    { label: "F", text: "Parecer ousada, expansiva e divertida.", estilo: "criativa" },
+                    { label: "G", text: "Parecer simples, natural e elegante sem nenhum excesso.", estilo: "básica" }
                 ]
             },
             { numero: 13, texto: "Se você fosse um sapato, qual você seria?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Um scarpin de bico fino (clássico)", estilo: "clássica" },
-                    { label: "B", text: "Um mocassim (tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Uma sandália impactante (dramático)", estilo: "dramática" },
-                    { label: "D", text: "Uma sapatilha  (romântico)", estilo: "romântica" },
-                    { label: "E", text: "Uma sandália de salto agulha e apenas duas tiras (sensual)", estilo: "sexy" },
-                    { label: "F", text: "Um sapato colorido e que ninguém tem  (criativo)", estilo: "criativa" },
-                    { label: "G", text: "Uma rasteira fácil de calçar (básico)", estilo: "básica" }
+                    { label: "A", text: "Um scarpin de bico fino.", estilo: "clássica" },
+                    { label: "B", text: "Um mocassim.", estilo: "tradicional" },
+                    { label: "C", text: "Uma sandália impactante.", estilo: "dramática" },
+                    { label: "D", text: "Uma sapatilha.", estilo: "romântica" },
+                    { label: "E", text: "Uma sandália de salto agulha e apenas duas tiras.", estilo: "sexy" },
+                    { label: "F", text: "Um sapato colorido e que ninguém tem.", estilo: "criativa" },
+                    { label: "G", text: "Uma rasteira fácil de calçar.", estilo: "básica" }
                 ]
             },
             { numero: 14, texto: "Qual das afirmações mais se aproxima de você?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Gosto de roupas clássicas porque gosto de estar sempre bem vestida e refinada (clássico)", estilo: "clássica" },
-                    { label: "B", text: "Gosto de roupas clássicas porque gosto de estar bem vestida de forma prática(tradicional)", estilo: "tradicional" },
-                    { label: "C", text: "Gosto de roupas clássicas mas mas também me interesso por elementos criativos e modernos (dramático)", estilo: "dramática" },
-                    { label: "D", text: "Gosto de roupas que tenham romantismo e feminilidade  (romântico)", estilo: "romântica" },
-                    { label: "E", text: "Gosto de roupas que sejam sensuais mas que não sejam vulgares (sensual)", estilo: "sexy" },
-                    { label: "F", text: "Gosto de roupas diferentes e criativas, amo experimentar um pouco de tudo (criativo)", estilo: "criativa" },
-                    { label: "G", text: "Gostou de roupas fáceis, simples e que eu não pareça muito montada (básico)", estilo: "básica" }
+                    { label: "A", text: "Gosto de roupas clássicas porque gosto de estar sempre bem vestida e refinada.", estilo: "clássica" },
+                    { label: "B", text: "Gosto de roupas clássicas porque gosto de estar bem vestida de forma prática.", estilo: "tradicional" },
+                    { label: "C", text: "Gosto de roupas clássicas mas mas também me interesso por elementos criativos e modernos.", estilo: "dramática" },
+                    { label: "D", text: "Gosto de roupas que tenham romantismo e feminilidade.", estilo: "romântica" },
+                    { label: "E", text: "Gosto de roupas que sejam sensuais mas que não sejam vulgares.", estilo: "sexy" },
+                    { label: "F", text: "Gosto de roupas diferentes e criativas, amo experimentar um pouco de tudo.", estilo: "criativa" },
+                    { label: "G", text: "Gostou de roupas fáceis, simples e que eu não pareça muito montada.", estilo: "básica" }
                 ]
             },
-            { numero: 15, texto: "Qual dos looks abaixo você olha e imediatamente identifica mais a sua personalidade?", tipo: "image" },
+            { numero: 15, texto: "Qual dos looks abaixo tem mais a sua cara?", tipo: "image" },
             { numero: 16, texto: "Escolha um modelo de brinco de pérola que tem mais a sua cara:", tipo: "image" },
-            { numero: 17, texto: "Escolha qual dos vestidos você acha mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-            { numero: 18, texto: "Escolha qual das camisas você acha mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-            { numero: 19, texto: "Escolha qual dos modelos de calça tem mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-            { numero: 20, texto: "Escolha qual das saias tem mais a sua cara! Sem levar em consideração nenhum outro fator como seu formato de corpo, ocasião para usar, ou qualquer outra coisa que não seja simplesmente o seu gosto.", tipo: "image" },
-            { numero: 21, texto: "Com qual look você iria em um jantar romântico em um restaurante elegante:", tipo: "image" },
+            { numero: 17, texto: "Qual dos vestidos abaixo tem mais a sua cara?", tipo: "image" },
+            { numero: 18, texto: "Qual das camisas tem mais a sua cara?", tipo: "image" },
+            { numero: 19, texto: "Qual das calças tem mais a sua cara?", tipo: "image" },
+            { numero: 20, texto: "Qual das saias tem mais a sua cara?", tipo: "image" },
+            { numero: 21, texto: "Com qual look você iria em um jantar romântico em um restaurante elegante?", tipo: "image" },
             { numero: 22, texto: "Escolha qual dos tênis você usaria para compor um look básico com jeans e camiseta:", tipo: "image" },
-            { numero: 23, texto: "Escolha qual das sandálias imediatamente você olha e percebe que tem mais a sua cara?", tipo: "image" },
-            { numero: 24, texto: "Escolha qual dos sapatos você olha e percebe que tem mais a sua cara?", tipo: "image" },
+            { numero: 23, texto: "Qual das sandálias tem mais a sua cara?", tipo: "image" },
+            { numero: 24, texto: "Qual dos sapatos tem mais a sua cara?", tipo: "image" },
             { numero: 25, texto: "Qual dos grupos de estampas você olha e imediatamente já gosta mais?", tipo: "image" },
-            { numero: 26, texto: "Qual dos modelos de bolsa você acha mais bonito? Desconsidere fatores como tamanho, funcionalidade ou ocasião para usar… pense apenas no que seus olhos se encantam.", tipo: "image" },
-            { numero: 27, texto: "Qual modelo de óculos você acha mais bonito? Desconsidere fatores como seu formato de rosto, ocasião para usar ou qualquer outra coisa que não seja uma decisão baseada no seu gosto… pense apenas no que seus olhos se encantam.", tipo: "image" },
+            { numero: 26, texto: "Qual dos modelos de bolsa tem mais a sua cara?", tipo: "image" },
+            { numero: 27, texto: "Qual modelo de óculos tem mais a sua cara?", tipo: "image" },
             { numero: 28, texto: "Qual look você usaria para um baile de gala?", tipo: "image" },
             { numero: 29, texto: "Todos estes looks tem a mesma base, mas os acessórios e a modelagem das roupas variam. Qual deles é mais a sua cara?", tipo: "image" },
             { numero: 30, texto: "Qual relógio é mais a sua cara?", tipo: "image" },
-            { numero: 31, texto: "Como você usaria este vestido dentro do seu gosto? (mesmo que você não goste dele e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-            { numero: 32, texto: "Como você usaria essa calça de paetês prateados dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-            { numero: 33, texto: "Como você usaria esta mini saia de couro dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-            { numero: 34, texto: "Como você usaria essa camiseta básica branca dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" },
-            { numero: 35, texto: "Como você usaria esta camisa social listrada azul e branca dentro do seu gosto? (mesmo que você não ame, e não escolheria essa peça na vida real, como você faria para usar?)", tipo: "image" }
+            { numero: 31, texto: "Como você usaria este vestido dentro do seu gosto?", tipo: "image" },
+            { numero: 32, texto: "Como você usaria essa calça de paetês prateados dentro do seu gosto?", tipo: "image" },
+            { numero: 33, texto: "Como você usaria esta mini saia de couro dentro do seu gosto?", tipo: "image" },
+            { numero: 34, texto: "Como você usaria essa camiseta básica branca dentro do seu gosto?", tipo: "image" },
+            { numero: 35, texto: "Como você usaria esta camisa dentro do seu gosto?", tipo: "image" }
         ];
         // Popula opções de imagem
         for (let i = 14; i < totalPerguntas; i++) 
