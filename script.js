@@ -504,7 +504,7 @@
                     { label: "D", text: "Gosto de roupas que tenham romantismo e feminilidade.", estilo: "romântica" },
                     { label: "E", text: "Gosto de roupas que sejam sensuais mas que não sejam vulgares.", estilo: "sexy" },
                     { label: "F", text: "Gosto de roupas diferentes e criativas, amo experimentar um pouco de tudo.", estilo: "criativa" },
-                    { label: "G", text: "Gostou de roupas fáceis, simples e que eu não pareça muito montada.", estilo: "básica" }
+                    { label: "G", text: "Gosto de roupas fáceis, simples e que eu não pareça muito montada.", estilo: "básica" }
                 ]
             },
             { numero: 15, texto: "Qual dos looks abaixo tem mais a sua cara?", tipo: "image" },
