@@ -73,7 +73,7 @@
         introSection.style.display = 'block';
     }
 
-    function nextIntroPage() {
+    /* function nextIntroPage() {
         if (currentIntroPageIndex < introPages.length - 1) {
             currentIntroPageIndex++;
             showIntroPage();
@@ -84,6 +84,13 @@
                 startQuiz();
             }, 500);
         }
+    }*/
+    function nextIntroPage() {
+        document.getElementById('intro-section').classList.add('fade-out-section');
+        setTimeout(() => {
+            document.getElementById('intro-section').style.display = 'none';
+            startQuiz();
+        }, 500);
     }
 
     function prevIntroPage() { if (currentIntroPageIndex > 0) { currentIntroPageIndex--; showIntroPage(); } }
