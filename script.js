@@ -48,7 +48,6 @@
         phaseResultModal = new bootstrap.Modal(document.getElementById('phase-result-modal'));
         document.getElementById('quiz-section').style.display = 'none';
         document.getElementById('final-resultado').style.display = 'none';
-        document.getElementById('exportButtonContainer').style.display = 'none';
         showIntroPage();
         window.scrollTo(0, 0); // Para garantir que a página role para o topo ao iniciar
     }
@@ -233,7 +232,6 @@
         // Esconde tudo o que não interessa mais
         document.getElementById('intro-section').style.display = 'none';
         document.getElementById('quiz-section').style.display  = 'none';
-        document.getElementById('exportButtonContainer').style.display = 'block'; // mantém export
 
         // Extrai estilos finais
         const primary   = estilosPrimarioSecundario.primary   || 'NÃO DEFINIDO';
@@ -549,7 +547,6 @@
                         { 
                          if (todosOsEstilos[j]) 
                             { q.opcoes.push({ label: labelsOpcoes[j], image: `imagens/${imgNum}.png`, estilo: todosOsEstilos[j] });
-                              // Prepare displayText for text questions (1-14)
                               todasAsPerguntas.forEach(q => {
                                 if (q.tipo === 'text') {
                                     q.opcoes.forEach(o => {o.textExibicao = o.text.replace(/\s*\([^)]*\)\s*$/, '').trim();});
