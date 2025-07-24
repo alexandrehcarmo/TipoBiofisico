@@ -78,13 +78,13 @@
             currentIntroPageIndex++;
             showIntroPage();
         } else {
-                 document.getElementById('intro-section').classList.add('fade-out-section');
-                 setTimeout(() => {
-                    document.getElementById('intro-section').style.display = 'none';
-                    startQuiz();
-                 }, 500);
-               }
+            document.getElementById('intro-section').classList.add('fade-out-section');
+            setTimeout(() => {
+                document.getElementById('intro-section').style.display = 'none';
+                startQuiz();
+            }, 500);
         }
+    }
 
     function prevIntroPage() { if (currentIntroPageIndex > 0) { currentIntroPageIndex--; showIntroPage(); } }
     
