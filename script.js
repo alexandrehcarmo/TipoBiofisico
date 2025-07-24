@@ -565,11 +565,14 @@
             }
     }
     // document.addEventListener('DOMContentLoaded', initQuiz);
+    // Inicia o quiz assim que a página carrega
     window.addEventListener('load', initQuiz);
 
-    // Torna funções visíveis no escopo global
+    // Expondo funções globais para funcionar com type="module"
     window.nextIntroPage = nextIntroPage;
     window.prevIntroPage = prevIntroPage;
     window.startQuiz = startQuiz;
     window.proceedToNextStep = proceedToNextStep;
-
+    window.avancarParaProximaPergunta = avancarParaProximaPergunta;
+    window.handleAnswerSelection = handleAnswerSelection;
+    window.renderQuestion = renderQuestion;
