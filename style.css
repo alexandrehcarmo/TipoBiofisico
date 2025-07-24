@@ -45,15 +45,15 @@
         font-weight: 800; /* Mais impactante, se houver o peso na fonte */
         font-size: 2.2rem; /*  Um pouco menor, para melhor encaixe na página */
         line-height: 1.2; /*  Espaçamento entre linhas do título */
-        color: var(--brand-primary); /*  Usar a cor primária da marca para o título */
+        color: var(--brand-neutral-dark); /*  Usar a cor preta */
         text-align: center; 
     }
 
     /* Para o subtítulo "Carta da Marina" */
     .intro-page h3.card-title { /* O seu "Carta da Marina" é um h3 com card-title */
         font-weight: 700; /*  Negrito para destaque */
-        font-size: 1.8rem; /* Tamanho adequado para subtítulo */
-        margin-bottom: 1.5rem !important; /*  Espaço abaixo do subtítulo */
+        font-size: 1.6rem; /* Tamanho adequado para subtítulo */
+        margin-bottom: 1.4rem !important; /*  Espaço abaixo do subtítulo */
         color: var(--brand-neutral-dark); /*  Usar o preto da cliente */
     }
 
@@ -162,7 +162,7 @@
     /* Manter pesos e tamanhos específicos se necessário, mas usar a fonte da marca */
     #final-resultado .final-results-header h3 {
         font-weight: 700; /* Pode ser 'Bold' ou 'SemiBold' conforme definido para Montserrat */
-        font-size: 2.8rem;
+        font-size: 2.6rem;
         color: var(--brand-neutral-dark); /* Usar cinza escuro da marca */
     }
 
@@ -363,16 +363,39 @@
 
     /* Estilo dos botões primários */
     .btn-primary {
-        background-color: var(--brand-primary) !important; /*Cor primária da marca */
-        border-color: var(--brand-primary) !important;     /*Borda com cor primária */
+        background-color: #004C34 !important; /* Novo verde para o botão */
+        border-color: #004C34 !important;     /* Borda com o novo verde */
         border-radius: 8px; /* Cantos arredondados, conforme manual */
         font-family: var(--font-heading); /* Usar fonte de títulos da marca */
         font-weight: 600; /* SemiBold */
     }
 
     .btn-primary:hover {
-        background-color: color-mix(in srgb, var(--brand-primary) 90%, black) !important; /* Tom mais escuro no hover */
-        border-color: color-mix(in srgb, var(--brand-primary) 90%, black) !important;
+        background-color: color-mix(in srgb, #004C34 90%, black) !important; /* Tom mais escuro do verde no hover */
+        border-color: color-mix(in srgb, #004C34 90%, black) !important; /* Borda com tom mais escuro do verde no hover */
+    }
+
+    /* Estilos para botões de contorno (opções de pergunta não selecionadas) */
+    .btn-outline-primary {
+        color: var(--brand-neutral-dark) !important; /* Cor do texto das opções para cinza escuro */
+        border-color: var(--brand-neutral-dark) !important; /* Cor da borda das opções para cinza escuro */
+        background-color: transparent !important; /* Garante fundo transparente */
+    }
+
+    /* Estilos para o efeito hover (quando o mouse passa por cima) */
+    .btn-outline-primary:hover {
+        color: white !important; /* Texto branco no hover */
+        background-color: var(--brand-neutral-dark) !important; /* Fundo cinza escuro no hover */
+        border-color: var(--brand-neutral-dark) !important; /* Borda cinza escuro no hover */
+    }
+
+    /* Estilos para o efeito active/focus (quando o botão é clicado ou está focado) */
+    .btn-outline-primary:active,
+    .btn-outline-primary:focus {
+        color: white !important;
+        background-color: var(--brand-neutral-dark) !important;
+        border-color: var(--brand-neutral-dark) !important;
+        box-shadow: 0 0 0 0.25rem rgba(14, 14, 14, 0.25) !important; /* Sombra de foco com cor base no novo cinza */
     }
 
     /* ESTILOS PARA O CABEÇALHO FIXO COM A LOGO REDONDA */
@@ -431,7 +454,7 @@
 
         
         h3, h4, .lead {
-          font-size: 1.1rem;
+          font-size: 1.0rem;
           text-align: center;
         }
 

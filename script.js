@@ -28,15 +28,16 @@
             id: "intro-page-1", 
             title:"", 
             content: `
-                <p>Seja bem-vinda ao nosso teste de estilos! Aqui você responderá uma série de perguntas que foram cuidadosamente formuladas por mim, Marina, juntamente a uma equipe de consultoras e psicopedagogas. Este teste segue a metodologia Armário Perfeito de Consultoria de Imagem, método desenvolvido por mim e validado pelo MEC.</p>
-                <p>Dentro do método AP cada mulher possui 3 estilos predominantes: sendo um estilo primário, que é a sua identidade principal, seguido do estilo secundário e terciário.</p>
-                <p>Vamos descobrir cada um deles e para isso o teste será dividido em 3 etapas:</p>
+                <p>Seja bem-vinda ao nosso teste de estilos! Aqui você responderá a uma série de perguntas que foram cuidadosamente formuladas por mim, Marina, juntamente a uma equipe de consultoras e psicopedagogas. Este teste segue a metodologia Armário Perfeito de Consultoria de Imagem, método desenvolvido por mim e validado pelo MEC.</p>
+                <p>Dentro do método AP, cada mulher possui 3 estilos predominantes: sendo um estilo primário, que é a sua identidade principal, seguido do estilo secundário e terciário.</p>
+                <p>Vamos descobrir cada um deles e para isso o teste será dividido em <strong>3 etapas:</strong></p>
                 <ol>
-                    <li> a descoberta do estilo primário</li>
-                    <li> a descoberta do estilo secundário</li>
-                    <li> a descoberta do estilo terciário</li>
+                    <li> a descoberta do estilo <strong>primário</strong></li>
+                    <li> a descoberta do estilo <strong>secundário</strong></li>
+                    <li> a descoberta do estilo <strong>terciário</strong></li>
                 </ol>
-                <p>Vamos começar? Separe 30 minutos para responder!</p>
+                <p>Propositalmente, as perguntas se repetirão a cada etapa.</p>
+                <p>Vamos começar? Separe <strong>30 minutos</strong> para responder!</p>
             ` 
         }
     ];
@@ -58,7 +59,8 @@
         introSection.innerHTML = `
         <div class="intro-page card p-4 shadow-sm active">
             ${currentIntroPageIndex === 0 ? `
-                <h1 class="display-4 fw-bold mb-3">Bem-vinda ao Quiz "Armário Perfeito"!</h1>
+                <h1 class="display-4 fw-bold mb-3">Descubra seu estilo!</h1>
+                
             ` : ''}
             <h3 class="card-title text-center mb-3 text-primary">${introPages[currentIntroPageIndex].title}</h3>
             <div class="card-text">${introPages[currentIntroPageIndex].content}</div>
@@ -203,8 +205,8 @@
             ? 'FASE 2'
             : 'FASE 3';
             modalBody.innerHTML = faseAtual === 1
-            ? `Perfeito, após estas respostas descobrimos o seu estilo primário. Na segunda fase do teste vamos descobrir o seu estilo secundário. Para isso, as perguntas da fase 1 se repetem, porém, excluindo as que correspondem ao seu estilo primário. A ideia aqui é encontrar qual seria a sua segunda opção de resposta, para então identificarmos o seu estilo secundário.`
-            : `Perfeito, após estas respostas já temos os seus estilos primário e secundário. Agora vamos para a terceira e última fase do teste. Nosso objetivo aqui é descobrir o seu estilo terciário. Para isso, as perguntas da fase 1 e 2 se repetem, porém, excluindo as que correspondem aos seus estilos primário e secundário. <br><br>Vamos lá?`;
+            ? `Perfeito, após estas respostas descobrimos o seu estilo primário. Na segunda fase do teste vamos descobrir o seu estilo secundário. Para isso, as perguntas da fase 1 se repetem, porém, <strong>excluindo as que correspondem ao seu estilo primário</strong>. A ideia aqui é encontrar qual seria a sua <strong>segunda opção</strong> de resposta, para então identificarmos o seu estilo secundário.`
+            : `Estamos quase no fim, já identificamos seus estilos primário e secundário. Agora vamos para a terceira (e última) fase do teste para descobrir o seu estilo terciário. Lembrando, as perguntas das fases 1 e 2 se repetem, mas excluindo as que correspondem aos seus estilos primário e secundário.<br><br>Vamos lá?`;
             modalBtn.textContent   = faseAtual === 1 ? 'Ir para Fase 2' : 'Ir para Fase 3';
             phaseResultModal.show();
         } else {
@@ -250,15 +252,20 @@
         const perc3 = Math.round((count3 / totalQuestionsForPercentage) * 100);
 
         // Monta o HTML de resultado
+
+        /*  <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
+        <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
+        <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>) */
+
         const html = `
             <div class="final-results-header">
             <h3>Diagnóstico de estilo finalizado.</h3>
             <p class="text-center mb-1">
             <p class="lead mb-1">Parabéns! Os seus estilos são:</p>
             <p class="text-left mb-4">
-                <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
-                <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
-                <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>)
+                <strong>Primário:</strong> ${primary.toUpperCase()} <br>
+                <strong>Secundário:</strong> ${secondary.toUpperCase()} <br>
+                <strong>Terciário:</strong> ${tertiary.toUpperCase()}
             </p>
             </div>
             <div class="row justify-content-center">
@@ -336,7 +343,7 @@
         return sortedEmpatados.find(s => !estilosExcluidos.includes(s)) || sortedEmpatados[0];
     }
 
-    function exportarResults() {
+/*    function exportarResults() {
         const data = {
             estiloQuiz: { estiloPrimario: estilosPrimarioSecundario.primary, estiloSecundario: estilosPrimarioSecundario.secondary, estiloTerciario: estilosPrimarioSecundario.tertiary, respostasCompletas: respostasPorPergunta },
             dataExportacao: new Date().toISOString()
@@ -349,22 +356,22 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(a.href);
-    }
+    } */
 
     function loadAllQuestions() {
         todasAsPerguntas = [
             { numero: 1, texto: "Como você gostaria de ser percebida ao entrar em um ambiente?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Elegante, refinada e feminina.", estilo: "clássica" },
-                    { label: "B", text: "Elegante,refinada e prática.", estilo: "tradicional" },
-                    { label: "C", text: "Elegante, moderna e poderosa.", estilo: "dramática" },
-                    { label: "D", text: "Elegante, feminina e delicada.", estilo: "romântica" },
-                    { label: "E", text: "Elegante, feminina, e atraente.", estilo: "sexy" },
-                    { label: "F", text: "Elegante, Moderna e fashionista.", estilo: "criativa" },
-                    { label: "G", text: "Elegante, prática e natural.", estilo: "básica" }
+                    { label: "A", text: "Elegante, refinada e feminina", estilo: "clássica" },
+                    { label: "B", text: "Elegante, refinada e prática", estilo: "tradicional" },
+                    { label: "C", text: "Elegante, moderna e poderosa", estilo: "dramática" },
+                    { label: "D", text: "Elegante, feminina e delicada", estilo: "romântica" },
+                    { label: "E", text: "Elegante, feminina e atraente", estilo: "sexy" },
+                    { label: "F", text: "Elegante, moderna e fashionista", estilo: "criativa" },
+                    { label: "G", text: "Elegante, prática e natural", estilo: "básica" }
                 ]
             },
-            { numero: 2, texto: "Qual destas afirmações mais combinam com você?", tipo: "text",
+            { numero: 2, texto: "Qual, destas afirmações, mais combina com você?", tipo: "text",
                 opcoes: [
                     { label: "A", text: `Gosto de sentir que estou sempre bem vestida e sofisticada.`, estilo: "clássica" },
                     { label: "B", text: `Gosto de sentir que estou sempre bem vestida mas antes, prezo pela funcionalidade.`, estilo: "tradicional" },
@@ -386,18 +393,18 @@
                     { label: "G", text: "Ser confortável.", estilo: "básica" }
                 ]
             },
-            { numero: 4, texto: "Qual das terceiras peças abaixo, você acha mais a sua cara para combinar com um jeans e camiseta básica?", tipo: "text",
+            { numero: 4, texto: "Para combinar com <strong>jeans e camiseta básica</strong>, o que é mais a sua cara?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Um blazer acinturado bege com botões dourados.", estilo: "clássica" },
-                    { label: "B", text: "Um blazer reto, risca de giz marinho.", estilo: "tradicional" },
-                    { label: "C", text: "Um blazer oversized com ombreiras.", estilo: "dramática" },
-                    { label: "D", text: "Um casaquinho de tweed rosa.", estilo: "romântica" },
-                    { label: "E", text: "Uma casaco de pelos vinho.", estilo: "sexy" },
-                    { label: "F", text: "Um kimono de veludo bordado com paetês coloridos.", estilo: "criativa" },
-                    { label: "G", text: "Uma jaqueta de couro preta.", estilo: "básica" }
+                    { label: "A", text: "Um blazer acinturado bege com botões dourados", estilo: "clássica" },
+                    { label: "B", text: "Um blazer reto, risca de giz marinho", estilo: "tradicional" },
+                    { label: "C", text: "Um blazer oversized com ombreiras", estilo: "dramática" },
+                    { label: "D", text: "Um casaquinho de tweed rosa", estilo: "romântica" },
+                    { label: "E", text: "Uma casaco de pelos vinho", estilo: "sexy" },
+                    { label: "F", text: "Um kimono de veludo bordado com paetês coloridos", estilo: "criativa" },
+                    { label: "G", text: "Uma jaqueta de couro preta", estilo: "básica" }
                 ]
             },
-            { numero: 5, texto: "Qual frase mais combina com o seu jeito de se vestir no dia a dia?", tipo: "text",
+            { numero: 5, texto: "Qual frase mais combina com o seu jeito de se vestir no dia-a-dia?", tipo: "text",
                 opcoes: [
                     { label: "A", text: `“É possível ser feminina e formal ao mesmo tempo.”`, estilo: "clássica" },
                     { label: "B", text: `“Discrição é o último grau de sofisticação.”`, estilo: "tradicional" },
@@ -419,7 +426,7 @@
                     { label: "G", text: `“Você parece tão confortável e natural!”`, estilo: "básica" }
                 ]
             },
-            { numero: 7, texto: "Qual estilo de loja te atrai mais, considerando que todas elas tem o mesmo preço e qualidade?", tipo: "text",
+            { numero: 7, texto: "Considerando o mesmo preço e qualidade, qual estilo de loja te atrai mais:", tipo: "text",
                 opcoes: [
                     { label: "A", text: "Uma loja de peças clássicas com toque de feminilidade.", estilo: "clássica" },
                     { label: "B", text: "Uma loja de peças clássicas e confortáveis.", estilo: "tradicional" },
@@ -430,7 +437,7 @@
                     { label: "G", text: "Uma loja com peças básicas, confortáveis, sem modismos.", estilo: "básica" }
                 ]
             },
-            { numero: 8, texto: "Qual frase define melhor a sua relação com as tendências?", tipo: "text",
+            { numero: 8, texto: "Qual frase define melhor a sua relação com as <strong>tendências</strong>?", tipo: "text",
                 opcoes: [
                     { label: "A", text: "Prefiro peças clássicas e atemporais, assim vou me sentir sempre elegante.", estilo: "clássica" },
                     { label: "B", text: "Acho chato essa coisa da moda ficar mudando, prefiro estar sempre igual, assim não erro e ganho mais tempo.", estilo: "tradicional" },
@@ -463,7 +470,7 @@
                     { label: "G", text: `“Você é natural e chique de uma forma simples.”`, estilo: "básica" }
                 ]
             },
-            { numero: 11, texto: "Quando você entra em uma loja pra olhar as novidades casualmente, qual é a sua reação?", tipo: "text",
+            { numero: 11, texto: "Ao entrar em uma loja para olhar as novidades, você:", tipo: "text",
                 opcoes: [
                     { label: "A", text: `Vai direto na sessão de peças clássicas e femininas.`, estilo: "clássica" },
                     { label: "B", text: `Vai direto na sessão de peças clássicas e cortes mais retos, sem "firula”.`, estilo: "tradicional" },
@@ -474,18 +481,18 @@
                     { label: "G", text: `Busca peças práticas, confortáveis e que deixam arrumada em precisar de fazer tanto esforço...`, estilo: "básica" }
                 ]
             },
-            { numero: 12, texto: "O que você prefere parecer?", tipo: "text",
+            { numero: 12, texto: "O que você prefere parecer:", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Parecer polida e uma verdadeira dama.", estilo: "clássica" },
-                    { label: "B", text: "Parecer reservada, racional e eficiente.", estilo: "tradicional" },
-                    { label: "C", text: "Parecer interessante, contemporânea e poderosa.", estilo: "dramática" },
-                    { label: "D", text: "Parecer feminina, familiar e cuidadosa.", estilo: "romântica" },
-                    { label: "E", text: "Parecer feminina, poderosa e magnética.", estilo: "sexy" },
-                    { label: "F", text: "Parecer ousada, expansiva e divertida.", estilo: "criativa" },
-                    { label: "G", text: "Parecer simples, natural e elegante sem nenhum excesso.", estilo: "básica" }
+                    { label: "A", text: "Polida e uma verdadeira dama", estilo: "clássica" },
+                    { label: "B", text: "Reservada, racional e eficiente", estilo: "tradicional" },
+                    { label: "C", text: "Interessante, contemporânea e poderosa", estilo: "dramática" },
+                    { label: "D", text: "Feminina, familiar e cuidadosa", estilo: "romântica" },
+                    { label: "E", text: "Feminina, poderosa e magnética", estilo: "sexy" },
+                    { label: "F", text: "Ousada, expansiva e divertida", estilo: "criativa" },
+                    { label: "G", text: "Simples, natural e elegante sem nenhum excesso", estilo: "básica" }
                 ]
             },
-            { numero: 13, texto: "Se você fosse um sapato, qual você seria?", tipo: "text",
+            { numero: 13, texto: "Se você fosse um sapato, você seria:", tipo: "text",
                 opcoes: [
                     { label: "A", text: "Um scarpin de bico fino.", estilo: "clássica" },
                     { label: "B", text: "Um mocassim.", estilo: "tradicional" },
@@ -507,27 +514,27 @@
                     { label: "G", text: "Gosto de roupas fáceis, simples e que eu não pareça muito montada.", estilo: "básica" }
                 ]
             },
-            { numero: 15, texto: "Qual dos looks abaixo tem mais a sua cara?", tipo: "image" },
-            { numero: 16, texto: "Escolha um modelo de brinco de pérola que tem mais a sua cara:", tipo: "image" },
-            { numero: 17, texto: "Qual dos vestidos abaixo tem mais a sua cara?", tipo: "image" },
-            { numero: 18, texto: "Qual das camisas tem mais a sua cara?", tipo: "image" },
-            { numero: 19, texto: "Qual das calças tem mais a sua cara?", tipo: "image" },
-            { numero: 20, texto: "Qual das saias tem mais a sua cara?", tipo: "image" },
-            { numero: 21, texto: "Com qual look você iria em um jantar romântico em um restaurante elegante?", tipo: "image" },
-            { numero: 22, texto: "Escolha qual dos tênis você usaria para compor um look básico com jeans e camiseta:", tipo: "image" },
-            { numero: 23, texto: "Qual das sandálias tem mais a sua cara?", tipo: "image" },
-            { numero: 24, texto: "Qual dos sapatos tem mais a sua cara?", tipo: "image" },
-            { numero: 25, texto: "Qual dos grupos de estampas você olha e imediatamente já gosta mais?", tipo: "image" },
-            { numero: 26, texto: "Qual dos modelos de bolsa tem mais a sua cara?", tipo: "image" },
-            { numero: 27, texto: "Qual modelo de óculos tem mais a sua cara?", tipo: "image" },
-            { numero: 28, texto: "Qual look você usaria para um baile de gala?", tipo: "image" },
-            { numero: 29, texto: "Todos estes looks tem a mesma base, mas os acessórios e a modelagem das roupas variam. Qual deles é mais a sua cara?", tipo: "image" },
+            { numero: 15, texto: "Qual look tem mais a sua cara?", tipo: "image" },
+            { numero: 16, texto: "Qual brinco de pérola que tem mais a sua cara?", tipo: "image" },
+            { numero: 17, texto: "Qual vestido tem mais a sua cara?", tipo: "image" },
+            { numero: 18, texto: "Qual camisa tem mais a sua cara?", tipo: "image" },
+            { numero: 19, texto: "Qual calça tem mais a sua cara?", tipo: "image" },
+            { numero: 20, texto: "Qual saia tem mais a sua cara?", tipo: "image" },
+            { numero: 21, texto: "Com qual look você iria em um <strong>jantar romântico</strong> em um restaurante elegante:", tipo: "image" },
+            { numero: 22, texto: "Para compor um look básico com <strong>jeans e camiseta</strong>, qual tênis você escolheria:", tipo: "image" },
+            { numero: 23, texto: "Qual sandália tem mais a sua cara?", tipo: "image" },
+            { numero: 24, texto: "Qual sapato tem mais a sua cara?", tipo: "image" },
+            { numero: 25, texto: "Qual grupo de estampas você olha e <strong>imediatamente já gosta</strong> mais?", tipo: "image" },
+            { numero: 26, texto: "Qual bolsa tem mais a sua cara?", tipo: "image" },
+            { numero: 27, texto: "Qual óculos tem mais a sua cara?", tipo: "image" },
+            { numero: 28, texto: "Qual look você usaria para um <strong>baile de gala</strong>?", tipo: "image" },
+            { numero: 29, texto: "Todos estes looks tem a <strong>mesma base</strong>, mas os <strong>acessórios</strong> e a <strong>modelagem</strong> das roupas <strong>variam</strong>. Qual deles é mais a sua cara?", tipo: "image" },
             { numero: 30, texto: "Qual relógio é mais a sua cara?", tipo: "image" },
-            { numero: 31, texto: "Como você usaria este vestido dentro do seu gosto?", tipo: "image" },
-            { numero: 32, texto: "Como você usaria essa calça de paetês prateados dentro do seu gosto?", tipo: "image" },
-            { numero: 33, texto: "Como você usaria esta mini saia de couro dentro do seu gosto?", tipo: "image" },
-            { numero: 34, texto: "Como você usaria essa camiseta básica branca dentro do seu gosto?", tipo: "image" },
-            { numero: 35, texto: "Como você usaria esta camisa dentro do seu gosto?", tipo: "image" }
+            { numero: 31, texto: "Se tivesse que usar esse <strong>vestido</strong>, como usaria?", tipo: "image" },
+            { numero: 32, texto: "Se tivesse que usar essa <strong>calça de paetês prateados</strong>, como usaria?", tipo: "image" },
+            { numero: 33, texto: "Se tivesse que usar essa <strong>mini saia de couro</strong>, como usaria?", tipo: "image" },
+            { numero: 34, texto: "Se tivesse que usar essa <strong>camiseta básica branca</strong>, como usaria?", tipo: "image" },
+            { numero: 35, texto: "Se tivesse que usar esta <strong>camisa</strong>, como usaria?", tipo: "image" }
         ];
         // Popula opções de imagem
         for (let i = 14; i < totalPerguntas; i++) 
