@@ -566,3 +566,10 @@
     }
     // document.addEventListener('DOMContentLoaded', initQuiz);
     window.addEventListener('load', initQuiz);
+
+    // Torna funções visíveis no escopo global
+    window.nextIntroPage = nextIntroPage;
+    window.prevIntroPage = prevIntroPage;
+    window.startQuiz = startQuiz;
+    window.proceedToNextStep = proceedToNextStep;
+
