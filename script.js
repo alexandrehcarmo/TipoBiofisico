@@ -564,4 +564,5 @@
                   }
             }
     }
-    document.addEventListener('DOMContentLoaded', initQuiz);
+    // document.addEventListener('DOMContentLoaded', initQuiz);
+    window.addEventListener('load', initQuiz);
