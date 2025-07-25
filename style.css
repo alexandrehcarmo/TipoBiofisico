@@ -47,6 +47,7 @@
         line-height: 1.2; /*  Espaçamento entre linhas do título */
         color: var(--brand-neutral-dark); /*  Usar a cor preta */
         text-align: center; 
+        margin-top: 10px;
     }
 
     /* Para o subtítulo  */
@@ -404,7 +405,7 @@
         box-shadow: 0 0 0 0.25rem rgba(14, 14, 14, 0.25) !important; /* Sombra de foco com cor base no novo cinza */
     }
 
-    /* ESTILOS PARA O CABEÇALHO FIXO COM A LOGO REDONDA */
+    /* ESTILOS PARA O CABEÇALHO FIXO COM A LOGO */
     .sticky-header {
         position: fixed; /* Isso faz com que o cabeçalho permaneça no lugar, mesmo ao rolar */
         top: 0;          /* Alinha ao topo da janela do navegador */
@@ -424,9 +425,10 @@
     }
  
     .sticky-header .logo-link img {
-        height: 140px; /* Tamanho da logo */
+        height: 130px; /* Tamanho da logo */
         width: auto;
-        max-width: 140px; 
+        max-width: none; /* Garante que a imagem não ultrapasse o tamanho máximo */
+        margin: 0 auto; /* Centraliza a imagem dentro do link */
         display: block;
         background-color: transparent !important; /* Reforça o fundo transparente */
         border: none !important; /* Reforça a remoção de bordas */
@@ -460,6 +462,7 @@
 
         .sticky-header {
             padding: 0px 10px !important;
+            height: 70px;
         }
         
         h3, h4, .lead {
@@ -491,17 +494,14 @@
         .style-result {
             padding: 15px !important; /* Reduz o padding interno de cada card de resultado para mais espaço para o texto */
         }
-
-        .sticky-header {
-            padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
-        }
         
         .sticky-header .logo-link img {
-             height: 140px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
+             height: 130px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
+             max-width: none;
         }
         
         body {
-            padding-top: 30px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+            padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
         }
       
     }
