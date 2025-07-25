@@ -29,7 +29,7 @@
         margin-left: auto; /*  Centraliza o corpo da página */
         margin-right: auto; /*  Centraliza o corpo da página */
         box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
-        padding-top: 90px; /*  Altura do seu cabeçalho fixo  */
+        padding-top: 60px; /*  Altura do seu cabeçalho fixo  */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
         -ms-overflow-style: none;
     }
@@ -39,11 +39,11 @@
         border-radius: 15px; /* Cantos arredondados para um visual mais suave */
     }
 
-    /* Já definimos mb-4 para a logo, mas podemos adicionar mais para o h1 */
+    /* Já definimos mb-4 para a logo, mas podemos adicionar mais para o h1  - título "Descubra seu estilo!"*/
     .intro-page h1 {
         margin-bottom: 2rem !important; /*  Mais espaço abaixo do título principal */
         font-weight: 800; /* Mais impactante, se houver o peso na fonte */
-        font-size: 2.2rem; /*  Um pouco menor, para melhor encaixe na página */
+        font-size: 1.8rem; /*  Um pouco menor, para melhor encaixe na página */
         line-height: 1.2; /*  Espaçamento entre linhas do título */
         color: var(--brand-neutral-dark); /*  Usar a cor preta */
         text-align: center; 
@@ -168,12 +168,12 @@
     /* Manter pesos e tamanhos específicos se necessário, mas usar a fonte da marca */
     #final-resultado .final-results-header h3 {
         font-weight: 700; /* Pode ser 'Bold' ou 'SemiBold' conforme definido para Montserrat */
-        font-size: 2.6rem;
+        font-size: 2.0rem; /* título "Diagnóstico de estilo finalizado."*/
         color: var(--brand-neutral-dark); /* Usar cinza escuro da marca */
     }
 
     #final-resultado .final-results-header p.lead {
-        font-size: 1.5rem;
+        font-size: 1.2rem; /* frase "Parabéns! Os seus estilos são:" */
         color: var(--brand-neutral-dark); /*  Usar cinza escuro da marca */
     }
 
@@ -269,7 +269,7 @@
     }
 
     .sticky-header {
-         padding: 2px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
+         padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
     }   
     
     body {
@@ -414,7 +414,7 @@
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        padding: 2px 20px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
+        padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
         box-shadow: none !important; /* Para testar se a sombra é o problema */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
@@ -424,9 +424,9 @@
     }
  
     .sticky-header .logo-link img {
-        height: 110px; /* Faixa da logo */
+        height: 140px; /* Tamanho da logo */
         width: auto;
-        max-width: 140px; /* Altura da logo */
+        max-width: 140px; 
         display: block;
         background-color: transparent !important; /* Reforça o fundo transparente */
         border: none !important; /* Reforça a remoção de bordas */
@@ -458,6 +458,9 @@
             gap: unset !important;
         }
 
+        .sticky-header {
+            padding: 0px 10px !important;
+        }
         
         h3, h4, .lead {
           font-size: 1.0rem;
@@ -490,15 +493,15 @@
         }
 
         .sticky-header {
-            padding: 5px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
+            padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
         }
         
         .sticky-header .logo-link img {
-             height: 110px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
+             height: 140px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
         }
         
         body {
-            padding-top: 40px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+            padding-top: 30px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
         }
       
     }
