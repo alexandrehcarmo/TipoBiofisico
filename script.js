@@ -98,6 +98,7 @@
     function startQuiz() {
         document.getElementById('quiz-section').style.display = 'block';
         loadAllQuestions();
+        todasAsPerguntas = shuffle([...todasAsPerguntas]); // embaralha mantendo os numeros originais
         resetPontuacao();
         perguntaAtualIndice = 0;
         renderQuestion();
@@ -116,6 +117,8 @@
         const perguntaDiv = document.createElement('div');
         perguntaDiv.className = 'pergunta-container active card p-4 shadow-sm mb-4';
         perguntaDiv.innerHTML = `<p class="lead text-center"><strong>Pergunta ${pergunta.numero} de ${totalPerguntas} (Fase ${faseAtual})</strong></p><p class="text-center h5">${pergunta.texto}</p><div class="row justify-content-center mt-3" id="opcoes-pergunta-${pergunta.numero}"></div><div class="navigation-buttons"><button id="btn-proxima" class="btn btn-primary btn-lg" onclick="avancarParaProximaPergunta()" disabled>Próxima Pergunta</button></div>`;
+        const numeroExibicao = perguntaAtualIndice + 1;
+        perguntaDiv.innerHTML = `<p class="lead text-center"><strong>Pergunta ${numeroExibicao} de ${totalPerguntas} (Fase ${faseAtual})</strong></p>
         quizSection.appendChild(perguntaDiv);
         const opcoesContainer = document.getElementById(`opcoes-pergunta-${pergunta.numero}`);
         opcoesContainer.classList.add(`phase-${faseAtual}`); 
@@ -221,15 +224,22 @@
             displayFinalResults();
         }
     }
-
     function proceedToNextStep() {
         // Só chamados quando há modal. Aqui só avançamos fases 1 e 2.
         phaseResultModal.hide();
-
         faseAtual++;
         resetPontuacao();
+        todasAsPerguntas = shuffle([...todasAsPerguntas]); // nova ordem para a fase seguinte
         perguntaAtualIndice = 0;
         renderQuestion();
+    }
+    function shuffle(array) {
+        // perguntas exibidas em ordem aleatória
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 
     function displayFinalResults() {
