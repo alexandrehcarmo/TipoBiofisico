@@ -43,7 +43,7 @@
     .intro-page h1 {
         margin-bottom: 2rem !important; /*  Mais espaço abaixo do título principal */
         font-weight: 800; /* Mais impactante, se houver o peso na fonte */
-        font-size: 1.8rem; /*  Um pouco menor, para melhor encaixe na página */
+        font-size: 1.5rem; /*  Um pouco menor, para melhor encaixe na página */
         line-height: 1.2; /*  Espaçamento entre linhas do título */
         color: var(--brand-neutral-dark); /*  Usar a cor preta */
         text-align: center; 
@@ -425,7 +425,7 @@
     }
  
     .sticky-header .logo-link img {
-        height: 130px; /* Tamanho da logo */
+        height: 130px; /* Tamanho da logo desktop*/
         width: auto;
         max-width: none; /* Garante que a imagem não ultrapasse o tamanho máximo */
         margin: 0 auto; /* Centraliza a imagem dentro do link */
@@ -496,12 +496,12 @@
         }
         
         .sticky-header .logo-link img {
-             height: 130px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
-             max-width: none;
+             height: 90px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
+             max-width: 200px;
         }
         
         body {
-            padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+            padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
         }
       
     }
