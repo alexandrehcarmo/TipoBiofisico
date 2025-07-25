@@ -279,7 +279,6 @@
                 <h4><span class="style-icon">⭐</span>Estilo Primário</h4>
                 <span class="style-name">${primary.toUpperCase()}</span>
                 <p class="style-description">${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}</p>
-                <p class="text-muted"><small>${count1} perguntas selecionadas nesta fase</small></p>
                 </div>
             </div>
             </div>
@@ -289,7 +288,6 @@
                 <h4><span class="style-icon">✨</span>Estilo Secundário</h4>
                 <span class="style-name">${secondary.toUpperCase()}</span>
                 <p class="style-description">${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}</p>
-                <p class="text-muted"><small>${count2} perguntas selecionadas nesta fase</small></p>
                 </div>
             </div>
             <div class="col-lg-6 mb-4">
@@ -297,7 +295,6 @@
                 <h4><span class="style-icon">💫</span>Estilo Terciário</h4>
                 <span class="style-name">${tertiary.toUpperCase()}</span>
                 <p class="style-description">${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}</p>
-                <p class="text-muted"><small>${count3} perguntas selecionadas nesta fase</small></p>
                 </div>
             </div>
             </div>
