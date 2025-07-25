@@ -499,7 +499,7 @@
         }
         
         .sticky-header .logo-link img {
-             height: 90px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
+             height: 100px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
              max-width: 150px;
         }
         
