@@ -109,37 +109,97 @@
     function renderQuestion() {   
         const quizSection = document.getElementById('quiz-section');
         quizSection.innerHTML = '';
+        
+        // Se acabar as perguntas, mostra os resultados da fase
         if (perguntaAtualIndice >= totalPerguntas) {
             processPhaseResults();
             return;
         }
+
+        // Pega a pergunta atual (já embaralhada)
         const pergunta = todasAsPerguntas[perguntaAtualIndice];
+
+        // Cria o card da pergunta
         const perguntaDiv = document.createElement('div');
         perguntaDiv.className = 'pergunta-container active card p-4 shadow-sm mb-4';
-        perguntaDiv.innerHTML = `<p class="lead text-center"><strong>Pergunta ${pergunta.numero} de ${totalPerguntas} (Fase ${faseAtual})</strong></p><p class="text-center h5">${pergunta.texto}</p><div class="row justify-content-center mt-3" id="opcoes-pergunta-${pergunta.numero}"></div><div class="navigation-buttons"><button id="btn-proxima" class="btn btn-primary btn-lg" onclick="avancarParaProximaPergunta()" disabled>Próxima Pergunta</button></div>`;
+
+        // Calcula número para exibição na ordem aleatória
         const numeroExibicao = perguntaAtualIndice + 1;
-        perguntaDiv.innerHTML = `<p class="lead text-center"><strong>Pergunta ${numeroExibicao} de ${totalPerguntas} (Fase ${faseAtual})</strong></p>
+
+        // Monta o HTML completo da pergunta
+        perguntaDiv.innerHTML = `
+            <p class="lead text-center">
+                <strong>Pergunta ${numeroExibicao} de ${totalPerguntas} (Fase ${faseAtual})</strong>
+            </p>
+        <p class="text-center h5">${pergunta.texto}</p>
+        <div class="row justify-content-center mt-3" id="opcoes-pergunta-${pergunta.numero}"></div>
+        <div class="navigation-buttons">
+            <button id="btn-proxima"
+                class="btn btn-primary btn-lg"
+                onclick="avancarParaProximaPergunta()"
+                disabled>
+              Próxima Pergunta
+           </button>
+        </div>
+        `;
+
+        // Adiciona ao DOM
         quizSection.appendChild(perguntaDiv);
+        
+        // Pega o container das opções e aplica classe de fase
+
         const opcoesContainer = document.getElementById(`opcoes-pergunta-${pergunta.numero}`);
-        opcoesContainer.classList.add(`phase-${faseAtual}`); 
+        opcoesContainer.classList.add(`phase-${faseAtual}`);
+        
+        // Renderiza cada opção (texto ou imagem)
         let hasRenderableOptions = false;
         let currentVisualLabelIndex = 0;
         pergunta.opcoes.forEach(opcao => {
-            const isEstiloOculto = (faseAtual === 2 && estilosPrimarioSecundario.primary === opcao.estilo) || (faseAtual === 3 && (estilosPrimarioSecundario.primary === opcao.estilo || estilosPrimarioSecundario.secondary === opcao.estilo));
+            const isEstiloOculto = 
+                (faseAtual === 2 && estilosPrimarioSecundario.primary === opcao.estilo) || 
+                (faseAtual === 3 && (
+                    estilosPrimarioSecundario.primary === opcao.estilo || 
+                    estilosPrimarioSecundario.secondary === opcao.estilo
+                    )
+                );
             if (!isEstiloOculto) {
                 hasRenderableOptions = true;
                 const visualLabel = labelsOpcoes[currentVisualLabelIndex++];
                 const colDiv = document.createElement('div');
                 colDiv.className = pergunta.tipo === 'text' ? 'col-12' : 'col-lg-4 col-md-6';
+            
                 if (pergunta.tipo === 'text') {
-                    colDiv.innerHTML = `<div class="d-grid gap-2"><label class="btn btn-outline-primary mb-2 py-3 text-start"><input type="radio" class="d-none" name="pergunta-${pergunta.numero}" value="${opcao.label}" data-estilo="${opcao.estilo}"> <strong>${visualLabel}.</strong> ${opcao.textExibicao}</label></div>`;
+                    colDiv.innerHTML = `
+                        <div class="d-grid gap-2">
+                            <label class="btn btn-outline-primary mb-2 py-3 text-start">
+                                <input type="radio" 
+                                       class="d-none" 
+                                       name="pergunta-${pergunta.numero}" 
+                                       value="${opcao.label}" 
+                                       data-estilo="${opcao.estilo}"> 
+                                <strong>${visualLabel}.</strong> ${opcao.textExibicao}
+                            </label>
+                        </div>
+                    `;
                 } else {
-                    colDiv.innerHTML = `<div class="text-center mb-3"><label class="d-block"><input type="radio" class="d-none" name="pergunta-${pergunta.numero}" value="${opcao.label}" data-estilo="${opcao.estilo}"><img src="${opcao.image}" class="quiz-img" alt="Opção ${visualLabel}"><p class="text-muted mt-2 fw-bold">${visualLabel}</p></label></div>`;
+                    colDiv.innerHTML = `
+                        <div class="text-center mb-3">
+                            <label class="d-block">
+                                <input type="radio" 
+                                    class="d-none" 
+                                    name="pergunta-${pergunta.numero}" 
+                                    value="${opcao.label}" 
+                                    data-estilo="${opcao.estilo}">
+                                <img src="${opcao.image}" class="quiz-img" alt="Opção ${visualLabel}">
+                                <p class="text-muted mt-2 fw-bold">${visualLabel}</p>
+                            </label>
+                        </div>
+                    `;
                 }
                 opcoesContainer.appendChild(colDiv);
             }
         });
-
+    
         document.querySelectorAll(`input[name="pergunta-${pergunta.numero}"]`).forEach(input => {
             input.addEventListener('change', (event) => {
                 handleAnswerSelection(pergunta.numero, event.target.dataset.estilo, event.target.value);
