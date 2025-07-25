@@ -533,3 +533,18 @@
         font-size: 1rem;
         padding: 0.5rem 1rem;
     }  
+
+    .final-title-container {
+        background-color: #f5f1ee; /* bege clarinho ou algo da identidade pro texto final 'Diagnostico de estilo finalizado!' */
+        padding: 20px 15px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+
+    .final-title-container h2 {
+        margin: 0;
+        font-size: 1.6rem;
+        font-weight: bold;
+    }
