@@ -414,7 +414,7 @@
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
         width: 100%;
-        max-width: 480px;/* <— largura máxima que você desejar */
+        max-width: 380px;/* <— largura máxima que você desejar */
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
@@ -428,9 +428,9 @@
     }
  
     .sticky-header .logo-link img {
-        height: 130px; /* Tamanho da logo desktop*/
+        height: 120px; /* Tamanho da logo desktop*/
         width: auto;
-        max-width: none; /* Garante que a imagem não ultrapasse o tamanho máximo */
+        max-width: 380px; /* Garante que a imagem não ultrapasse o tamanho máximo */
         margin: 0 auto; /* Centraliza a imagem dentro do link */
         display: block;
         background-color: transparent !important; /* Reforça o fundo transparente */
@@ -499,7 +499,7 @@
         }
         
         .sticky-header .logo-link img {
-             height: 130px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
+             height: 120px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
              max-width: 150px;
         }
         
