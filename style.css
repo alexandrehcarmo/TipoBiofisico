@@ -465,7 +465,7 @@
 
         .sticky-header {
             padding: 0px 10px !important;
-            height: 90px;
+            height: 100px;
         }
         
         h3, h4, .lead {
@@ -499,7 +499,7 @@
         }
         
         .sticky-header .logo-link img {
-             height: 100px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
+             height: 110px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
              max-width: 150px;
         }
         
