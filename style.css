@@ -334,7 +334,9 @@
     }   
     
     body {
-         padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+        /* AJUSTE PARA COMPENSAR A ALTURA DO CABEÇALHO FIXO */
+        padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho */
+        /* padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -561,7 +563,9 @@
         }
         
         body {
-            padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+             /* AJUSTE PARA COMPENSAR A ALTURA DO CABEÇALHO FIXO EM TELAS MENORES */
+            padding-top: 100px !important; /* Garante que o padding superior do body compense a altura do cabeçalho */
+            /* padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
         }
       
     }
