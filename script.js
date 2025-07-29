@@ -98,7 +98,20 @@
     function startQuiz() {
         document.getElementById('quiz-section').style.display = 'block';
         loadAllQuestions();
-        todasAsPerguntas = shuffle([...todasAsPerguntas]); // embaralha mantendo os numeros originais
+        // todasAsPerguntas = shuffle([...todasAsPerguntas]); // embaralha mantendo os numeros originais
+
+        // separa textuais e imagéticas
+        const textQuestions  = todasAsPerguntas.filter(q => q.tipo === 'text');
+        const imageQuestions = todasAsPerguntas.filter(q => q.tipo === 'image');
+
+        // embaralha somente as opções das perguntas de texto
+        textQuestions.forEach(q => {
+        q.opcoes = shuffle([...q.opcoes]);
+        });
+
+        // mantém as perguntas na ordem: todas de texto primeiro, depois as de imagem
+        todasAsPerguntas = [...textQuestions, ...imageQuestions];
+            
         resetPontuacao();
         perguntaAtualIndice = 0;
         renderQuestion();
@@ -289,7 +302,16 @@
         phaseResultModal.hide();
         faseAtual++;
         resetPontuacao();
-        todasAsPerguntas = shuffle([...todasAsPerguntas]); // nova ordem para a fase seguinte
+        // todasAsPerguntas = shuffle([...todasAsPerguntas]); // nova ordem para a fase seguinte
+
+        // agrupa e embaralha só opções de texto novamente
+        const textQuestions  = todasAsPerguntas.filter(q => q.tipo === 'text');
+        const imageQuestions = todasAsPerguntas.filter(q => q.tipo === 'image');
+        textQuestions.forEach(q => {
+          q.opcoes = shuffle([...q.opcoes]);
+        });
+        todasAsPerguntas = [...textQuestions, ...imageQuestions];
+
         perguntaAtualIndice = 0;
         renderQuestion();
     }
