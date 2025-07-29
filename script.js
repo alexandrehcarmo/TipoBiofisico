@@ -299,6 +299,9 @@
     } */
 
     function processPhaseResults() {
+        // Sempre esconda o banner de resultado final nas fases 1 e 2
+        document.getElementById('final-resultado').style.display = 'none';
+
         // 1) Clone a pontuação desta fase
         faseCounts[faseAtual] = { ...pontuacaoEstilos };
 
@@ -366,7 +369,7 @@
             phaseResultModal.show();
 
         } else {
-            // 5) Somente na Fase 3 exibimos o resultado final
+            // 5) Somente na Fase 3 exibimos o resultado final
             console.log(">>> Chegou na Fase 3, exibindo resultado final");
             displayFinalResults();
         }
