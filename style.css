@@ -65,7 +65,7 @@
         padding: 0;             /* Remove paddings padrão do body */
 
         /* CORREÇÃO: Nova altura do cabeçalho (120px) + margin-top do .container.mt-5 (48px) = 168px. Usamos 170px para segurança. */
-        padding-top: 170px !important; /* AJUSTADO: Compensação para a nova altura real do cabeçalho */
+        padding-top: 120px !important; /* AJUSTADO: Compensação para a nova altura real do cabeçalho */
         /* Valor generoso para garantir que o botão não seja cortado pela barra de navegação do celular */
         padding-bottom: 120px; /* CORREÇÃO: Espaçamento de segurança para o botão */
 
@@ -147,6 +147,10 @@
         --font-body: 'Poppins', sans-serif;    /* Poppins para corpo do texto */
     }
 
+    .container.mt-5 {
+        margin-top: 0 !important; /* <--- CORREÇÃO DEFINITIVA: Remove a margem superior padrão do Bootstrap */
+    }
+
     .quiz-img {
         max-width: 100%;
         aspect-ratio: 1/1; 
@@ -183,6 +187,13 @@
         font-size: 0.9rem;
         margin-bottom: 4px;
         display: block;
+    }
+
+
+    /* stylecss.txt - Adicione estas novas regras em local adequado */
+    #intro-section,
+    #quiz-section {
+        margin-top: 3rem; /* <--- CORREÇÃO DEFINITIVA: Adiciona o espaçamento desejado após o cabeçalho */
     }
 
     .pergunta-container, .intro-page {
@@ -351,7 +362,9 @@
    
     .row.justify-content-center.phase-3 > div[class*="col-"] {
         width: 100% !important; 
-        max-width: none !important;
+        
+        /* max-width: none !important; */ /* <--- CORREÇÃO DEFINITIVA: REMOVA ESTA LINHA! */
+        
         flex-basis: auto !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
@@ -388,7 +401,9 @@
     .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
         width: 100%; /* Garante que a imagem ocupe 100% da largura do seu contêiner */
         height: auto; /* IMPORTANTE: Mantém a proporção da imagem automaticamente */
-        max-width: none !important;
+        
+        /* max-width: none !important; */ /* <--- CORREÇÃO DEFINITIVA: REMOVA ESTA LINHA! */
+        
         flex-basis: auto !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
@@ -572,7 +587,7 @@
         
         body {
             /* Calcula: Altura do Cabeçalho Mobile (100px) + Margem Top do .container.mt-5 (aprox. 48px) = 148px. Arredondamos para 150px. */
-            padding-top: 170px !important; /* CORREÇÃO: Ajusta o padding-top para o cabeçalho móvel + margem */
+            padding-top: 120px !important; /* CORREÇÃO: Ajusta o padding-top para o cabeçalho móvel + margem */
             /* Garante que o padding-bottom seja generoso para telas menores também */
             padding-bottom: 120px !important; /* CORREÇÃO: Garante espaçamento de segurança para o botão */    
         }
