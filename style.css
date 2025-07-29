@@ -64,8 +64,8 @@
         margin: 0;              /* Remove margens padrão do body */
         padding: 0;             /* Remove paddings padrão do body */
 
-        /* Calcula: Altura do Cabeçalho (70px) + Margem Top do .container.mt-5 (aprox. 48px) = 118px. Arredondamos para 120px para segurança. */
-        padding-top: 120px !important; /* CORREÇÃO: Compensar cabeçalho + margem do primeiro elemento */
+        /* CORREÇÃO: Nova altura do cabeçalho (120px) + margin-top do .container.mt-5 (48px) = 168px. Usamos 170px para segurança. */
+        padding-top: 170px !important; /* AJUSTADO: Compensação para a nova altura real do cabeçalho */
         /* Valor generoso para garantir que o botão não seja cortado pela barra de navegação do celular */
         padding-bottom: 120px; /* CORREÇÃO: Espaçamento de segurança para o botão */
 
@@ -333,16 +333,16 @@
         --bs-gutter-y: 0 !important;
     }
 
-    .sticky-header {
-        padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
-        height: 70px; /* MENOR desde o início*/
-    }   
+    /* .sticky-header {
+        padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto 
+        height: 120px; /* MENOR desde o início
+    }  */ 
     
-    body {
-        /* AJUSTE PARA COMPENSAR A ALTURA DO CABEÇALHO FIXO */
-        padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho */
-        /* padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
-    }
+    /* body {
+        /* AJUSTE PARA COMPENSAR A ALTURA DO CABEÇALHO FIXO 
+        padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho 
+        /* padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding 
+    } */
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
     /* Garante que se comportem como blocos em uma lista */
@@ -482,13 +482,16 @@
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
+        
         box-shadow: none !important; /* Para testar se a sombra é o problema */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
         display: flex;   /* Para alinhar a logo dentro dele */
         justify-content: center; /* Centraliza a logo horizontalmente no cabeçalho */
         align-items: center; /* Centraliza a logo verticalmente no cabeçalho */
+
+        padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
+        height: 120px; /* MENOR desde o início*/
     }
  
     .sticky-header .logo-link img {
@@ -529,7 +532,7 @@
 
         .sticky-header {
             padding: 0px 10px !important;
-            height: 100px;
+            height: 120px;
         }
         
         h3, h4, .lead {
@@ -569,7 +572,7 @@
         
         body {
             /* Calcula: Altura do Cabeçalho Mobile (100px) + Margem Top do .container.mt-5 (aprox. 48px) = 148px. Arredondamos para 150px. */
-            padding-top: 150px !important; /* CORREÇÃO: Ajusta o padding-top para o cabeçalho móvel + margem */
+            padding-top: 170px !important; /* CORREÇÃO: Ajusta o padding-top para o cabeçalho móvel + margem */
             /* Garante que o padding-bottom seja generoso para telas menores também */
             padding-bottom: 120px !important; /* CORREÇÃO: Garante espaçamento de segurança para o botão */    
         }
