@@ -399,7 +399,7 @@
         return array;
     }
 
-    function displayFinalResults() {
+    /* function displayFinalResults() {
         window.scrollTo(0, 0);
         const finalDiv = document.getElementById('final-resultado');
 
@@ -427,7 +427,7 @@
 
         /*  <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
         <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
-        <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>) */
+        <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>) *
 
         const html = `
             <div class="final-results-header">
@@ -474,8 +474,97 @@
         resultadoDiv.innerHTML   = html;
         resultadoDiv.style.display = 'block';
         resultadoDiv.classList.add('show');
-    }
+    } */
 
+    function displayFinalResults() {
+    // 🚫 Saí imediatamente se ainda não for a Fase 3
+    if (faseAtual < 3) return;
+
+    // Garante que o usuário esteja no topo da página
+    window.scrollTo(0, 0);
+
+    // Esconde seções que já não interessam
+    document.getElementById('intro-section').style.display = 'none';
+    document.getElementById('quiz-section').style.display  = 'none';
+
+    // Extrai estilos finais
+    const primary   = estilosPrimarioSecundario.primary   || 'NÃO DEFINIDO';
+    const secondary = estilosPrimarioSecundario.secondary || 'NÃO DEFINIDO';
+    const tertiary  = estilosPrimarioSecundario.tertiary  || 'NÃO DEFINIDO';
+
+    // Busca as contagens salvas
+    const count1 = faseCounts[1][primary]   ?? 0;
+    const count2 = faseCounts[2][secondary] ?? 0;
+    const count3 = faseCounts[3][tertiary]  ?? 0;
+    const totalQuestionsForPercentage = totalPerguntas;
+
+    const perc1 = Math.round((count1 / totalQuestionsForPercentage) * 100);
+    const perc2 = Math.round((count2 / totalQuestionsForPercentage) * 100);
+    const perc3 = Math.round((count3 / totalQuestionsForPercentage) * 100);
+
+    // Monta o HTML de resultado final
+    const html = `
+        <div class="final-results-header">
+        <h3>Diagnóstico de estilo finalizado.</h3>
+        <p class="text-center mb-1 lead">
+            Parabéns! Os seus estilos são:
+        </p>
+        <p class="text-left mb-4">
+            <strong>Primário:</strong> ${primary.toUpperCase()} 
+            (<em>${count1} seleções - ${perc1}%</em>)<br>
+            <strong>Secundário:</strong> ${secondary.toUpperCase()} 
+            (<em>${count2} seleções - ${perc2}%</em>)<br>
+            <strong>Terciário:</strong> ${tertiary.toUpperCase()} 
+            (<em>${count3} seleções - ${perc3}%</em>)
+        </p>
+        </div>
+
+        <div class="row justify-content-center mb-4">
+        <div class="col-lg-8">
+            <div class="style-result primary-style p-3 mb-3">
+            <h4><span class="style-icon">⭐</span> Estilo Primário</h4>
+            <span class="style-name">${primary.toUpperCase()}</span>
+            <p class="style-description">
+                ${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="row justify-content-center mb-4">
+        <div class="col-lg-6">
+            <div class="style-result secondary-style p-3 mb-3">
+            <h4><span class="style-icon">✨</span> Estilo Secundário</h4>
+            <span class="style-name">${secondary.toUpperCase()}</span>
+            <p class="style-description">
+                ${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}
+            </p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="style-result tertiary-style p-3 mb-3">
+            <h4><span class="style-icon">💫</span> Estilo Terciário</h4>
+            <span class="style-name">${tertiary.toUpperCase()}</span>
+            <p class="style-description">
+                ${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <p class="final-call-to-action text-center mt-4">
+        Para entender todos os detalhes sobre eles e saber como aplicá-los no seu armário 
+        e na sua rotina, basta acessar os materiais de cada um deles que se encontram 
+        dentro da sessão inicial do nosso aplicativo!
+        </p>
+    `;
+
+    // Insere e exibe o resultado
+    const resultadoDiv = document.getElementById('final-resultado');
+    resultadoDiv.innerHTML       = html;
+    resultadoDiv.style.display   = 'block';
+    resultadoDiv.classList.add('show');
+    }
 
     function getEstiloVencedor(pontuacoes, estilosExcluidos) {
         let maxPontos = -1;
