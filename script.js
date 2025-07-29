@@ -97,6 +97,11 @@
     
     function startQuiz() {
         document.getElementById('quiz-section').style.display = 'block';
+     
+        // Esconde o resultado final caso tenha ficado exposto de execuções anteriores
+        document.getElementById('final-resultado').style.display = 'none';
+
+
         loadAllQuestions();
         // todasAsPerguntas = shuffle([...todasAsPerguntas]); // embaralha mantendo os numeros originais
 
@@ -382,6 +387,10 @@
     }
 
     function proceedToNextStep() {
+
+        // Oculta o resultado final entre fases
+        document.getElementById('final-resultado').style.display = 'none';
+
         // Só chamados quando há modal. Aqui só avançamos fases 1 e 2.
         phaseResultModal.hide();
         faseAtual++;
@@ -486,36 +495,28 @@
     } */
 
     function displayFinalResults() {
-        // 🔒 Só executa e exibe o resultado final quando estivermos na Fase 3
+        const finalDiv = document.getElementById('final-resultado');
+
+        // 1) Guard clause: só continua se estivermos realmente na fase 3
         if (faseAtual < 3) {
-            const finalDiv = document.getElementById('final-resultado');
             finalDiv.style.display = 'none';
-            finalDiv.classList.remove('show');
             return;
         }
 
-        // Garante que o usuário veja do topo
+        // 2) Monta e exibe o resultado final **apenas** na fase 3
         window.scrollTo(0, 0);
-        // Esconde seções anteriores
         document.getElementById('intro-section').style.display = 'none';
         document.getElementById('quiz-section').style.display  = 'none';
 
-        // Extrai estilos finais
         const primary   = estilosPrimarioSecundario.primary   || 'NÃO DEFINIDO';
         const secondary = estilosPrimarioSecundario.secondary || 'NÃO DEFINIDO';
         const tertiary  = estilosPrimarioSecundario.tertiary  || 'NÃO DEFINIDO';
 
-        // (Você pode manter as variáveis de contagem/percentual se quiser usar depois,
-        // mas elas não entram no HTML como antes)
         const count1 = faseCounts[1][primary]   ?? 0;
         const count2 = faseCounts[2][secondary] ?? 0;
         const count3 = faseCounts[3][tertiary]  ?? 0;
-        // const totalQuestionsForPercentage = totalPerguntas;
-        // const perc1 = Math.round((count1 / totalQuestionsForPercentage) * 100);
-        // const perc2 = Math.round((count2 / totalQuestionsForPercentage) * 100);
-        // const perc3 = Math.round((count3 / totalQuestionsForPercentage) * 100);
 
-        // Monta o HTML de resultado — sem percentuais, só com os estilos em texto
+        // SÓ o texto, sem percentuais
         const html = `
             <div class="final-results-header">
             <h3>Diagnóstico de estilo finalizado.</h3>
@@ -526,41 +527,46 @@
                 <strong>Terciário:</strong> ${tertiary.toUpperCase()}
             </p>
             </div>
-            <div class="row justify-content-center">
-            <div class="col-lg-8 mb-4">
-                <div class="style-result primary-style">
+            <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+                <div class="style-result primary-style p-3 mb-3">
                 <h4><span class="style-icon">⭐</span> Estilo Primário</h4>
                 <span class="style-name">${primary.toUpperCase()}</span>
-                <p class="style-description">${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}</p>
+                <p class="style-description">
+                    ${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}
+                </p>
                 </div>
             </div>
             </div>
-            <div class="row justify-content-center">
-            <div class="col-lg-6 mb-4">
-                <div class="style-result secondary-style">
+            <div class="row justify-content-center mb-4">
+            <div class="col-lg-6">
+                <div class="style-result secondary-style p-3 mb-3">
                 <h4><span class="style-icon">✨</span> Estilo Secundário</h4>
                 <span class="style-name">${secondary.toUpperCase()}</span>
-                <p class="style-description">${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}</p>
+                <p class="style-description">
+                    ${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}
+                </p>
                 </div>
             </div>
-            <div class="col-lg-6 mb-4">
-                <div class="style-result tertiary-style">
+            <div class="col-lg-6">
+                <div class="style-result tertiary-style p-3 mb-3">
                 <h4><span class="style-icon">💫</span> Estilo Terciário</h4>
                 <span class="style-name">${tertiary.toUpperCase()}</span>
-                <p class="style-description">${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}</p>
+                <p class="style-description">
+                    ${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}
+                </p>
                 </div>
             </div>
             </div>
-            <p class="final-call-to-action">
-            Para entender todos os detalhes sobre eles e saber como aplicá‑los no seu armário e na sua rotina, 
-            basta acessar os materiais de cada um deles que se encontram dentro da sessão inicial do nosso aplicativo!
+            <p class="final-call-to-action text-center mt-4">
+            Para entender todos os detalhes sobre eles e saber como aplicá‑los no seu armário e na sua rotina,
+            acesse os materiais de cada estilo na sessão inicial do nosso aplicativo!
             </p>
         `;
 
-        const resultadoDiv = document.getElementById('final-resultado');
-        resultadoDiv.innerHTML         = html;
-        resultadoDiv.style.display     = 'block';
-        resultadoDiv.classList.add('show');
+        finalDiv.innerHTML     = html;
+        finalDiv.style.display = 'block';
+        finalDiv.classList.add('show');
     }
 
     function getEstiloVencedor(pontuacoes, estilosExcluidos) {
