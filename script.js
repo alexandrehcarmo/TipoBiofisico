@@ -299,8 +299,14 @@
     } */
 
     function processPhaseResults() {
+        // 🔒 Garante que o final esteja sempre oculto em fases 1 e 2
+        const finalContainer = document.getElementById('final-resultado');
+        finalContainer.style.display = 'none';
+        finalContainer.classList.remove('show');
+        
+
         // Sempre esconda o banner de resultado final nas fases 1 e 2
-        document.getElementById('final-resultado').style.display = 'none';
+        // document.getElementById('final-resultado').style.display = 'none';
 
         // 1) Clone a pontuação desta fase
         faseCounts[faseAtual] = { ...pontuacaoEstilos };
@@ -480,91 +486,81 @@
     } */
 
     function displayFinalResults() {
-    const finalDiv = document.getElementById('final-resultado');
+        // 🔒 Só executa e exibe o resultado final quando estivermos na Fase 3
+        if (faseAtual < 3) {
+            const finalDiv = document.getElementById('final-resultado');
+            finalDiv.style.display = 'none';
+            finalDiv.classList.remove('show');
+            return;
+        }
 
-    // 🚫 Se não for a fase 3, garante que o “final” fique oculto e sai sem renderizar nada.
-    if (faseAtual < 3) {
-        finalDiv.style.display = 'none';
-        return;
-    }
+        // Garante que o usuário veja do topo
+        window.scrollTo(0, 0);
+        // Esconde seções anteriores
+        document.getElementById('intro-section').style.display = 'none';
+        document.getElementById('quiz-section').style.display  = 'none';
 
-    // — Só daqui pra baixo é a montagem do resultado final da Fase 3 —
+        // Extrai estilos finais
+        const primary   = estilosPrimarioSecundario.primary   || 'NÃO DEFINIDO';
+        const secondary = estilosPrimarioSecundario.secondary || 'NÃO DEFINIDO';
+        const tertiary  = estilosPrimarioSecundario.tertiary  || 'NÃO DEFINIDO';
 
-    // Garante que estamos no topo
-    window.scrollTo(0, 0);
+        // (Você pode manter as variáveis de contagem/percentual se quiser usar depois,
+        // mas elas não entram no HTML como antes)
+        const count1 = faseCounts[1][primary]   ?? 0;
+        const count2 = faseCounts[2][secondary] ?? 0;
+        const count3 = faseCounts[3][tertiary]  ?? 0;
+        // const totalQuestionsForPercentage = totalPerguntas;
+        // const perc1 = Math.round((count1 / totalQuestionsForPercentage) * 100);
+        // const perc2 = Math.round((count2 / totalQuestionsForPercentage) * 100);
+        // const perc3 = Math.round((count3 / totalQuestionsForPercentage) * 100);
 
-    // Esconde introdução e quiz
-    document.getElementById('intro-section').style.display = 'none';
-    document.getElementById('quiz-section').style.display  = 'none';
-
-    // Extrai estilos finalistas
-    const primary   = estilosPrimarioSecundario.primary   || 'NÃO DEFINIDO';
-    const secondary = estilosPrimarioSecundario.secondary || 'NÃO DEFINIDO';
-    const tertiary  = estilosPrimarioSecundario.tertiary  || 'NÃO DEFINIDO';
-
-    // Contagens e percentuais
-    const count1 = faseCounts[1][primary]   ?? 0;
-    const count2 = faseCounts[2][secondary] ?? 0;
-    const count3 = faseCounts[3][tertiary]  ?? 0;
-    const total  = totalPerguntas;
-    const perc1  = Math.round((count1 / total) * 100);
-    const perc2  = Math.round((count2 / total) * 100);
-    const perc3  = Math.round((count3 / total) * 100);
-
-    // HTML final
-    finalDiv.innerHTML = `
-        <div class="final-results-header">
-        <h3>Diagnóstico de estilo finalizado.</h3>
-        <p class="text-center mb-1 lead">Parabéns! Os seus estilos são:</p>
-        <p class="text-left mb-4">
-            <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
-            <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
-            <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>)
-        </p>
-        </div>
-
-        <div class="row justify-content-center mb-4">
-        <div class="col-lg-8">
-            <div class="style-result primary-style p-3 mb-3">
-            <h4><span class="style-icon">⭐</span> Estilo Primário</h4>
-            <span class="style-name">${primary.toUpperCase()}</span>
-            <p class="style-description">
-                ${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}
+        // Monta o HTML de resultado — sem percentuais, só com os estilos em texto
+        const html = `
+            <div class="final-results-header">
+            <h3>Diagnóstico de estilo finalizado.</h3>
+            <p class="text-center mb-1 lead">Parabéns! Os seus estilos são:</p>
+            <p class="text-left mb-4">
+                <strong>Primário:</strong> ${primary.toUpperCase()}<br>
+                <strong>Secundário:</strong> ${secondary.toUpperCase()}<br>
+                <strong>Terciário:</strong> ${tertiary.toUpperCase()}
             </p>
             </div>
-        </div>
-        </div>
-
-        <div class="row justify-content-center mb-4">
-        <div class="col-lg-6">
-            <div class="style-result secondary-style p-3 mb-3">
-            <h4><span class="style-icon">✨</span> Estilo Secundário</h4>
-            <span class="style-name">${secondary.toUpperCase()}</span>
-            <p class="style-description">
-                ${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}
-            </p>
+            <div class="row justify-content-center">
+            <div class="col-lg-8 mb-4">
+                <div class="style-result primary-style">
+                <h4><span class="style-icon">⭐</span> Estilo Primário</h4>
+                <span class="style-name">${primary.toUpperCase()}</span>
+                <p class="style-description">${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}</p>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="style-result tertiary-style p-3 mb-3">
-            <h4><span class="style-icon">💫</span> Estilo Terciário</h4>
-            <span class="style-name">${tertiary.toUpperCase()}</span>
-            <p class="style-description">
-                ${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}
-            </p>
             </div>
-        </div>
-        </div>
+            <div class="row justify-content-center">
+            <div class="col-lg-6 mb-4">
+                <div class="style-result secondary-style">
+                <h4><span class="style-icon">✨</span> Estilo Secundário</h4>
+                <span class="style-name">${secondary.toUpperCase()}</span>
+                <p class="style-description">${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}</p>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="style-result tertiary-style">
+                <h4><span class="style-icon">💫</span> Estilo Terciário</h4>
+                <span class="style-name">${tertiary.toUpperCase()}</span>
+                <p class="style-description">${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}</p>
+                </div>
+            </div>
+            </div>
+            <p class="final-call-to-action">
+            Para entender todos os detalhes sobre eles e saber como aplicá‑los no seu armário e na sua rotina, 
+            basta acessar os materiais de cada um deles que se encontram dentro da sessão inicial do nosso aplicativo!
+            </p>
+        `;
 
-        <p class="final-call-to-action text-center mt-4">
-        Para entender todos os detalhes sobre eles e saber como aplicá‑los no seu armário e na sua rotina,
-        acesse os materiais de cada estilo na sessão inicial do nosso aplicativo!
-        </p>
-    `;
-
-    // Exibe o resultado final
-    finalDiv.style.display = 'block';
-    finalDiv.classList.add('show');
+        const resultadoDiv = document.getElementById('final-resultado');
+        resultadoDiv.innerHTML         = html;
+        resultadoDiv.style.display     = 'block';
+        resultadoDiv.classList.add('show');
     }
 
     function getEstiloVencedor(pontuacoes, estilosExcluidos) {
