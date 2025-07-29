@@ -477,45 +477,46 @@
     } */
 
     function displayFinalResults() {
-    // 🚫 Saí imediatamente se ainda não for a Fase 3
-    if (faseAtual < 3) return;
+    const finalDiv = document.getElementById('final-resultado');
 
-    // Garante que o usuário esteja no topo da página
+    // 🚫 Se não for a fase 3, garante que o “final” fique oculto e sai sem renderizar nada.
+    if (faseAtual < 3) {
+        finalDiv.style.display = 'none';
+        return;
+    }
+
+    // — Só daqui pra baixo é a montagem do resultado final da Fase 3 —
+
+    // Garante que estamos no topo
     window.scrollTo(0, 0);
 
-    // Esconde seções que já não interessam
+    // Esconde introdução e quiz
     document.getElementById('intro-section').style.display = 'none';
     document.getElementById('quiz-section').style.display  = 'none';
 
-    // Extrai estilos finais
+    // Extrai estilos finalistas
     const primary   = estilosPrimarioSecundario.primary   || 'NÃO DEFINIDO';
     const secondary = estilosPrimarioSecundario.secondary || 'NÃO DEFINIDO';
     const tertiary  = estilosPrimarioSecundario.tertiary  || 'NÃO DEFINIDO';
 
-    // Busca as contagens salvas
+    // Contagens e percentuais
     const count1 = faseCounts[1][primary]   ?? 0;
     const count2 = faseCounts[2][secondary] ?? 0;
     const count3 = faseCounts[3][tertiary]  ?? 0;
-    const totalQuestionsForPercentage = totalPerguntas;
+    const total  = totalPerguntas;
+    const perc1  = Math.round((count1 / total) * 100);
+    const perc2  = Math.round((count2 / total) * 100);
+    const perc3  = Math.round((count3 / total) * 100);
 
-    const perc1 = Math.round((count1 / totalQuestionsForPercentage) * 100);
-    const perc2 = Math.round((count2 / totalQuestionsForPercentage) * 100);
-    const perc3 = Math.round((count3 / totalQuestionsForPercentage) * 100);
-
-    // Monta o HTML de resultado final
-    const html = `
+    // HTML final
+    finalDiv.innerHTML = `
         <div class="final-results-header">
         <h3>Diagnóstico de estilo finalizado.</h3>
-        <p class="text-center mb-1 lead">
-            Parabéns! Os seus estilos são:
-        </p>
+        <p class="text-center mb-1 lead">Parabéns! Os seus estilos são:</p>
         <p class="text-left mb-4">
-            <strong>Primário:</strong> ${primary.toUpperCase()} 
-            (<em>${count1} seleções - ${perc1}%</em>)<br>
-            <strong>Secundário:</strong> ${secondary.toUpperCase()} 
-            (<em>${count2} seleções - ${perc2}%</em>)<br>
-            <strong>Terciário:</strong> ${tertiary.toUpperCase()} 
-            (<em>${count3} seleções - ${perc3}%</em>)
+            <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
+            <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
+            <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>)
         </p>
         </div>
 
@@ -553,17 +554,14 @@
         </div>
 
         <p class="final-call-to-action text-center mt-4">
-        Para entender todos os detalhes sobre eles e saber como aplicá-los no seu armário 
-        e na sua rotina, basta acessar os materiais de cada um deles que se encontram 
-        dentro da sessão inicial do nosso aplicativo!
+        Para entender todos os detalhes sobre eles e saber como aplicá‑los no seu armário e na sua rotina,
+        acesse os materiais de cada estilo na sessão inicial do nosso aplicativo!
         </p>
     `;
 
-    // Insere e exibe o resultado
-    const resultadoDiv = document.getElementById('final-resultado');
-    resultadoDiv.innerHTML       = html;
-    resultadoDiv.style.display   = 'block';
-    resultadoDiv.classList.add('show');
+    // Exibe o resultado final
+    finalDiv.style.display = 'block';
+    finalDiv.classList.add('show');
     }
 
     function getEstiloVencedor(pontuacoes, estilosExcluidos) {
