@@ -1,13 +1,29 @@
-    html {
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    /* html {
         box-sizing: border-box;
         scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
         margin: 0 !important;   /*Garante que não haja margem externa */
         padding: 0 !important;  /* Garante que não haja padding externo */
         overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
-    }
+        background-color: var(--brand-neutral-light); /* Garante que o fundo do HTML também seja o bege claro */
+    } */
+
+    html {
+        height: 100%;           /* html ocupa 100% da altura da viewport */
+        margin: 0;              /* Remove margens padrão do html */
+        padding: 0;             /* Remove paddings padrão do html */
+        overflow-x: hidden;     /* Evita rolagem horizontal indesejada (sem !important) */
+        background-color: var(--brand-neutral-light); /* Fundo da página */
+        scrollbar-width: none;  /* Esconde a barra de rolagem no Firefox */
+        /* Para esconder a barra de rolagem no WebKit (Chrome, Edge, Safari): */
+        -ms-overflow-style: none;  /* IE 10+ */
+    }   
 
     /* Melhor esconder scrollbar no Chrome/Safari:  */
-      body::-webkit-scrollbar {
+    body::-webkit-scrollbar {
       display: none;
     }
 
@@ -19,20 +35,61 @@
     html::-webkit-scrollbar {
         width: 0px;  /* Define a largura como 0 para torná-la invisível */
         background: transparent;  /* Garante que não haja fundo visível */
+        /* Esconder scrollbar para WebKit browsers (Chrome, Safari, Edge) */
+        display: none;
     }
 
-    body { background-color: var(--brand-neutral-light); /*  Usará o novo bege */
-        font-family: var(--font-body); /*  Usará Poppins */
+    /* body { background-color: var(--brand-neutral-light); /*  Usará o novo bege 
+        font-family: var(--font-body); /*  Usará Poppins 
         padding-bottom: 50px;
-        color: var(--brand-neutral-dark); /* Usará o novo preto */
-        max-width: 1200px; /*  Limita a largura máxima do corpo da página */
-        margin-left: auto; /*  Centraliza o corpo da página */
-        margin-right: auto; /*  Centraliza o corpo da página */
-        box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
-        padding-top: 60px; /*  Altura do seu cabeçalho fixo  */
-        overflow-x: hidden !important;/*  Previne rolagem horizontal */
+        color: var(--brand-neutral-dark); /* Usará o novo preto 
+        max-width: 1200px; /*  Limita a largura máxima do corpo da página 
+        margin-left: auto; /*  Centraliza o corpo da página 
+        margin-right: auto; /*  Centraliza o corpo da página 
+        box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site 
+        padding-top: 60px; /*  Altura do seu cabeçalho fixo  
+        overflow-x: hidden !important;/*  Previne rolagem horizontal 
         -ms-overflow-style: none;
+
+        /* ALTERAÇÃO PARA CORRIGIR EM ANDROID 
+        min-height: calc(var(--vh, 1vh) * 100); /* Garante que o body tenha pelo menos 100% da altura da viewport calculada 
+        display: flex; /* Se o seu layout principal precisar de flexbox no body 
+        flex-direction: column; /* Para empilhar o conteúdo e fazer o footer (se houver) ir para o fundo 
+
+        overscroll-behavior-y: contain; /* Impede o overscroll vertical no body 
+    } */
+
+    body {
+        height: 100%;           /* body ocupa 100% da altura do html (importante para min-height vh) */
+        margin: 0;              /* Remove margens padrão do body */
+        padding: 0;             /* Remove paddings padrão do body */
+
+        /* Suas novas regras para o body, conforme discutimos antes: */
+        min-height: calc(var(--vh, 1vh) * 100); /* Garante que o body tenha pelo menos 100% da altura da viewport calculada */
+        display: flex;          /* Transforma o body em container flex */
+        flex-direction: column; /* Organiza os itens do body em coluna */
+        overscroll-behavior-y: contain; /* Impede o overscroll vertical */
+
+        /* Manter as outras propriedades do body que você já tinha, como: */
+        font-family: var(--font-body);
+        padding-bottom: 50px;
+        color: var(--brand-neutral-dark);
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 30px rgba(0,0,0,0.05);
+        padding-top: 60px;
+        overflow-x: hidden !important; /* Mantenho o !important aqui para garantir que nenhuma outra regra anule o overflow-x do body, dado o seu contexto. No html já removemos. */
     }
+
+    html, body {
+    height: 100%; /* Garante que 'html' e 'body' tentem ocupar 100% da altura do pai */
+    margin: 0;
+    padding: 0;
+    /* Certificar que o overflow-x esteja aqui, conforme já está no código */
+    overflow-x: hidden !important;
+    }
+
 
     .intro-page {
         padding: 40px !important; /*  Aumenta o padding interno para dar mais "ar" */
