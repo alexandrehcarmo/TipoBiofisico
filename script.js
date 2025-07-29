@@ -304,14 +304,11 @@
     } */
 
     function processPhaseResults() {
-        // 🔒 Garante que o final esteja sempre oculto em fases 1 e 2
-        const finalContainer = document.getElementById('final-resultado');
-        finalContainer.style.display = 'none';
-        finalContainer.classList.remove('show');
-        
-
-        // Sempre esconda o banner de resultado final nas fases 1 e 2
-        // document.getElementById('final-resultado').style.display = 'none';
+       // passo 0: esconde e limpa o container FINAL em TODAS as fases
+       const finalDiv = document.getElementById('final-resultado');
+       finalDiv.style.display = 'none';
+       finalDiv.classList.remove('show');
+       finalDiv.innerHTML = '';
 
         // 1) Clone a pontuação desta fase
         faseCounts[faseAtual] = { ...pontuacaoEstilos };
@@ -497,13 +494,14 @@
     function displayFinalResults() {
         const finalDiv = document.getElementById('final-resultado');
 
-        // 1) Guard clause: só continua se estivermos realmente na fase 3
+        // 1) sair imediatamente se não for a fase 3
         if (faseAtual < 3) {
             finalDiv.style.display = 'none';
             return;
         }
 
-        // 2) Monta e exibe o resultado final **apenas** na fase 3
+        // — só chegamos aqui na fase 3, monta o HTML final —
+
         window.scrollTo(0, 0);
         document.getElementById('intro-section').style.display = 'none';
         document.getElementById('quiz-section').style.display  = 'none';
@@ -512,11 +510,6 @@
         const secondary = estilosPrimarioSecundario.secondary || 'NÃO DEFINIDO';
         const tertiary  = estilosPrimarioSecundario.tertiary  || 'NÃO DEFINIDO';
 
-        const count1 = faseCounts[1][primary]   ?? 0;
-        const count2 = faseCounts[2][secondary] ?? 0;
-        const count3 = faseCounts[3][tertiary]  ?? 0;
-
-        // SÓ o texto, sem percentuais
         const html = `
             <div class="final-results-header">
             <h3>Diagnóstico de estilo finalizado.</h3>
@@ -527,41 +520,7 @@
                 <strong>Terciário:</strong> ${tertiary.toUpperCase()}
             </p>
             </div>
-            <div class="row justify-content-center mb-4">
-            <div class="col-lg-8">
-                <div class="style-result primary-style p-3 mb-3">
-                <h4><span class="style-icon">⭐</span> Estilo Primário</h4>
-                <span class="style-name">${primary.toUpperCase()}</span>
-                <p class="style-description">
-                    ${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}
-                </p>
-                </div>
-            </div>
-            </div>
-            <div class="row justify-content-center mb-4">
-            <div class="col-lg-6">
-                <div class="style-result secondary-style p-3 mb-3">
-                <h4><span class="style-icon">✨</span> Estilo Secundário</h4>
-                <span class="style-name">${secondary.toUpperCase()}</span>
-                <p class="style-description">
-                    ${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}
-                </p>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="style-result tertiary-style p-3 mb-3">
-                <h4><span class="style-icon">💫</span> Estilo Terciário</h4>
-                <span class="style-name">${tertiary.toUpperCase()}</span>
-                <p class="style-description">
-                    ${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}
-                </p>
-                </div>
-            </div>
-            </div>
-            <p class="final-call-to-action text-center mt-4">
-            Para entender todos os detalhes sobre eles e saber como aplicá‑los no seu armário e na sua rotina,
-            acesse os materiais de cada estilo na sessão inicial do nosso aplicativo!
-            </p>
+            <!-- ... resto do seu layout final ... -->
         `;
 
         finalDiv.innerHTML     = html;
