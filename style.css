@@ -64,6 +64,11 @@
         margin: 0;              /* Remove margens padrão do body */
         padding: 0;             /* Remove paddings padrão do body */
 
+        /* Calcula: Altura do Cabeçalho (70px) + Margem Top do .container.mt-5 (aprox. 48px) = 118px. Arredondamos para 120px para segurança. */
+        padding-top: 120px !important; /* CORREÇÃO: Compensar cabeçalho + margem do primeiro elemento */
+        /* Valor generoso para garantir que o botão não seja cortado pela barra de navegação do celular */
+        padding-bottom: 120px; /* CORREÇÃO: Espaçamento de segurança para o botão */
+
         /* Suas novas regras para o body, conforme discutimos antes: */
         min-height: calc(var(--vh, 1vh) * 100); /* Garante que o body tenha pelo menos 100% da altura da viewport calculada */
         display: flex;          /* Transforma o body em container flex */
@@ -72,13 +77,13 @@
 
         /* Manter as outras propriedades do body que você já tinha, como: */
         font-family: var(--font-body);
-        padding-bottom: 50px;
+
         color: var(--brand-neutral-dark);
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
         box-shadow: 0 0 30px rgba(0,0,0,0.05);
-        padding-top: 60px;
+
         overflow-x: hidden !important; /* Mantenho o !important aqui para garantir que nenhuma outra regra anule o overflow-x do body, dado o seu contexto. No html já removemos. */
     }
 
@@ -563,20 +568,23 @@
         }
         
         body {
-             /* AJUSTE PARA COMPENSAR A ALTURA DO CABEÇALHO FIXO EM TELAS MENORES */
-            padding-top: 100px !important; /* Garante que o padding superior do body compense a altura do cabeçalho */
-            /* padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+            /* Calcula: Altura do Cabeçalho Mobile (100px) + Margem Top do .container.mt-5 (aprox. 48px) = 148px. Arredondamos para 150px. */
+            padding-top: 150px !important; /* CORREÇÃO: Ajusta o padding-top para o cabeçalho móvel + margem */
+            /* Garante que o padding-bottom seja generoso para telas menores também */
+            padding-bottom: 120px !important; /* CORREÇÃO: Garante espaçamento de segurança para o botão */    
         }
       
     }
 
     @media (max-width: 576px) {
+
         body {
             max-width: 100% !important;
-            padding-left: 5px !important;   /* Mantém o padding horizontal */
-            padding-right: 5px !important;  /* Mantém o padding horizontal */
-            padding-bottom: 8px !important; /* Mantém o padding inferior */
-        /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral, garantindo que o cabeçalho fixo não esconda o conteúdo. */
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+            /* ESTA ERA A PRINCIPAL SUSPEITA! Mude este valor que estava em 8px !important; */
+            padding-bottom: 120px !important; /* CORREÇÃO: Ajuste para ser generoso para telas muito pequenas */
+            /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral */
         }
 
         #final-resultado {
