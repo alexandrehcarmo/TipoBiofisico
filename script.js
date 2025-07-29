@@ -299,51 +299,78 @@
     } */
 
     function processPhaseResults() {
-        // Antes de tudo, clone a pontuação atual naquela fase
+        // 1) Clone a pontuação desta fase
         faseCounts[faseAtual] = { ...pontuacaoEstilos };
 
-        // Determina o estilo vencedor da fase
-        let estilosExcluidos = faseAtual === 2
-            ? [estilosPrimarioSecundario.primary]
-            : faseAtual === 3
-            ? [estilosPrimarioSecundario.primary, estilosPrimarioSecundario.secondary]
-            : [];
-
+        // 2) Determina o estilo vencedor desta fase
+        let estilosExcluidos = [];
+        if (faseAtual === 2) {
+            estilosExcluidos = [estilosPrimarioSecundario.primary];
+        } else if (faseAtual === 3) {
+            estilosExcluidos = [
+            estilosPrimarioSecundario.primary,
+            estilosPrimarioSecundario.secondary
+            ];
+        }
         const estiloVencedorDaFase = getEstiloVencedor(pontuacaoEstilos, estilosExcluidos);
 
-        if (faseAtual === 1)   estilosPrimarioSecundario.primary   = estiloVencedorDaFase;
-        if (faseAtual === 2)   estilosPrimarioSecundario.secondary = estiloVencedorDaFase;
-        if (faseAtual === 3)   estilosPrimarioSecundario.tertiary  = estiloVencedorDaFase;
+        // 3) Armazena o vencedor
+        if (faseAtual === 1) {
+            estilosPrimarioSecundario.primary = estiloVencedorDaFase;
+        } else if (faseAtual === 2) {
+            estilosPrimarioSecundario.secondary = estiloVencedorDaFase;
+        } else {
+            estilosPrimarioSecundario.tertiary = estiloVencedorDaFase;
+        }
 
         console.log(`>>> Fase ${faseAtual} contagens:`, faseCounts[faseAtual]);
-        console.log(`>>> Escolhido como ${faseAtual===1?'primário':faseAtual===2?'secundário':'terciário'}:`, estiloVencedorDaFase);
+        console.log(
+            `>>> Escolhido como ${
+            faseAtual === 1
+                ? 'primário'
+                : faseAtual === 2
+                ? 'secundário'
+                : 'terciário'
+            }:`,
+            estiloVencedorDaFase
+        );
 
-        if (faseAtual < 3) {
-            // mostra modal apenas nas fases 1 e 2
-            const modalTitle = document.getElementById('modalLabel');
-            const modalBody  = document.getElementById('modalBody');
-            const modalBtn   = document.getElementById('modal-continue-btn');
+        // 4) Só mostra modal de transição nas fases 1 e 2
+        const modalTitle = document.getElementById('modalLabel');
+        const modalBody  = document.getElementById('modalBody');
+        const modalBtn   = document.getElementById('modal-continue-btn');
 
-            // mantêm o título original: FASE 2 ou FASE 3
-            modalTitle.textContent = faseAtual === 1 ? 'FASE 2' : 'FASE 3';
+        if (faseAtual === 1) {
+            modalTitle.textContent = 'FASE 2';
+            modalBody.innerHTML = `
+            Perfeito, após estas respostas descobrimos o seu estilo primário.
+            Na segunda fase do teste vamos descobrir o seu estilo secundário.
+            Para isso, as perguntas da fase 1 se repetem, porém,
+            <strong>excluindo as que correspondem ao seu estilo primário</strong>.
+            A ideia aqui é encontrar qual seria a sua
+            <strong>segunda opção</strong> de resposta,
+            para então identificarmos o seu estilo secundário.
+            `;
+            modalBtn.textContent = 'Ir para Fase 2';
+            phaseResultModal.show();
 
-            // mantêm as mensagens completas originais
-            modalBody.innerHTML = faseAtual === 1
-                ? `Perfeito, após estas respostas descobrimos o seu estilo primário. Na segunda fase do teste vamos descobrir o seu estilo secundário. Para isso, as perguntas da fase 1 se repetem, porém, <strong>excluindo as que correspondem ao seu estilo primário</strong>. A ideia aqui é encontrar qual seria a sua <strong>segunda opção</strong> de resposta, para então identificarmos o seu estilo secundário.`
-                : `Estamos quase no fim, já identificamos seus estilos primário e secundário. Agora vamos para a terceira (e última) fase do teste para descobrir o seu estilo terciário. Lembrando, as perguntas das fases 1 e 2 se repetem, mas excluindo as que correspondem aos seus estilos primário e secundário.<br><br>Vamos lá?`;
-
-            modalBtn.textContent = faseAtual === 1 ? 'Ir para Fase 2' : 'Ir para Fase 3';
+        } else if (faseAtual === 2) {
+            modalTitle.textContent = 'FASE 3';
+            modalBody.innerHTML = `
+            Estamos quase no fim, já identificamos seus estilos primário e secundário.
+            Agora vamos para a terceira (e última) fase do teste para descobrir o seu estilo terciário.
+            Lembrando, as perguntas das fases 1 e 2 se repetem,
+            mas excluindo as que correspondem aos seus estilos primário e secundário.<br><br>Vamos lá?
+            `;
+            modalBtn.textContent = 'Ir para Fase 3';
             phaseResultModal.show();
 
         } else {
-            // — Fase 3: exibe direto o resultado final, sem modal —
-            console.log(">>> Chegou na Fase 3, exibindo resultado final");
+            // 5) Somente na Fase 3 exibimos o resultado final
+            console.log(">>> Chegou na Fase 3, exibindo resultado final");
             displayFinalResults();
         }
     }
-
-
-
 
     function proceedToNextStep() {
         // Só chamados quando há modal. Aqui só avançamos fases 1 e 2.
