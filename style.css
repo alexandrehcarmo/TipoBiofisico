@@ -37,7 +37,7 @@
         scrollbar-width: none; /* Firefox para compatibilidade) */
         min-height: 100vh;               /* → permite que o body cresça além da viewport */
         padding-top: 80px;
-        padding-bottom: 120px
+        padding-bottom: 120px !important;
         
     }
 
@@ -617,5 +617,8 @@
         padding-bottom: 120px !important;
     }
     #quiz-section {
-        padding-bottom: 120px !important;
+        padding-bottom: 140px !important;
+    }
+    #quiz-section .pergunta-container:last-of-type {
+         margin-bottom: 20px !important;
     }
