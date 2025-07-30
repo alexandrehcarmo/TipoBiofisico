@@ -363,7 +363,7 @@
         justify-content: flex-start !important; /* Alinha ao topo da caixa */
         align-items: center !important; /* Centraliza horizontalmente o conteúdo da caixa */
         object-fit: contain; /* Garante que a imagem inteira seja visível dentro do espaço, mantendo proporção. */
-        padding-bottom: 120px !important; /* ← ADICIONADA 30/07 */
+        
     }
 
     /* Isso garante que os botões se ajustem melhor ao conteúdo (seja ele curto ou longo) e fiquem centralizados. */
