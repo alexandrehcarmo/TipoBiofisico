@@ -525,12 +525,26 @@
                 </p>
             </div>
 
+            <!-- BLOCO DO ESTILO PRIMÁRIO -->
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mb-4">
+                    <div class="style-result primary-style">
+                        <h4><span class="style-icon">⭐</span>Estilo Primário</h4>
+                        <span class="style-name">${primary.toUpperCase()}</span>
+                        <p class="style-description">${detalhesEstiloMapCompleto[primary]}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCOS DE SECUNDÁRIO E TERCIÁRIO -->
+
             <div class="row justify-content-center">
                 <div class="col-lg-6 mb-4">
                     <div class="style-result secondary-style">
                         <h4><span class="style-icon">✨</span>Estilo Secundário</h4>
                         <span class="style-name">${secondary.toUpperCase()}</span>
-                        <p class="style-description">${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}</p>
+                        <p class="style-description">${detalhesEstiloMapCompleto[secondary]}</p>
                     </div>
                 </div>
 
@@ -538,18 +552,24 @@
                     <div class="style-result tertiary-style">
                         <h4><span class="style-icon">💫</span>Estilo Terciário</h4>
                         <span class="style-name">${tertiary.toUpperCase()}</span>
-                        <p class="style-description">${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}</p>
+                         <p class="style-description">${detalhesEstiloMapCompleto[tertiary]}</p>
                     </div>
                 </div>
             </div>
+
             <p class="final-call-to-action">
-                Para entender todos os detalhes sobre eles e saber como aplicá-los no seu armário e na sua rotina, basta acessar os materiais de cada um deles que se encontram dentro da sessão inicial do nosso aplicativo!
+                Para entender todos os detalhes sobre eles e saber como aplicá-los
+                no seu armário e na sua rotina, basta acessar os materiais
+                de cada um deles que se encontram dentro da sessão inicial do nosso aplicativo!
             </p>
         `;
+
         // Limpa e exibe o resultado final
         finalDiv.innerHTML     = html;
         finalDiv.style.display = 'block';
         finalDiv.classList.add('show');
+        
+        finalDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function getEstiloVencedor(pontuacoes, estilosExcluidos) {
