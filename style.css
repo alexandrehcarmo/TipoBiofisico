@@ -301,7 +301,7 @@
     body {
 /* ALTERADO 30/07*/         
         /* ERA => padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding ... FICOU...*/
-        padding-top: 120px !important; /* Garante que o padding superior do body compense a altura do cabealho */
+        padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabealho */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
