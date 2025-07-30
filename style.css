@@ -145,7 +145,8 @@
 
     /* ALTERADO 30/07 */ 
     .pergunta-container {
-        padding-bottom: 160px; /* espaço extra para “sair” do footer fixo */
+        padding-bottom: 120px; /* espaço extra para “sair” do footer fixo */
+        scroll-margin-bottom: 120px;
     }
 
 
@@ -633,4 +634,8 @@
     }
     #quiz-section .pergunta-container:last-of-type {
          margin-bottom: 200px !important;
+    }
+
+    .quiz-footer { 
+        z-index: 9; /* deixe menor que o conteúdo (ex: 10) */
     }
