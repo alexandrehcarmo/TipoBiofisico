@@ -1,20 +1,18 @@
     html {
         box-sizing: border-box;
-/* ALTERADO 30/07 */        
-        /* scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
+        scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
         margin: 0 !important;   /*Garante que não haja margem externa */
         padding: 0 !important;  /* Garante que não haja padding externo */
-        /* JÁ ESTÁ NO BODY... overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
-        scroll-padding-bottom: 160px; /* ALTERADO 30/07 */ 
+        overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
     }
 
     /* Melhor esconder scrollbar no Chrome/Safari:  */
-    body::-webkit-scrollbar {
+      body::-webkit-scrollbar {
       display: none;
-    } 
+    }
 
     /* Regra para herdar box-sizing para todos os elementos */
-    *,*::before, *::after {
+    *, *::before, *::after {
         box-sizing: inherit;
     }
 
@@ -23,27 +21,17 @@
         background: transparent;  /* Garante que não haja fundo visível */
     }
 
-    body { 
-        background-color: var(--brand-neutral-light); /*  Usará o novo bege */
+    body { background-color: var(--brand-neutral-light); /*  Usará o novo bege */
         font-family: var(--font-body); /*  Usará Poppins */
+        padding-bottom: 50px;
         color: var(--brand-neutral-dark); /* Usará o novo preto */
         max-width: 1200px; /*  Limita a largura máxima do corpo da página */
         margin-left: auto; /*  Centraliza o corpo da página */
         margin-right: auto; /*  Centraliza o corpo da página */
         box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
+        padding-top: 60px; /*  Altura do seu cabeçalho fixo  */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
-
-        overflow-y: auto; /* Permite que o conteúdo do body role verticalmente se exceder a altura */
-
-        height: 100%; /* Garante que o body ocupe 100% da viewport */
-
         -ms-overflow-style: none;
-        scrollbar-width: none; /* Firefox para compatibilidade) */
-
-        min-height: calc(100vh - (80px + 120px)); /* Ou seja, calc(100vh - 200px) */
-        
-        /* padding-top: 80px;*/
-        padding-bottom: 120px !important;
     }
 
     .intro-page {
@@ -137,18 +125,11 @@
 
     .pergunta-container, .intro-page {
         display: none;
-        animation: fadeInSlideUp 0.5s ease-out forwards;
+        animation: fadeInSlideUp 0.6s ease-out forwards;
     }
     .pergunta-container.active, .intro-page.active {
         display: block;
     }
-
-    /* ALTERADO 30/07 */ 
-    .pergunta-container {
-        padding-bottom: 160px; /* espaço extra para “sair” do footer fixo */
-        scroll-margin-bottom: 160px;
-    }
-
 
     .navigation-buttons button.btn-primary { /* Assumindo que este é o botão "Próximo" */
         min-width: 200px; /*  Largura mínima para o botão */
@@ -157,26 +138,8 @@
         border-radius: 8px; /*  Cantos arredondados, conforme padrão da marca */
         font-weight: 600; /*  Fonte semi-bold */
     }
-/* ALTERADO 30/07*/    
-    /* ERA => .navigation-buttons { margin-top: 30px; text-align: center; } E FICOU..*/
 
-    .navigation-buttons {
-        margin-top: 30px;
-        text-align: center;
-        position: fixed; /* Fixa o elemento na viewport */
-        bottom: 0;       /* Alinha na parte inferior da tela */
-        left: 0;         /* Alinha à esquerda */
-        right: 0;        /* Alinha à direita */
-        width: 100%;     /* Garante que ocupe a largura total */
-        max-width: 1200px; /* Limita a largura máxima para centralizar com o corpo */
-        margin-left: auto; /* Centraliza horizontalmente */
-        margin-right: auto; /* Centraliza horizontalmente */
-        padding: 15px 20px; /* Adiciona um padding interno para "respiro" */
-        background-color: var(--brand-neutral-light); /* Fundo para cobrir o conteúdo abaixo */
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.1); /* Sombra suave para destacar */
-        z-index: 999; /* Garante que esteja acima da maioria dos elementos */
-    }
-
+    .navigation-buttons { margin-top: 30px; text-align: center; }
     .navigation-buttons button { margin: 0 10px; }
 
     #final-resultado {
@@ -314,10 +277,7 @@
     }   
     
     body {
-/* ALTERADO 30/07*/         
-        /* ERA => padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding ... FICOU...*/
-        padding-top: 80px !important; /* Garante que o padding superior do body compense a altura do cabealho */
-        padding-bottom: 120px !important; /* * espaço para o botão fixo */
+         padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -336,7 +296,6 @@
         height: auto !important; 
         display: block !important;  
         object-fit: contain; /* Garante que a imagem inteira seja visível dentro do espaço, mantendo proporção. */
-        
     }
 
     /* NOVO BLOCO: REATIVAR display: grid PARA FASES QUE CONTÊM IMAGENS */
@@ -344,11 +303,9 @@
     .row.justify-content-center.phase-1:has(.quiz-img) {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important; /* Layout para Fase 1 com imagens */
-        grid-auto-rows: auto !important; /* ALTERADO 30/07*/
-        grid-template-rows: auto auto auto !important;
+        grid-template-rows: auto auto !important;
         gap: 0.2cm 0.2cm !important;
         justify-items: center; 
-        
     }
     .row.justify-content-center.phase-2:has(.quiz-img),
     
@@ -358,7 +315,6 @@
         grid-template-rows: auto auto !important;
         gap: 0.3cm 0.5cm !important;
         justify-items: center;
-        
     }
 
     /* NOVO BLOCO: Estilo para os ITENS DO GRID (colunas que contêm imagens) */
@@ -380,7 +336,6 @@
         justify-content: flex-start !important; /* Alinha ao topo da caixa */
         align-items: center !important; /* Centraliza horizontalmente o conteúdo da caixa */
         object-fit: contain; /* Garante que a imagem inteira seja visível dentro do espaço, mantendo proporção. */
-        padding-bottom: 120px !important; /* ← ADICIONADA 30/07 */
     }
 
     /* Isso garante que os botões se ajustem melhor ao conteúdo (seja ele curto ou longo) e fiquem centralizados. */
@@ -407,14 +362,6 @@
     .pergunta-container button.btn.mb-1 {
         margin-bottom: 0 !important;
     }    
-
-
-/* ALTERADO 30/07 */
-    /* Ajusta font-size e padding apenas para os botões de opção dentro do quiz */
-    .pergunta-container label.btn {
-            font-size: 1rem;
-            padding: 0.5rem 1rem;
-    }    
     
     /* Remove bottom margin applied by mb classes */
     .row.justify-content-center .mb-1, 
@@ -422,7 +369,6 @@
 
     .row.justify-content-center .mb-3 {
         margin-bottom: 0 !important;
-        
     }
 
     /* Estilo dos botões primários */
@@ -441,16 +387,16 @@
 
     /* Estilos para botões de contorno (opções de pergunta não selecionadas) */
     .btn-outline-primary {
-        color: var(--brand-neutral-dark) /* !important; /* Cor do texto das opções para cinza escuro */
-        border-color: var(--brand-neutral-dark) /* !important; /* Cor da borda das opções para cinza escuro */
-        background-color: transparent /* !important; /* Garante fundo transparente */
+        color: var(--brand-neutral-dark) !important; /* Cor do texto das opções para cinza escuro */
+        border-color: var(--brand-neutral-dark) !important; /* Cor da borda das opções para cinza escuro */
+        background-color: transparent !important; /* Garante fundo transparente */
     }
 
     /* Estilos para o efeito hover (quando o mouse passa por cima) */
     .btn-outline-primary:hover {
-        color: white /* !important; /* Texto branco no hover */
-        background-color: var(--brand-neutral-dark) /* !important; /* Fundo cinza escuro no hover */
-        border-color: var(--brand-neutral-dark) /* !important; /* Borda cinza escuro no hover */
+        color: white !important; /* Texto branco no hover */
+        background-color: var(--brand-neutral-dark) !important; /* Fundo cinza escuro no hover */
+        border-color: var(--brand-neutral-dark) !important; /* Borda cinza escuro no hover */
     }
 
     /* Estilos para o efeito active/focus (quando o botão é clicado ou está focado) */
@@ -464,26 +410,21 @@
 
     /* ESTILOS PARA O CABEÇALHO FIXO COM A LOGO */
     .sticky-header {
-        position: sticky; /* Essencial para que o header "grude" no topo */
-
         position: fixed; /* Isso faz com que o cabeçalho permaneça no lugar, mesmo ao rolar */
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
-        width: 100%;    /* Garante que o header ocupe 100% da largura da viewport */
-        max-width: 380px; /* Ajusta a largura máxima para coincidir com o corpo da página */
-        right: 0;        /* Garante que o cabeçalho se estenda até a borda direita */
+        width: 100%;
+        max-width: 380px;/* <— largura máxima que você desejar */
+        right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        /* padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
-        padding: 10px 0; /* Adiciona um pequeno espaço interno, melhorando a estética. */
-        /* box-shadow: none !important; /* Para testar se a sombra é o problema */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adiciona uma sombra sutil para dar profundidade e separação visual. */
+        padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
+        box-shadow: none !important; /* Para testar se a sombra é o problema */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
         display: flex;   /* Para alinhar a logo dentro dele */
         justify-content: center; /* Centraliza a logo horizontalmente no cabeçalho */
         align-items: center; /* Centraliza a logo verticalmente no cabeçalho */
-        height: 70px; /* << CERTIFIQUE-SE QUE ESTA É A ALTURA PADRÃO NO DESKTOP */
     }
  
     .sticky-header .logo-link img {
@@ -520,7 +461,6 @@
             grid-template-columns: unset !important;
             grid-template-rows: unset !important;
             gap: unset !important;
-            padding-bottom: 120px !important; /* ← ADICIONADA 30/07 */
         }
 
         .sticky-header {
@@ -564,9 +504,7 @@
         }
         
         body {
-/* ALTERADO 30/07*/         
-            /* ERA => padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding ... FICOU... */            
-            padding-top: 120px !important; /* Garante que o padding superior do body compense a altura do cabealho no mobile */
+            padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
         }
       
     }
@@ -576,8 +514,7 @@
             max-width: 100% !important;
             padding-left: 5px !important;   /* Mantém o padding horizontal */
             padding-right: 5px !important;  /* Mantém o padding horizontal */
-            /* ALTERADO 30/07 - ERA... padding-bottom: 8px !important; /* Mantém o padding inferior FICOU....*/
-            padding-bottom: 120px !important; /* Garante espaço para o botão fixo em telas muito pequenas */
+            padding-bottom: 8px !important; /* Mantém o padding inferior */
         /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral, garantindo que o cabeçalho fixo não esconda o conteúdo. */
         }
 
@@ -596,46 +533,3 @@
         font-size: 1rem;
         padding: 0.5rem 1rem;
     }  
-
-    /* ALTERADO 30/07 => NOVO BLOCO: Estilo para o Rodapé Fixo com o Botão de Navegação */
-    #fixed-bottom-bar {
-        position: fixed; /* << FIXA O ELEMENTO na tela */
-        bottom: 0; /* Alinha na parte inferior da viewport */
-        left: 0;
-        right: 0; /* Garante que ocupe a largura total */
-        width: 100%;
-        max-width: 1200px; /* << IMPORTANTE: Alinhar com o max-width do body para centralizar corretamente */
-        margin: 0 auto; /* << IMPORTANTE: Centraliza o rodapé fixo dentro da tela */
-        background-color: var(--brand-neutral-light); /* Cor de fundo (ex: bege da sua marca) */
-        padding: 15px 20px; /* Espaçamento interno (ajuste conforme necessário) */
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para separação */
-        z-index: 999; /* << Garante que esteja acima do conteúdo principal, mas abaixo do header se ambos se tocarem */
-        display: flex; /* Para centralizar o botão dentro da barra */
-        justify-content: center;
-        align-items: center;
-        height: auto; /* A altura será definida pelo padding e conteúdo */
-    }
-
-    /* Ajuste para o botão dentro da barra fixa */
-    #fixed-bottom-bar .btn-primary {
-        width: 100%; /* Faz o botão ocupar a largura da barra */
-        max-width: 400px; /* Limita a largura máxima do botão para melhor estética */
-        /* Remova quaisquer margens verticais que o botão possa ter, pois o padding do #fixed-bottom-bar já controla isso */
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-    }
-
-    /* ALTERADO 30/07 => Garante espaço abaixo do quiz para a barra fixa de navegação */
-    .container.mt-5 {
-        padding-bottom: 120px !important;
-    }
-    #quiz-section {
-        padding-bottom: 140px !important;
-    }
-    #quiz-section .pergunta-container:last-of-type {
-         margin-bottom: 200px !important;
-    }
-
-    .quiz-footer { 
-        z-index: 9; /* deixe menor que o conteúdo (ex: 10) */
-    }
