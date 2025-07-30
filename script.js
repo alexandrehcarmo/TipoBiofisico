@@ -516,17 +516,37 @@
 
         const html = `
             <div class="final-results-header">
-            <h3>Diagnóstico de estilo finalizado.</h3>
-            <p class="text-center mb-1 lead">Parabéns! Os seus estilos são:</p>
-            <p class="text-left mb-4">
-                <strong>Primário:</strong> ${primary.toUpperCase()}<br>
-                <strong>Secundário:</strong> ${secondary.toUpperCase()}<br>
-                <strong>Terciário:</strong> ${tertiary.toUpperCase()}
-            </p>
+                <h3>Diagnóstico de estilo finalizado.</h3>
+                <p class="text-center mb-1 lead">Parabéns! Os seus estilos são:</p>
+                <p class="text-left mb-4">
+                    <strong>Primário:</strong> ${primary.toUpperCase()}<br>
+                    <strong>Secundário:</strong> ${secondary.toUpperCase()}<br>
+                    <strong>Terciário:</strong> ${tertiary.toUpperCase()}
+                </p>
             </div>
-            <!-- ... resto do seu layout final ... -->
-        `;
 
+            <div class="row justify-content-center">
+                <div class="col-lg-6 mb-4">
+                    <div class="style-result secondary-style">
+                        <h4><span class="style-icon">✨</span>Estilo Secundário</h4>
+                        <span class="style-name">${secondary.toUpperCase()}</span>
+                        <p class="style-description">${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="style-result tertiary-style">
+                        <h4><span class="style-icon">💫</span>Estilo Terciário</h4>
+                        <span class="style-name">${tertiary.toUpperCase()}</span>
+                        <p class="style-description">${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}</p>
+                    </div>
+                </div>
+            </div>
+            <p class="final-call-to-action">
+                Para entender todos os detalhes sobre eles e saber como aplicá-los no seu armário e na sua rotina, basta acessar os materiais de cada um deles que se encontram dentro da sessão inicial do nosso aplicativo!
+            </p>
+        `;
+        // Limpa e exibe o resultado final
         finalDiv.innerHTML     = html;
         finalDiv.style.display = 'block';
         finalDiv.classList.add('show');
