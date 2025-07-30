@@ -37,7 +37,7 @@
         scrollbar-width: none; /* Firefox para compatibilidade) */
         min-height: 100vh;               /* → permite que o body cresça além da viewport */
         padding-top: 80px;
-        padding-bottom: 120px !important;
+        padding-bottom: 1200px !important;
     }
 
     .intro-page {
