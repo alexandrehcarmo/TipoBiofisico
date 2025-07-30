@@ -247,7 +247,8 @@
             perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
         }
         
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        // Isso está jogando tudo de volta pro topo e esconder a última opção!
+        // window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function handleAnswerSelection(questionNumber, selectedStyle, selectedOptionLabel) {
