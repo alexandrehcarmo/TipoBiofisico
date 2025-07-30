@@ -73,18 +73,6 @@
         introSection.style.display = 'block';
     }
 
-    /* function nextIntroPage() {
-        if (currentIntroPageIndex < introPages.length - 1) {
-            currentIntroPageIndex++;
-            showIntroPage();
-        } else {
-            document.getElementById('intro-section').classList.add('fade-out-section');
-            setTimeout(() => {
-                document.getElementById('intro-section').style.display = 'none';
-                startQuiz();
-            }, 500);
-        }
-    }*/
     function nextIntroPage() {
         document.getElementById('intro-section').classList.add('fade-out-section');
         setTimeout(() => {
@@ -246,9 +234,6 @@
         if (perguntaDiv) { // Certifica-se de que a perguntaDiv existe
             perguntaDiv.scrollIntoView({ block: "start", behavior: "smooth" });
         }
-        
-        // Isso está jogando tudo de volta pro topo e esconder a última opção!
-        // window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function handleAnswerSelection(questionNumber, selectedStyle, selectedOptionLabel) {
@@ -265,47 +250,6 @@
         perguntaAtualIndice++;
         renderQuestion();
     }
-
-/*    function processPhaseResults() {
-        // Antes de tudo, clone a pontuação atual naquela fase
-        faseCounts[faseAtual] = { ...pontuacaoEstilos };
-        // Determina o estilo vencedor da fase
-        let estilosExcluidos = faseAtual === 2
-            ? [estilosPrimarioSecundario.primary]
-            : faseAtual === 3
-            ? [estilosPrimarioSecundario.primary, estilosPrimarioSecundario.secondary]
-            : [];
-
-        const estiloVencedorDaFase = getEstiloVencedor(pontuacaoEstilos, estilosExcluidos);
-
-        if (faseAtual === 1)   estilosPrimarioSecundario.primary   = estiloVencedorDaFase;
-        if (faseAtual === 2)   estilosPrimarioSecundario.secondary = estiloVencedorDaFase;
-        if (faseAtual === 3)   estilosPrimarioSecundario.tertiary  = estiloVencedorDaFase;
-
-        // console.log(">>> Resultado da Fase", faseAtual, ":", estilosPrimarioSecundario);
-        console.log(`>>> Fase ${faseAtual} contagens:`, faseCounts[faseAtual]);
-        console.log(`>>> Escolhido como ${faseAtual===1?'primário':faseAtual===2?'secundário':'terciário'}:`, estiloVencedorDaFase);
-
-        if (faseAtual < 3) {
-            // mostra modal apenas nas fases 1 e 2
-            const modalTitle = document.getElementById('modalLabel');
-            const modalBody  = document.getElementById('modalBody');
-            const modalBtn   = document.getElementById('modal-continue-btn');
-
-            modalTitle.textContent = faseAtual === 1
-            ? 'FASE 2'
-            : 'FASE 3';
-            modalBody.innerHTML = faseAtual === 1
-            ? `Perfeito, após estas respostas descobrimos o seu estilo primário. Na segunda fase do teste vamos descobrir o seu estilo secundário. Para isso, as perguntas da fase 1 se repetem, porém, <strong>excluindo as que correspondem ao seu estilo primário</strong>. A ideia aqui é encontrar qual seria a sua <strong>segunda opção</strong> de resposta, para então identificarmos o seu estilo secundário.`
-            : `Estamos quase no fim, já identificamos seus estilos primário e secundário. Agora vamos para a terceira (e última) fase do teste para descobrir o seu estilo terciário. Lembrando, as perguntas das fases 1 e 2 se repetem, mas excluindo as que correspondem aos seus estilos primário e secundário.<br><br>Vamos lá?`;
-            modalBtn.textContent   = faseAtual === 1 ? 'Ir para Fase 2' : 'Ir para Fase 3';
-            phaseResultModal.show();
-        } else {
-            // — Fase 3: exibe direto o resultado final, sem modal —
-            console.log(">>> Chegou na Fase 3, exibindo resultado final");
-            displayFinalResults();
-        }
-    } */
 
     function processPhaseResults() {
        // passo 0: esconde e limpa o container FINAL em TODAS as fases
@@ -417,83 +361,6 @@
         }
         return array;
     }
-
-    /* function displayFinalResults() {
-        window.scrollTo(0, 0);
-        const finalDiv = document.getElementById('final-resultado');
-
-        // Esconde tudo o que não interessa mais
-        document.getElementById('intro-section').style.display = 'none';
-        document.getElementById('quiz-section').style.display  = 'none';
-
-        // Extrai estilos finais
-        const primary   = estilosPrimarioSecundario.primary   || 'NÃO DEFINIDO';
-        const secondary = estilosPrimarioSecundario.secondary || 'NÃO DEFINIDO';
-        const tertiary  = estilosPrimarioSecundario.tertiary  || 'NÃO DEFINIDO';
-
-        // Busca as contagens salvas
-        const count1 = faseCounts[1][primary]   ?? 0;
-        const count2 = faseCounts[2][secondary] ?? 0;
-        const count3 = faseCounts[3][tertiary]  ?? 0;
-
-        const totalQuestionsForPercentage = totalPerguntas; // Base para o cálculo da porcentagem (35 perguntas totais)
-
-        const perc1 = Math.round((count1 / totalQuestionsForPercentage) * 100);
-        const perc2 = Math.round((count2 / totalQuestionsForPercentage) * 100);
-        const perc3 = Math.round((count3 / totalQuestionsForPercentage) * 100);
-
-        // Monta o HTML de resultado
-
-        /*  <strong>Primário:</strong> ${primary.toUpperCase()} (<em>${count1} seleções - ${perc1}%</em>)<br>
-        <strong>Secundário:</strong> ${secondary.toUpperCase()} (<em>${count2} seleções - ${perc2}%</em>)<br>
-        <strong>Terciário:</strong> ${tertiary.toUpperCase()} (<em>${count3} seleções - ${perc3}%</em>) *
-
-        const html = `
-            <div class="final-results-header">
-            <h3>Diagnóstico de estilo finalizado.</h3>
-            <p class="text-center mb-1">
-            <p class="lead mb-1">Parabéns! Os seus estilos são:</p>
-            <p class="text-left mb-4">
-                <strong>Primário:</strong> ${primary.toUpperCase()} <br>
-                <strong>Secundário:</strong> ${secondary.toUpperCase()} <br>
-                <strong>Terciário:</strong> ${tertiary.toUpperCase()}
-            </p>
-            </div>
-            <div class="row justify-content-center">
-            <div class="col-lg-8 mb-4">
-                <div class="style-result primary-style">
-                <h4><span class="style-icon">⭐</span>Estilo Primário</h4>
-                <span class="style-name">${primary.toUpperCase()}</span>
-                <p class="style-description">${detalhesEstiloMapCompleto[primary] || 'Descrição não disponível.'}</p>
-                </div>
-            </div>
-            </div>
-            <div class="row justify-content-center">
-            <div class="col-lg-6 mb-4">
-                <div class="style-result secondary-style">
-                <h4><span class="style-icon">✨</span>Estilo Secundário</h4>
-                <span class="style-name">${secondary.toUpperCase()}</span>
-                <p class="style-description">${detalhesEstiloMapCompleto[secondary] || 'Descrição não disponível.'}</p>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="style-result tertiary-style">
-                <h4><span class="style-icon">💫</span>Estilo Terciário</h4>
-                <span class="style-name">${tertiary.toUpperCase()}</span>
-                <p class="style-description">${detalhesEstiloMapCompleto[tertiary] || 'Descrição não disponível.'}</p>
-                </div>
-            </div>
-            </div>
-            <p class="final-call-to-action">
-            Para entender todos os detalhes sobre eles e saber como aplicá-los no seu armário e na sua rotina, basta acessar os materiais de cada um deles que se encontram dentro da sessão inicial do nosso aplicativo!
-            </p>
-        `;
-
-        const resultadoDiv = document.getElementById('final-resultado');
-        resultadoDiv.innerHTML   = html;
-        resultadoDiv.style.display = 'block';
-        resultadoDiv.classList.add('show');
-    } */
 
     function displayFinalResults() {
         const finalDiv = document.getElementById('final-resultado');
@@ -607,21 +474,6 @@
         return sortedEmpatados.find(s => !estilosExcluidos.includes(s)) || sortedEmpatados[0];
     }
 
-/*    function exportarResults() {
-        const data = {
-            estiloQuiz: { estiloPrimario: estilosPrimarioSecundario.primary, estiloSecundario: estilosPrimarioSecundario.secondary, estiloTerciario: estilosPrimarioSecundario.tertiary, respostasCompletas: respostasPorPergunta },
-            dataExportacao: new Date().toISOString()
-        };
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'resultados_analise_estilo.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(a.href);
-    } */
-
     function loadAllQuestions() {
         todasAsPerguntas = [
             { numero: 1, texto: "Como você gostaria de ser percebida ao entrar em um ambiente?", tipo: "text",
@@ -648,13 +500,13 @@
             },
             { numero: 3, texto: "O que é mais importante dentre todas as alternativas?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Ser elegante.", estilo: "clássica" },
-                    { label: "B", text: "Ser prática.", estilo: "tradicional" },
-                    { label: "C", text: "Ser moderna.", estilo: "dramática" },
-                    { label: "D", text: "Ser feminina.", estilo: "romântica" },
-                    { label: "E", text: "Ser atraente.", estilo: "sexy" },
-                    { label: "F", text: "Ser fashion.", estilo: "criativa" },
-                    { label: "G", text: "Ser confortável.", estilo: "básica" }
+                    { label: "A", text: "Ser elegante", estilo: "clássica" },
+                    { label: "B", text: "Ser prática", estilo: "tradicional" },
+                    { label: "C", text: "Ser moderna", estilo: "dramática" },
+                    { label: "D", text: "Ser feminina", estilo: "romântica" },
+                    { label: "E", text: "Ser atraente", estilo: "sexy" },
+                    { label: "F", text: "Ser fashion", estilo: "criativa" },
+                    { label: "G", text: "Ser confortável", estilo: "básica" }
                 ]
             },
             { numero: 4, texto: "Para combinar com <strong>jeans e camiseta básica</strong>, o que é mais a sua cara?", tipo: "text",
@@ -758,24 +610,24 @@
             },
             { numero: 13, texto: "Se você fosse um sapato, você seria:", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Um scarpin de bico fino.", estilo: "clássica" },
-                    { label: "B", text: "Um mocassim.", estilo: "tradicional" },
-                    { label: "C", text: "Uma sandália impactante.", estilo: "dramática" },
-                    { label: "D", text: "Uma sapatilha.", estilo: "romântica" },
-                    { label: "E", text: "Uma sandália de salto agulha e apenas duas tiras.", estilo: "sexy" },
-                    { label: "F", text: "Um sapato colorido e que ninguém tem.", estilo: "criativa" },
-                    { label: "G", text: "Uma rasteira fácil de calçar.", estilo: "básica" }
+                    { label: "A", text: "Um scarpin de bico fino", estilo: "clássica" },
+                    { label: "B", text: "Um mocassim", estilo: "tradicional" },
+                    { label: "C", text: "Uma sandália impactante", estilo: "dramática" },
+                    { label: "D", text: "Uma sapatilha", estilo: "romântica" },
+                    { label: "E", text: "Uma sandália de salto agulha e apenas duas tiras", estilo: "sexy" },
+                    { label: "F", text: "Um sapato colorido e que ninguém tem", estilo: "criativa" },
+                    { label: "G", text: "Uma rasteira fácil de calçar", estilo: "básica" }
                 ]
             },
             { numero: 14, texto: "Qual das afirmações mais se aproxima de você?", tipo: "text",
                 opcoes: [
-                    { label: "A", text: "Gosto de roupas clássicas porque gosto de estar sempre bem vestida e refinada.", estilo: "clássica" },
-                    { label: "B", text: "Gosto de roupas clássicas porque gosto de estar bem vestida de forma prática.", estilo: "tradicional" },
-                    { label: "C", text: "Gosto de roupas clássicas mas mas também me interesso por elementos criativos e modernos.", estilo: "dramática" },
-                    { label: "D", text: "Gosto de roupas que tenham romantismo e feminilidade.", estilo: "romântica" },
-                    { label: "E", text: "Gosto de roupas que sejam sensuais mas que não sejam vulgares.", estilo: "sexy" },
-                    { label: "F", text: "Gosto de roupas diferentes e criativas, amo experimentar um pouco de tudo.", estilo: "criativa" },
-                    { label: "G", text: "Gosto de roupas fáceis, simples e que eu não pareça muito montada.", estilo: "básica" }
+                    { label: "A", text: "Gosto de roupas clássicas porque gosto de estar sempre bem vestida e refinada", estilo: "clássica" },
+                    { label: "B", text: "Gosto de roupas clássicas porque gosto de estar bem vestida de forma prática", estilo: "tradicional" },
+                    { label: "C", text: "Gosto de roupas clássicas mas mas também me interesso por elementos criativos e modernos", estilo: "dramática" },
+                    { label: "D", text: "Gosto de roupas que tenham romantismo e feminilidade", estilo: "romântica" },
+                    { label: "E", text: "Gosto de roupas que sejam sensuais mas que não sejam vulgares", estilo: "sexy" },
+                    { label: "F", text: "Gosto de roupas diferentes e criativas, amo experimentar um pouco de tudo", estilo: "criativa" },
+                    { label: "G", text: "Gosto de roupas fáceis, simples e que eu não pareça muito montada", estilo: "básica" }
                 ]
             },
             { numero: 15, texto: "Qual look tem mais a sua cara?", tipo: "image" },
@@ -823,7 +675,7 @@
                   }
             }
     }
-    // document.addEventListener('DOMContentLoaded', initQuiz);
+
     // Inicia o quiz assim que a página carrega
     window.addEventListener('load', initQuiz);
 
