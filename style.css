@@ -1,29 +1,13 @@
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
-
-    /* html {
+    html {
         box-sizing: border-box;
         scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
         margin: 0 !important;   /*Garante que não haja margem externa */
         padding: 0 !important;  /* Garante que não haja padding externo */
         overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
-        background-color: var(--brand-neutral-light); /* Garante que o fundo do HTML também seja o bege claro */
-    } */
-
-    html {
-        height: 100%;           /* html ocupa 100% da altura da viewport */
-        margin: 0;              /* Remove margens padrão do html */
-        padding: 0;             /* Remove paddings padrão do html */
-        overflow-x: hidden;     /* Evita rolagem horizontal indesejada (sem !important) */
-        background-color: var(--brand-neutral-light); /* Fundo da página */
-        scrollbar-width: none;  /* Esconde a barra de rolagem no Firefox */
-        /* Para esconder a barra de rolagem no WebKit (Chrome, Edge, Safari): */
-        -ms-overflow-style: none;  /* IE 10+ */
-    }   
+    }
 
     /* Melhor esconder scrollbar no Chrome/Safari:  */
-    body::-webkit-scrollbar {
+      body::-webkit-scrollbar {
       display: none;
     }
 
@@ -35,66 +19,20 @@
     html::-webkit-scrollbar {
         width: 0px;  /* Define a largura como 0 para torná-la invisível */
         background: transparent;  /* Garante que não haja fundo visível */
-        /* Esconder scrollbar para WebKit browsers (Chrome, Safari, Edge) */
-        display: none;
     }
 
-    /* body { background-color: var(--brand-neutral-light); /*  Usará o novo bege 
-        font-family: var(--font-body); /*  Usará Poppins 
+    body { background-color: var(--brand-neutral-light); /*  Usará o novo bege */
+        font-family: var(--font-body); /*  Usará Poppins */
         padding-bottom: 50px;
-        color: var(--brand-neutral-dark); /* Usará o novo preto 
-        max-width: 1200px; /*  Limita a largura máxima do corpo da página 
-        margin-left: auto; /*  Centraliza o corpo da página 
-        margin-right: auto; /*  Centraliza o corpo da página 
-        box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site 
-        padding-top: 60px; /*  Altura do seu cabeçalho fixo  
-        overflow-x: hidden !important;/*  Previne rolagem horizontal 
+        color: var(--brand-neutral-dark); /* Usará o novo preto */
+        max-width: 1200px; /*  Limita a largura máxima do corpo da página */
+        margin-left: auto; /*  Centraliza o corpo da página */
+        margin-right: auto; /*  Centraliza o corpo da página */
+        box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
+        padding-top: 60px; /*  Altura do seu cabeçalho fixo  */
+        overflow-x: hidden !important;/*  Previne rolagem horizontal */
         -ms-overflow-style: none;
-
-        /* ALTERAÇÃO PARA CORRIGIR EM ANDROID 
-        min-height: calc(var(--vh, 1vh) * 100); /* Garante que o body tenha pelo menos 100% da altura da viewport calculada 
-        display: flex; /* Se o seu layout principal precisar de flexbox no body 
-        flex-direction: column; /* Para empilhar o conteúdo e fazer o footer (se houver) ir para o fundo 
-
-        overscroll-behavior-y: contain; /* Impede o overscroll vertical no body 
-    } */
-
-    body {
-        height: 100%;           /* body ocupa 100% da altura do html (importante para min-height vh) */
-        margin: 0;              /* Remove margens padrão do body */
-        padding: 0;             /* Remove paddings padrão do body */
-
-        /* CORREÇÃO: Nova altura do cabeçalho (120px) + margin-top do .container.mt-5 (48px) = 168px. Usamos 170px para segurança. */
-        padding-top: 120px !important; /* AJUSTADO: Compensação para a nova altura real do cabeçalho */
-        /* Valor generoso para garantir que o botão não seja cortado pela barra de navegação do celular */
-        padding-bottom: 120px; /* CORREÇÃO: Espaçamento de segurança para o botão */
-
-        /* Suas novas regras para o body, conforme discutimos antes: */
-        min-height: calc(var(--vh, 1vh) * 100); /* Garante que o body tenha pelo menos 100% da altura da viewport calculada */
-        display: flex;          /* Transforma o body em container flex */
-        flex-direction: column; /* Organiza os itens do body em coluna */
-        overscroll-behavior-y: contain; /* Impede o overscroll vertical */
-
-        /* Manter as outras propriedades do body que você já tinha, como: */
-        font-family: var(--font-body);
-
-        color: var(--brand-neutral-dark);
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        box-shadow: 0 0 30px rgba(0,0,0,0.05);
-
-        overflow-x: hidden !important; /* Mantenho o !important aqui para garantir que nenhuma outra regra anule o overflow-x do body, dado o seu contexto. No html já removemos. */
     }
-
-    html, body {
-    height: 100%; /* Garante que 'html' e 'body' tentem ocupar 100% da altura do pai */
-    margin: 0;
-    padding: 0;
-    /* Certificar que o overflow-x esteja aqui, conforme já está no código */
-    overflow-x: hidden !important;
-    }
-
 
     .intro-page {
         padding: 40px !important; /*  Aumenta o padding interno para dar mais "ar" */
@@ -147,10 +85,6 @@
         --font-body: 'Poppins', sans-serif;    /* Poppins para corpo do texto */
     }
 
-    .container.mt-5 {
-        margin-top: 0 !important; /* <--- CORREÇÃO DEFINITIVA: Remove a margem superior padrão do Bootstrap */
-    }
-
     .quiz-img {
         max-width: 100%;
         aspect-ratio: 1/1; 
@@ -187,13 +121,6 @@
         font-size: 0.9rem;
         margin-bottom: 4px;
         display: block;
-    }
-
-
-    /* stylecss.txt - Adicione estas novas regras em local adequado */
-    #intro-section,
-    #quiz-section {
-        margin-top: 3rem; /* <--- CORREÇÃO DEFINITIVA: Adiciona o espaçamento desejado após o cabeçalho */
     }
 
     .pergunta-container, .intro-page {
@@ -344,16 +271,14 @@
         --bs-gutter-y: 0 !important;
     }
 
-    /* .sticky-header {
-        padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto 
-        height: 120px; /* MENOR desde o início
-    }  */ 
+    .sticky-header {
+        padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
+        height: 70px; /* MENOR desde o início*/
+    }   
     
-    /* body {
-        /* AJUSTE PARA COMPENSAR A ALTURA DO CABEÇALHO FIXO 
-        padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabeçalho 
-        /* padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding 
-    } */
+    body {
+         padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+    }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
     /* Garante que se comportem como blocos em uma lista */
@@ -362,9 +287,7 @@
    
     .row.justify-content-center.phase-3 > div[class*="col-"] {
         width: 100% !important; 
-        
-        /* max-width: none !important; */ /* <--- CORREÇÃO DEFINITIVA: REMOVA ESTA LINHA! */
-        
+        max-width: none !important;
         flex-basis: auto !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
@@ -401,9 +324,7 @@
     .row.justify-content-center.phase-3:has(.quiz-img) > div[class*="col-"] {
         width: 100%; /* Garante que a imagem ocupe 100% da largura do seu contêiner */
         height: auto; /* IMPORTANTE: Mantém a proporção da imagem automaticamente */
-        
-        /* max-width: none !important; */ /* <--- CORREÇÃO DEFINITIVA: REMOVA ESTA LINHA! */
-        
+        max-width: none !important;
         flex-basis: auto !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
@@ -497,16 +418,13 @@
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        
+        padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
         box-shadow: none !important; /* Para testar se a sombra é o problema */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
         display: flex;   /* Para alinhar a logo dentro dele */
         justify-content: center; /* Centraliza a logo horizontalmente no cabeçalho */
         align-items: center; /* Centraliza a logo verticalmente no cabeçalho */
-
-        padding: 0px 10px; /* Reduz o padding interno do cabeçalho para deixá-lo mais compacto */
-        height: 120px; /* MENOR desde o início*/
     }
  
     .sticky-header .logo-link img {
@@ -547,7 +465,7 @@
 
         .sticky-header {
             padding: 0px 10px !important;
-            height: 120px;
+            height: 100px;
         }
         
         h3, h4, .lead {
@@ -586,23 +504,18 @@
         }
         
         body {
-            /* Calcula: Altura do Cabeçalho Mobile (100px) + Margem Top do .container.mt-5 (aprox. 48px) = 148px. Arredondamos para 150px. */
-            padding-top: 120px !important; /* CORREÇÃO: Ajusta o padding-top para o cabeçalho móvel + margem */
-            /* Garante que o padding-bottom seja generoso para telas menores também */
-            padding-bottom: 120px !important; /* CORREÇÃO: Garante espaçamento de segurança para o botão */    
+            padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
         }
       
     }
 
     @media (max-width: 576px) {
-
         body {
             max-width: 100% !important;
-            padding-left: 5px !important;
-            padding-right: 5px !important;
-            /* ESTA ERA A PRINCIPAL SUSPEITA! Mude este valor que estava em 8px !important; */
-            padding-bottom: 120px !important; /* CORREÇÃO: Ajuste para ser generoso para telas muito pequenas */
-            /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral */
+            padding-left: 5px !important;   /* Mantém o padding horizontal */
+            padding-right: 5px !important;  /* Mantém o padding horizontal */
+            padding-bottom: 8px !important; /* Mantém o padding inferior */
+        /* O padding-top é controlado pela regra mais específica do @media (max-width: 768px) ou pela geral, garantindo que o cabeçalho fixo não esconda o conteúdo. */
         }
 
         #final-resultado {
@@ -620,18 +533,3 @@
         font-size: 1rem;
         padding: 0.5rem 1rem;
     }  
-
-    .final-title-container {
-        background-color: #f5f1ee; /* bege clarinho ou algo da identidade pro texto final 'Diagnostico de estilo finalizado!' */
-        padding: 20px 15px;
-        margin-bottom: 25px;
-        border-radius: 12px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-        text-align: center;
-    }
-
-    .final-title-container h2 {
-        margin: 0;
-        font-size: 1.6rem;
-        font-weight: bold;
-    }
