@@ -164,6 +164,9 @@
         // Adiciona ao DOM
         quizSection.appendChild(perguntaDiv);
         
+        /* ALTERADO 30/07 */ 
+        perguntaDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
         // Pega o container das opções e aplica classe de fase
 
         const opcoesContainer = document.getElementById(`opcoes-pergunta-${pergunta.numero}`);
