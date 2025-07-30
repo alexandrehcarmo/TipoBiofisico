@@ -31,7 +31,7 @@
         margin-right: auto; /*  Centraliza o corpo da página */
         box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
-        overflow-y: auto; /* Permite que o conteúdo do body role verticalmente se exceder a altura */
+        /* overflow-y: auto; /* Permite que o conteúdo do body role verticalmente se exceder a altura */
         /* height: 100%; /* Garante que o body ocupe 100% da viewport */
         -ms-overflow-style: none;
         scrollbar-width: none; /* Firefox para compatibilidade) */
@@ -612,3 +612,7 @@
         margin-bottom: 0 !important;
     }
 
+    /* ALTERADO 30/07 => Garante espaço abaixo do quiz para a barra fixa de navegação */
+    .container.mt-5 {
+        padding-bottom: 120px !important;
+    }
