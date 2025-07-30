@@ -31,12 +31,17 @@
         margin-right: auto; /*  Centraliza o corpo da página */
         box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
+
         overflow-y: auto; /* Permite que o conteúdo do body role verticalmente se exceder a altura */
+
         height: 100%; /* Garante que o body ocupe 100% da viewport */
+
         -ms-overflow-style: none;
-        /* scrollbar-width: none; /* Firefox para compatibilidade) */
-        min-height: 100vh;               /* → permite que o body cresça além da viewport */
-        padding-top: 80px;
+        scrollbar-width: none; /* Firefox para compatibilidade) */
+
+        min-height: calc(100vh - (80px + 120px)); /* Ou seja, calc(100vh - 200px) */
+        
+        /* padding-top: 80px;*/
         padding-bottom: 120px !important;
     }
 
