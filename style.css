@@ -145,8 +145,8 @@
 
     /* ALTERADO 30/07 */ 
     .pergunta-container {
-        padding-bottom: 120px; /* espaço extra para “sair” do footer fixo */
-        scroll-margin-bottom: 120px;
+        padding-bottom: 160px; /* espaço extra para “sair” do footer fixo */
+        scroll-margin-bottom: 160px;
     }
 
 
