@@ -1,18 +1,20 @@
     html {
         box-sizing: border-box;
-        scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
-        margin: 0 !important;   /*Garante que não haja margem externa */
-        padding: 0 !important;  /* Garante que não haja padding externo */
+/* ALTERADO 30/07 */        
+        /* scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
+        /* margin: 0 !important;   /*Garante que não haja margem externa */
+        /* padding: 0 !important;  /* Garante que não haja padding externo */
+        
         overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
     }
 
     /* Melhor esconder scrollbar no Chrome/Safari:  */
-      body::-webkit-scrollbar {
+    body::-webkit-scrollbar {
       display: none;
     }
 
     /* Regra para herdar box-sizing para todos os elementos */
-    *, *::before, *::after {
+    *,*::before, *::after {
         box-sizing: inherit;
     }
 
@@ -35,6 +37,7 @@
         padding-top: 60px; /*  Altura do seu cabeçalho fixo  */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
         -ms-overflow-style: none;
+        scrollbar-width: none; /* Firefox (ADICIONADO 30/07 para compatibilidade) */
     }
 
     .intro-page {
@@ -385,6 +388,14 @@
     .pergunta-container button.btn.mb-1 {
         margin-bottom: 0 !important;
     }    
+
+
+/* ALTERADO 30/07 */
+    /* Ajusta font-size e padding apenas para os botões de opção dentro do quiz */
+    .pergunta-container label.btn {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+    }    
     
     /* Remove bottom margin applied by mb classes */
     .row.justify-content-center .mb-1, 
@@ -410,16 +421,16 @@
 
     /* Estilos para botões de contorno (opções de pergunta não selecionadas) */
     .btn-outline-primary {
-        color: var(--brand-neutral-dark) !important; /* Cor do texto das opções para cinza escuro */
-        border-color: var(--brand-neutral-dark) !important; /* Cor da borda das opções para cinza escuro */
-        background-color: transparent !important; /* Garante fundo transparente */
+        color: var(--brand-neutral-dark) /* !important; /* Cor do texto das opções para cinza escuro */
+        border-color: var(--brand-neutral-dark) /* !important; /* Cor da borda das opções para cinza escuro */
+        background-color: transparent /* !important; /* Garante fundo transparente */
     }
 
     /* Estilos para o efeito hover (quando o mouse passa por cima) */
     .btn-outline-primary:hover {
-        color: white !important; /* Texto branco no hover */
-        background-color: var(--brand-neutral-dark) !important; /* Fundo cinza escuro no hover */
-        border-color: var(--brand-neutral-dark) !important; /* Borda cinza escuro no hover */
+        color: white /* !important; /* Texto branco no hover */
+        background-color: var(--brand-neutral-dark) /* !important; /* Fundo cinza escuro no hover */
+        border-color: var(--brand-neutral-dark) /* !important; /* Borda cinza escuro no hover */
     }
 
     /* Estilos para o efeito active/focus (quando o botão é clicado ou está focado) */
