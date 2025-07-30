@@ -4,6 +4,8 @@
         margin: 0 !important;   /*Garante que não haja margem externa */
         padding: 0 !important;  /* Garante que não haja padding externo */
         overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
+        /* ALTERADO 30/07 */
+        scroll-padding-top: 104px !important;
     }
 
     /* Melhor esconder scrollbar no Chrome/Safari:  */
@@ -303,7 +305,7 @@
     .row.justify-content-center.phase-1:has(.quiz-img) {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important; /* Layout para Fase 1 com imagens */
-        grid-template-rows: auto auto !important;
+        grid-template-rows: auto auto auto !important; /* ALTERADO 30/07 */
         gap: 0.2cm 0.2cm !important;
         justify-items: center; 
     }
@@ -363,6 +365,13 @@
         margin-bottom: 0 !important;
     }    
     
+    /* ALTERADO 30/07 */
+    .pergunta-container {
+        /* margem “invisível” antes de colar no topo */
+        scroll-margin-top: 104px !important;
+    }
+
+
     /* Remove bottom margin applied by mb classes */
     .row.justify-content-center .mb-1, 
     .row.justify-content-center .mb-2, 
