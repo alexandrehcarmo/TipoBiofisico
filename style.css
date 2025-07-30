@@ -35,7 +35,7 @@
         height: 100%; /* Garante que o body ocupe 100% da viewport */
         -ms-overflow-style: none;
         scrollbar-width: none; /* Firefox para compatibilidade) */
-        
+        padding-bottom: 120px !important; /* garante espaço para o botão fixo */
     }
 
     .intro-page {
