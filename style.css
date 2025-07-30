@@ -320,7 +320,7 @@
         height: auto !important; 
         display: block !important;  
         object-fit: contain; /* Garante que a imagem inteira seja visível dentro do espaço, mantendo proporção. */
-        padding-bottom: 120px !important; /* ← ADICIONADA 30/07 */
+        
     }
 
     /* NOVO BLOCO: REATIVAR display: grid PARA FASES QUE CONTÊM IMAGENS */
