@@ -2,16 +2,15 @@
         box-sizing: border-box;
 /* ALTERADO 30/07 */        
         /* scrollbar-width: none; /* Esconde a barra de rolagem (Firefox)*/
-        /* margin: 0 !important;   /*Garante que não haja margem externa */
-        /* padding: 0 !important;  /* Garante que não haja padding externo */
-        
-        overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
+        margin: 0 !important;   /*Garante que não haja margem externa */
+        padding: 0 !important;  /* Garante que não haja padding externo */
+        /* JÁ ESTÁ NO BODY... overflow-x: hidden !important; /* Super-garantia contra rolagem horizontal */
     }
 
     /* Melhor esconder scrollbar no Chrome/Safari:  */
     body::-webkit-scrollbar {
       display: none;
-    }
+    } 
 
     /* Regra para herdar box-sizing para todos os elementos */
     *,*::before, *::after {
@@ -26,18 +25,16 @@
     body { 
         background-color: var(--brand-neutral-light); /*  Usará o novo bege */
         font-family: var(--font-body); /*  Usará Poppins */
-        
-        padding-bottom: 100px; /* ALTERADO 30/07 - ERA 50 */
-
         color: var(--brand-neutral-dark); /* Usará o novo preto */
         max-width: 1200px; /*  Limita a largura máxima do corpo da página */
         margin-left: auto; /*  Centraliza o corpo da página */
         margin-right: auto; /*  Centraliza o corpo da página */
         box-shadow: 0 0 30px rgba(0,0,0,0.05); /* Uma sombra suave para dar profundidade ao "card" principal do site */
-        padding-top: 60px; /*  Altura do seu cabeçalho fixo  */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
+        overflow-y: auto; /* Permite que o conteúdo do body role verticalmente se exceder a altura */
+        height: 100%; /* Garante que o body ocupe 100% da viewport */
         -ms-overflow-style: none;
-        scrollbar-width: none; /* Firefox (ADICIONADO 30/07 para compatibilidade) */
+        scrollbar-width: none; /* Firefox para compatibilidade) */
     }
 
     .intro-page {
@@ -303,7 +300,7 @@
     body {
 /* ALTERADO 30/07*/         
         /* ERA => padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding ... FICOU...*/
-        padding-top: 70px !important; /* Garante que o padding superior do body compense a altura do cabealho */
+        padding-top: 80px !important; /* Garante que o padding superior do body compense a altura do cabealho */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -447,12 +444,9 @@
         position: fixed; /* Isso faz com que o cabeçalho permaneça no lugar, mesmo ao rolar */
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
-        width: 100%;
-
-        /* ALTERADO 30/07 - ERA...  max-width: 380px;/* <— largura máxima que você desejar FICOU.... */
-        max-width: 1200px; /* Ajusta a largura máxima para coincidir com o corpo da página */
-
-        right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
+        width: 100%;    /* Garante que o header ocupe 100% da largura da viewport */
+        max-width: 380px; /* Ajusta a largura máxima para coincidir com o corpo da página */
+        right: 0;        /* Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
         padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
@@ -462,6 +456,7 @@
         display: flex;   /* Para alinhar a logo dentro dele */
         justify-content: center; /* Centraliza a logo horizontalmente no cabeçalho */
         align-items: center; /* Centraliza a logo verticalmente no cabeçalho */
+        height: 70px; /* << CERTIFIQUE-SE QUE ESTA É A ALTURA PADRÃO NO DESKTOP */
     }
  
     .sticky-header .logo-link img {
@@ -573,3 +568,32 @@
         font-size: 1rem;
         padding: 0.5rem 1rem;
     }  
+
+    /* ALTERADO 30/07 => NOVO BLOCO: Estilo para o Rodapé Fixo com o Botão de Navegação */
+    #fixed-bottom-bar {
+        position: fixed; /* << FIXA O ELEMENTO na tela */
+        bottom: 0; /* Alinha na parte inferior da viewport */
+        left: 0;
+        right: 0; /* Garante que ocupe a largura total */
+        width: 100%;
+        max-width: 1200px; /* << IMPORTANTE: Alinhar com o max-width do body para centralizar corretamente */
+        margin: 0 auto; /* << IMPORTANTE: Centraliza o rodapé fixo dentro da tela */
+        background-color: var(--brand-neutral-light); /* Cor de fundo (ex: bege da sua marca) */
+        padding: 15px 20px; /* Espaçamento interno (ajuste conforme necessário) */
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para separação */
+        z-index: 999; /* << Garante que esteja acima do conteúdo principal, mas abaixo do header se ambos se tocarem */
+        display: flex; /* Para centralizar o botão dentro da barra */
+        justify-content: center;
+        align-items: center;
+        height: auto; /* A altura será definida pelo padding e conteúdo */
+    }
+
+    /* Ajuste para o botão dentro da barra fixa */
+    #fixed-bottom-bar .btn-primary {
+        width: 100%; /* Faz o botão ocupar a largura da barra */
+        max-width: 400px; /* Limita a largura máxima do botão para melhor estética */
+        /* Remova quaisquer margens verticais que o botão possa ter, pois o padding do #fixed-bottom-bar já controla isso */
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
