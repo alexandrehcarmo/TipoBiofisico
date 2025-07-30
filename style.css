@@ -441,6 +441,8 @@
 
     /* ESTILOS PARA O CABEÇALHO FIXO COM A LOGO */
     .sticky-header {
+        position: sticky; /* Essencial para que o header "grude" no topo */
+
         position: fixed; /* Isso faz com que o cabeçalho permaneça no lugar, mesmo ao rolar */
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
@@ -449,8 +451,10 @@
         right: 0;        /* Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
-        box-shadow: none !important; /* Para testar se a sombra é o problema */
+        /* padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
+        padding: 10px 0; /* Adiciona um pequeno espaço interno, melhorando a estética. */
+        /* box-shadow: none !important; /* Para testar se a sombra é o problema */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adiciona uma sombra sutil para dar profundidade e separação visual. */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
         display: flex;   /* Para alinhar a logo dentro dele */
