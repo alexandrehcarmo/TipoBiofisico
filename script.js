@@ -159,7 +159,7 @@
             
             <div class="navigation-buttons d-flex justify-content-between">
                 <button id="btn-voltar"
-                    class="btn btn-secondary btn-lg"
+                    class="btn btn-outline-secondary btn-lg"
                     onclick="voltarPergunta()"
                     ${perguntaAtualIndice === 0 ? 'disabled' : ''}> Voltar
                 </button>
