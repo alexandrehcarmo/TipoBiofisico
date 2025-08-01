@@ -158,6 +158,9 @@
         text-align: left;
         margin-top: 50px;
         line-height: 1.4;
+        /* ALTERADO 30/07 */
+        scroll-margin-top: 104px !important;   /* igual ao header+padding */
+        padding-bottom: 160px !important;     /* espaço extra abaixo do card */
     }
     #final-resultado.show { display: block; opacity: 1; transform: translateY(0); }
 
@@ -408,13 +411,23 @@
         border-color: var(--brand-neutral-dark) !important; /* Borda cinza escuro no hover */
     }
 
-    /* Estilos para o efeito active/focus (quando o botão é clicado ou está focado) */
+    /* Estilos para o efeito active/focus (quando o botão 'Próxima Pergunta' é clicado ou está focado) */
     .btn-outline-primary:active,
     .btn-outline-primary:focus {
         color: white !important;
         background-color: var(--brand-neutral-dark) !important;
         border-color: var(--brand-neutral-dark) !important;
         box-shadow: 0 0 0 0.25rem rgba(14, 14, 14, 0.25) !important; /* Sombra de foco com cor base no novo cinza */
+    }
+
+    /* Estilos para o efeito active/focus (quando o botão 'Voltar' é clicado ou está focado) */
+    .btn-outline-secondary {
+        border-color: var(--brand-secondary) !important;
+        color: var(--brand-secondary) !important;
+    }
+    .btn-outline-secondary:hover {
+        background-color: var(--brand-secondary) !important;
+        color: #fff !important;
     }
 
     /* ESTILOS PARA O CABEÇALHO FIXO COM A LOGO */
