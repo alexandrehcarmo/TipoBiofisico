@@ -425,6 +425,7 @@
         border-color: var(--brand-secondary) !important;
         color: var(--brand-secondary) !important;
     }
+    
     .btn-outline-secondary:hover {
         background-color: var(--brand-secondary) !important;
         color: #fff !important;
