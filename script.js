@@ -159,7 +159,7 @@
             
             <div class="navigation-buttons d-flex justify-content-between">
                 <button id="btn-voltar"
-                    class="btn btn-outline-secondary btn-lg"
+                    class="btn btn-secondary btn-lg"
                     onclick="voltarPergunta()"
                     ${perguntaAtualIndice === 0 ? 'disabled' : ''}> Voltar
                 </button>
@@ -724,3 +724,4 @@
     window.avancarParaProximaPergunta = avancarParaProximaPergunta;
     window.handleAnswerSelection = handleAnswerSelection;
     window.renderQuestion = renderQuestion;
+    window.voltarPergunta = voltarPergunta;
