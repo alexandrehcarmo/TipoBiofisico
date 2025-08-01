@@ -133,7 +133,7 @@
         const numeroExibicao = perguntaAtualIndice + 1;
 
         // Monta o HTML completo da pergunta
-        perguntaDiv.innerHTML = `
+        /* perguntaDiv.innerHTML = `
             <p class="lead text-center">
                 <strong>Pergunta ${numeroExibicao} de ${totalPerguntas} (Fase ${faseAtual})</strong>
             </p>
@@ -147,6 +147,29 @@
               Próxima Pergunta
            </button>
         </div>
+        `; */
+
+        perguntaDiv.innerHTML = `
+            <p class="lead text-center">
+                <strong>Pergunta ${numeroExibicao} de ${totalPerguntas} (Fase ${faseAtual})</strong>
+            </p>
+            <p class="text-center h5">${pergunta.texto}</p>
+            
+            <div class="row justify-content-center mt-3" id="opcoes-pergunta-${pergunta.numero}"></div>
+            
+            <div class="navigation-buttons d-flex justify-content-between">
+                <button id="btn-voltar"
+                    class="btn btn-outline-secondary btn-lg"
+                    onclick="voltarPergunta()"
+                    ${perguntaAtualIndice === 0 ? 'disabled' : ''}> Voltar
+                </button>
+                <button id="btn-proxima"
+                    class="btn btn-primary btn-lg"
+                    onclick="avancarParaProximaPergunta()"
+                    disabled>
+                    Próxima Pergunta
+                </button>
+            </div>
         `;
 
         // Adiciona ao DOM
@@ -251,6 +274,24 @@
         renderQuestion();
     }
 
+    function voltarPergunta() {
+        if (perguntaAtualIndice > 0) {
+            // Identifica a pergunta anterior
+            const anterior = todasAsPerguntas[perguntaAtualIndice - 1];
+            const respAntiga = respostasPorPergunta[anterior.numero];
+            // Se havia resposta, remove o ponto
+            if (respAntiga && respAntiga.estilo) {
+                pontuacaoEstilos[respAntiga.estilo]--;
+                delete respostasPorPergunta[anterior.numero];
+            }
+            perguntaAtualIndice--;
+            renderQuestion();
+            // Re-habilita “Próxima” se já tiver resposta nesta pergunta
+            const respAtual = respostasPorPergunta[todasAsPerguntas[perguntaAtualIndice].numero];
+            document.getElementById('btn-proxima').disabled = !respAtual;
+        }
+    }
+
     function processPhaseResults() {
        // passo 0: esconde e limpa o container FINAL em TODAS as fases
        const finalDiv = document.getElementById('final-resultado');
@@ -302,13 +343,8 @@
         if (faseAtual === 1) {
             modalTitle.textContent = 'FASE 2';
             modalBody.innerHTML = `
-            Perfeito, após estas respostas descobrimos o seu estilo primário.
-            Na segunda fase do teste vamos descobrir o seu estilo secundário.
-            Para isso, as perguntas da fase 1 se repetem, porém,
-            <strong>excluindo as que correspondem ao seu estilo primário</strong>.
-            A ideia aqui é encontrar qual seria a sua
-            <strong>segunda opção</strong> de resposta,
-            para então identificarmos o seu estilo secundário.
+            Perfeito, com essas respostas já descobrimos o seu estilo primário. Na segunda fase vamos descobrir o seu estilo secundário.<br>
+            Para isso, as perguntas da fase 1 se repetem, porém <strong>excluindo as que correspondem ao seu estilo primário</strong>.
             `;
             modalBtn.textContent = 'Ir para Fase 2';
             phaseResultModal.show();
@@ -316,10 +352,11 @@
         } else if (faseAtual === 2) {
             modalTitle.textContent = 'FASE 3';
             modalBody.innerHTML = `
-            Estamos quase no fim, já identificamos seus estilos primário e secundário.
-            Agora vamos para a terceira (e última) fase do teste para descobrir o seu estilo terciário.
-            Lembrando, as perguntas das fases 1 e 2 se repetem,
-            mas excluindo as que correspondem aos seus estilos primário e secundário.<br><br>Vamos lá?
+            Estamos quase no fim, já identificamos seus estilos primário e secundário. 
+            Agora vamos para a terceira (e última) fase do teste para descobrir o seu estilo terciário. 
+            Lembrando, as perguntas das fases 1 e 2 se repetem, mas excluindo as que correspondem aos seus estilos primário e secundário. <br>
+            <br>
+            Vamos lá?
             `;
             modalBtn.textContent = 'Ir para Fase 3';
             phaseResultModal.show();
