@@ -422,12 +422,12 @@
 
     /* Estilos para o efeito active/focus (quando o botão 'Voltar' é clicado ou está focado) */
     .btn-outline-secondary {
-        border-color: var(--brand-secondary) !important;
-        color: var(--brand-secondary) !important;
+        border-color: #00A896 !important;
+        color: #00A896 !important;
     }
-    
+
     .btn-outline-secondary:hover {
-        background-color: var(--brand-secondary) !important;
+        background-color: #00A896 !important;
         color: #fff !important;
     }
 
