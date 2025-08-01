@@ -430,7 +430,7 @@
         background-color: #00A896 !important;
         color: #fff !important;
     }
-
+    
     /* ESTILOS PARA O CABEÇALHO FIXO COM A LOGO */
     .sticky-header {
         position: fixed; /* Isso faz com que o cabeçalho permaneça no lugar, mesmo ao rolar */
