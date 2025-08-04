@@ -61,11 +61,26 @@
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
             }
 
-            // Chame a função inicialmente
+            // Chama a função inicialmente
             setVhProperty();
 
-            // Chame a função novamente se a janela for redimensionada (ex: teclado aparece/desaparece, rotação)
+            // Chama a função novamente se a janela for redimensionada (ex: teclado aparece/desaparece, rotação)
             window.addEventListener('resize', setVhProperty);
+        </script>
+        <script>
+            // Chama a função que esconde a logo ao rolar a tela - add 04/08
+            let lastScrollTop = 0;
+            const header = document.querySelector('.sticky-header');
+
+            window.addEventListener("scroll", function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop){
+                    header.classList.add("hidden");  // esconde ao descer
+                } else {
+                    header.classList.remove("hidden");  // mostra ao subir
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
         </script>
     </body>
 </html>
