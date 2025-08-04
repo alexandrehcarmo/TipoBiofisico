@@ -141,8 +141,22 @@
         font-weight: 600; /*  Fonte semi-bold */
     }
 
-    .navigation-buttons { margin-top: 30px; text-align: center; }
-    .navigation-buttons button { margin: 0 10px; }
+    /* Alterada em 04/08 desta ==>  .navigation-buttons { margin-top: 30px; text-align: center; } para esta...*/
+    .navigation-buttons { 
+        margin-top: 30px; 
+        display: flex; /* Flexbox para alinhar os botões */
+        justify-content: center; /* Centraliza os botões horizontalmente */
+        gap: 16px; /* Espaçamento entre os botões */
+        flex-wrap: wrap;
+        text-align: center; /* Garante que o texto dentro dos botões fique centralizado */
+    }
+    /* Alterada em 04/08 desta ==>  .navigation-buttons button { margin: 0 10px; } para esta...*/
+    .navigation-buttons button {
+        min-width: 160px;
+        max-width: 200px;
+        font-size: 1rem !important;
+        padding: 12px 20px !important;
+    }
 
     #final-resultado {
         display: none;
@@ -556,3 +570,9 @@
         font-size: 1rem;
         padding: 0.5rem 1rem;
     }  
+
+    /* Adicionado 04/08 - esconde a logo ao rolar a tela */ 
+    .sticky-header.hidden {
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
