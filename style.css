@@ -627,3 +627,23 @@
         background-color: #ccc;
         color: #000;
     }
+
+    /* ─────────────────────────────────────────────────────────────────────────── */
+    /* 05/08 Ajustes finais nos botões LADO A LADO gerados pelo renderQuestion()   */
+    /* ─────────────────────────────────────────────────────────────────────────── */
+    .navigation-buttons.d-flex.justify-content-between {
+    gap: 16px;                /* espaço fixo entre V e P */
+    }
+
+    #btn-voltar {
+    flex: 0 0 auto;           /* não cresce */
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
+    }
+
+    #btn-proxima {
+    flex: 0 0 auto;
+    padding: 14px 28px !important;
+    font-size: 1.2rem !important;
+    }
+    /* ──────────────────────────────────────────────────────────────────────────── */
