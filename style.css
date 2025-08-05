@@ -148,7 +148,7 @@
         align-items: stretch; /* Garante que todos os botões tenham a mesma altura */
         justify-content: center; /* Centraliza os botões horizontalmente */
         gap: 16px; /* Espaçamento entre os botões */
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         text-align: center; /* Garante que o texto dentro dos botões fique centralizado */
     }
     /* Incluida em 05/08 */
@@ -478,7 +478,7 @@
         top: 0;          /* Alinha ao topo da janela do navegador */
         left: 0;         /* Alinha à esquerda da janela do navegador */
         width: 100%;
-        max-width: 380px;/* <— largura máxima que você desejar */
+        max-width: none;/* <— largura máxima que você desejar - TELA TODA */
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
@@ -604,9 +604,12 @@
 
      /* Adicionado 05/08 - AJUSTE NOS BOTÕES PRA FICAR LADO A LADO */
     @media (max-width: 480px) {
+        .navigation-buttons {
+            gap: 8px !important; /* Espaço entre os botões */
+        }
         .navigation-buttons button {
             /* Permite que os botões encolham para caber na tela */
-            flex: 1 1 auto !important;
+            flex: 1 1 48% !important; /* dois botões com ~48% cada, cabem lado a lado */
             min-width: 0 !important;
             font-size: 0.9rem !important;
             padding: 8px 12px !important;
