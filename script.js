@@ -725,3 +725,17 @@
     window.handleAnswerSelection = handleAnswerSelection;
     window.renderQuestion = renderQuestion;
     window.voltarPergunta = voltarPergunta;
+
+    // INSERIDO EM 05/08
+    window.addEventListener('scroll', function () {
+        const logo = document.querySelector('.sticky-header .logo-link img');
+        if (!logo) return;
+
+        if (window.scrollY > 0) {
+            logo.style.opacity = '0';
+            logo.style.pointerEvents = 'none';
+        } else {
+            logo.style.opacity = '1';
+            logo.style.pointerEvents = 'auto';
+        }
+    });
