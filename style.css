@@ -480,20 +480,6 @@
         justify-content: center; /* Centraliza a logo horizontalmente no cabeçalho */
         align-items: center; /* Centraliza a logo verticalmente no cabeçalho */
     }
- 
-    /* ALTERADO EM 05/08 DE.... .sticky-header .logo-link img {
-        height: 120px; /* Tamanho da logo desktop
-        width: auto;
-        max-width: 380px; /* Garante que a imagem não ultrapasse o tamanho máximo 
-        margin: 0 auto; /* Centraliza a imagem dentro do link 
-        display: block;
-        background-color: transparent !important; /* Reforça o fundo transparente 
-        border: none !important; /* Reforça a remoção de bordas 
-        outline: none !important; /* Reforça a remoção de outline 
-        box-shadow: none !important; /* Reforça a remoção de sombra 
-        object-fit: contain; /* Garante que a imagem se ajuste ao espaço sem cortar, mantendo a proporção 
-    } PARA... */
-
 
     .sticky-header .logo-link img {
         width: auto;
@@ -604,6 +590,16 @@
             max-width: 900px;
         }   
     }
+
+     /* Adicionado 05/08 - AJUSTE NOS BOTÕES PRA FICAR LADO A LADO */
+    @media (max-width: 480px) {
+        .navigation-buttons button {
+            /* Permite que os botões encolham para caber na tela */
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+        }
+    }
+
 
     .btn {
         font-size: 1rem;
