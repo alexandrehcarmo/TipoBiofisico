@@ -170,18 +170,24 @@
 
     /* Alterada em 05/08 desta ==>  .navigation-buttons button { margin: 0 10px; } para esta...*/
     .navigation-buttons button {
-        /* Faz cada botão crescer para preencher igualmente o espaço disponível */
-        flex: 1 1 auto;
-        /* Impede quebra de linha no texto do botão */
-        white-space: nowrap;
+        /* cada botão ocupa até 45% do container, encolhe se precisar */
+        flex: 1 1 45%;
+         /* quebra de palavra permitida para telas muito estreitas */
+        white-space: normal;
+        word-break: break-word;
+        /* mantém a mesma altura */
+        display: flex;
+        align-items: center;
+        justify-content: center;
         /* Ajustes de texto e padding mantidos */
         font-size: 1rem !important;
         padding: 12px 20px !important;
         /* Não limite largura mínima nem máxima */
         min-width: 0; /*era 160px*/
         max-width: none; /*era 200px*/
-        height: auto;          /* Permite altura automática */
-        align-self: stretch;   /* Faz cada botão esticar verticalmente para igualar a altura */
+        box-sizing: border-box;
+        /* height: auto;          /* Permite altura automática */
+        /*align-self: stretch;   /* Faz cada botão esticar verticalmente para igualar a altura */
     }
 
     #final-resultado {
@@ -602,6 +608,8 @@
             /* Permite que os botões encolham para caber na tela */
             flex: 1 1 auto !important;
             min-width: 0 !important;
+            font-size: 0.9rem !important;
+            padding: 8px 12px !important;
         }
     }
 
