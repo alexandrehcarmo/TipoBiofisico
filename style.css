@@ -34,6 +34,7 @@
         padding-top: 60px; /*  Altura do seu cabeçalho fixo  */
         overflow-x: hidden !important;/*  Previne rolagem horizontal */
         -ms-overflow-style: none;
+        padding-top: 70px; /* 05/08 AJUSTADO: Para corresponder à altura padrão do cabeçalho */
     }
 
     .intro-page {
@@ -147,13 +148,14 @@
         display: flex; /* Flexbox para alinhar os botões */
         align-items: stretch; /* Garante que todos os botões tenham a mesma altura */
         justify-content: center; /* Centraliza os botões horizontalmente */
-        gap: 16px; /* Espaçamento entre os botões */
-        flex-wrap: wrap;
+        gap: 8px; /* Espaçamento entre os botões - 05/08 AJUSTADO: Reduz o espaçamento entre os botões para telas menores, se necessário */*/
+        flex-wrap: nowrap !important; /* REAFIRMADO: Garante que NUNCA quebrem para a linha de baixo */
         text-align: center; /* Garante que o texto dentro dos botões fique centralizado */
+        padding: 0 5px; /* 05/08 NOVO: Adiciona um pequeno padding nas laterais do contêiner para não colar nas bordas da tela */
     }
     /* Incluida em 05/08 */
     .navigation-buttons .btn-voltar {
-        min-width: 140px;
+        /*min-width: 140px;  REMOVIDO EM 05/08*/
         padding: 10px 20px;
         font-size: 1rem;
         background-color: #ccc; /* Opcional: cor diferenciada */
@@ -161,7 +163,7 @@
     }
 
     .navigation-buttons .btn-primary {
-        min-width: 200px;
+        /* min-width: 200px; REMOVIDO EM 05/08*/
         padding: 15px 30px;
         font-size: 1.2rem;
         font-weight: 600;
@@ -171,23 +173,20 @@
     /* Alterada em 05/08 desta ==>  .navigation-buttons button { margin: 0 10px; } para esta...*/
     .navigation-buttons button {
         /* cada botão ocupa até 45% do container, encolhe se precisar */
-        flex: 1 1 45%;
-         /* quebra de palavra permitida para telas muito estreitas */
-        white-space: normal;
-        word-break: break-word;
-        /* mantém a mesma altura */
-        display: flex;
+        flex: 1 1 0; /* 05/08 - MUITO IMPORTANTE: Permite que o botão encolha ao máximo necessário (base 0), mas também cresça */
+        white-space: nowrap !important; /* 05/08 - GARANTIDO: O texto NUNCA quebra em múltiplas linhas */
+        overflow: hidden; /* 05/08 NOVO: Esconde qualquer texto que não caiba após encolher */
+        text-overflow: ellipsis; /* 05/08 NOVO: Adiciona '...' se o texto for cortado (feedback visual) */
+        display: flex; /* mantém a mesma altura */
         align-items: center;
         justify-content: center;
         /* Ajustes de texto e padding mantidos */
         font-size: 1rem !important;
-        padding: 12px 20px !important;
-        /* Não limite largura mínima nem máxima */
-        min-width: 0; /*era 160px*/
-        max-width: none; /*era 200px*/
-        box-sizing: border-box;
-        /* height: auto;          /* Permite altura automática */
-        /*align-self: stretch;   /* Faz cada botão esticar verticalmente para igualar a altura */
+        box-sizing: border-box; /* Garante que padding e border não aumentem a largura total */
+        transition: all 0.2s ease-in-out; /* NOVO: Adiciona uma transição suave para os redimensionamentos */
+        /* Redução agressiva de fonte e padding em telas pequenas usando clamp() */
+        font-size: clamp(0.6rem, 2.8vw, 1rem) !important; /* ALTERADO: Mín. 0.6rem, escala até 2.8% da largura da viewport, máx. 1rem */
+        padding: clamp(8px, 2vw, 12px) clamp(8px, 3vw, 20px) !important; /* ALTERADO: Padding responsivo */
     }
 
     #final-resultado {
@@ -320,10 +319,6 @@
         margin: 0 !important;
         --bs-gutter-x: 0 !important;
         --bs-gutter-y: 0 !important;
-    }
-
-    body {
-         padding-top: 34px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
     }
 
     /* Configuração padrão para TODOS os itens de resposta dentro das fases (botões ou imagens) */
@@ -482,7 +477,7 @@
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
+        padding: 0 !important; /* REMOVE TUDO INDO DE PONTA A PONTA, ERA ASSIM... padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
         box-shadow: none !important; /* Para testar se a sombra é o problema */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
@@ -490,13 +485,14 @@
         justify-content: center; /* Centraliza a logo horizontalmente no cabeçalho */
         align-items: center; /* Centraliza a logo verticalmente */
         height: 70px; /* MENOR desde o início*/
+        overflow: hidden; /* NOVO: Garante que nada transborde do cabeçalho caso a logo seja muito grande */
     }   
     
     .sticky-header .logo-link img {
         width: 100%; /* era auto*/
-        max-width: none; /* era 100%*/
+        max-width: 100%; /*a imagem não excede 100% da largura do container*/
         height: auto;
-        max-height: 120px; /* Tamanho máximo da logo no desktop */
+        max-height: 60px; /* /* AJUSTADO: Limita a altura da logo para caber no cabeçalho de 70px (deixando 5px de padding top/bottom invisível) */
         display: block;
         margin: 0 auto;
         background-color: transparent !important;
@@ -537,8 +533,8 @@
         }
 
         .sticky-header {
-            padding: 0px 10px !important;
-            height: 100px;
+            padding: 0 !important; /*  ALTERADO 05/08: Remove todo o padding para mobile também */
+            height: 80px;  /* AJUSTADO: Reduz um pouco a altura do cabeçalho para mobile, para dar mais espaço ao conteúdo */
         }
         
         h3, h4, .lead {
@@ -572,12 +568,15 @@
         }
         
         .sticky-header .logo-link img {
-             height: 120px; 
+            height: auto; /* 05/08 Mantém auto para proporção */
+            max-width: 100%; /*05/08  GARANTIDO: Preenche 100% da largura em mobile */
+            max-height: 70px; /* 05/08 AJUSTADO: Para caber no novo cabeçalho de 80px */
+            /* height: 120px; 
              max-width: 200px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
         }
         
         body {
-            padding-top: 60px !important; /* Garante que o padding superior do body compense a altura do cabeçalho, mesmo com outras regras de padding */
+            padding-top: 80px !important; /* 05/08 AJUSTADO: Para corresponder à nova altura do cabeçalho em mobile (80px) */ 
         }
       
     }
@@ -602,21 +601,6 @@
         }   
     }
 
-     /* Adicionado 05/08 - AJUSTE NOS BOTÕES PRA FICAR LADO A LADO */
-    @media (max-width: 480px) {
-        .navigation-buttons {
-            gap: 8px !important; /* Espaço entre os botões */
-        }
-        .navigation-buttons button {
-            /* Permite que os botões encolham para caber na tela */
-            flex: 1 1 48% !important; /* dois botões com ~48% cada, cabem lado a lado */
-            min-width: 0 !important;
-            font-size: 0.9rem !important;
-            padding: 8px 12px !important;
-        }
-    }
-
-
     .btn {
         font-size: 1rem;
         padding: 0.5rem 1rem;
@@ -640,22 +624,3 @@
         color: #000;
     }
 
-    /* ─────────────────────────────────────────────────────────────────────────── */
-    /* 05/08 Ajustes finais nos botões LADO A LADO gerados pelo renderQuestion()   */
-    /* ─────────────────────────────────────────────────────────────────────────── */
-    .navigation-buttons.d-flex.justify-content-between {
-    gap: 16px;                /* espaço fixo entre V e P */
-    }
-
-    #btn-voltar {
-    flex: 0 0 auto;           /* não cresce */
-    padding: 10px 20px !important;
-    font-size: 1rem !important;
-    }
-
-    #btn-proxima {
-    flex: 0 0 auto;
-    padding: 14px 28px !important;
-    font-size: 1.2rem !important;
-    }
-    /* ──────────────────────────────────────────────────────────────────────────── */
