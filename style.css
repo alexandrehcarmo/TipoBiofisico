@@ -145,6 +145,7 @@
     .navigation-buttons { 
         margin-top: 30px; 
         display: flex; /* Flexbox para alinhar os botões */
+        align-items: stretch; /* Garante que todos os botões tenham a mesma altura */
         justify-content: center; /* Centraliza os botões horizontalmente */
         gap: 16px; /* Espaçamento entre os botões */
         flex-wrap: nowrap;
@@ -173,6 +174,8 @@
         max-width: 200px;
         font-size: 1rem !important;
         padding: 12px 20px !important;
+        height: auto;          /* Permite altura automática */
+        align-self: stretch;   /* Faz cada botão esticar verticalmente para igualar a altura */
     }
 
     #final-resultado {
