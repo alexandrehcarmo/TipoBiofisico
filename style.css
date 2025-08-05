@@ -147,7 +147,7 @@
         display: flex; /* Flexbox para alinhar os botões */
         justify-content: center; /* Centraliza os botões horizontalmente */
         gap: 16px; /* Espaçamento entre os botões */
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         text-align: center; /* Garante que o texto dentro dos botões fique centralizado */
     }
     /* Incluida em 05/08 */
