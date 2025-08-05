@@ -727,15 +727,20 @@
     window.voltarPergunta = voltarPergunta;
 
     // INSERIDO EM 05/08
-    window.addEventListener('scroll', function () {
-        const logo = document.querySelector('.sticky-header .logo-link img');
-        if (!logo) return;
+    // Cabeçalho some ao rolar para baixo e volta ao rolar para cima
+    let lastScrollY = window.pageYOffset;
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('.sticky-header');
+        const currentScrollY = window.pageYOffset;
 
-        if (window.scrollY > 0) {
-            logo.style.opacity = '0';
-            logo.style.pointerEvents = 'none';
-        } else {
-            logo.style.opacity = '1';
-            logo.style.pointerEvents = 'auto';
+        if (currentScrollY > lastScrollY) {
+            // rolando para baixo → esconde
+            header.classList.add('hidden');
+            } else {
+                // rolando para cima → mostra
+                header.classList.remove('hidden');
         }
+
+        lastScrollY = currentScrollY;
     });
+
