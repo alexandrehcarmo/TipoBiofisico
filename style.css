@@ -568,14 +568,14 @@
         .sticky-header .logo-link img {
             height: auto; /* 05/08 Mantém auto para proporção */
             max-width: 100%; /*05/08  GARANTIDO: Preenche 100% da largura em mobile */
-            max-height: 55px; /* 05/08 AJUSTADO: Para caber no novo cabeçalho de 70px */
+            max-height: 35px; /* 05/08 ALTERADO: A logo agora será menor no mobile (35px) do que no desktop (45px) */
             /* height: 120px; 
              max-width: 200px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
         }
         
-        body {
-            padding-top: 80px !important; /* 05/08 AJUSTADO: Para corresponder à nova altura do cabeçalho em mobile (80px) */ 
-        }
+        /*body {
+            padding-top: 80px !important; /* 05/08 AJUSTADO: Para corresponder à nova altura do cabeçalho em mobile (80px) 
+        }*/
 
         .intro-page h1 {
             font-size: 1.3rem; /* Ainda menor para tablets */
@@ -638,5 +638,16 @@
         .intro-page h3.card-title {
             font-size: 0.95rem; /* Mínimo para smartphones, garanta legibilidade */
             margin-bottom: 0.3rem !important;
+        }
+    }
+
+    /* 05/08 NOVO BLOCO: Consolidação do padding-top do body */
+    body {
+        padding-top: 70px !important; /* Padrão para desktop e telas maiores (altura do sticky-header) */
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding-top: 80px !important; /* Para tablets e celulares (altura do sticky-header ajustada) */
         }
     }
