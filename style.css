@@ -150,6 +150,23 @@
         flex-wrap: wrap;
         text-align: center; /* Garante que o texto dentro dos botões fique centralizado */
     }
+    /* Incluida em 05/08 */
+    .navigation-buttons .btn-voltar {
+        min-width: 140px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #ccc; /* Opcional: cor diferenciada */
+        font-weight: 500;
+    }
+
+    .navigation-buttons .btn-primary {
+        min-width: 200px;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+
     /* Alterada em 04/08 desta ==>  .navigation-buttons button { margin: 0 10px; } para esta...*/
     .navigation-buttons button {
         min-width: 160px;
@@ -465,23 +482,24 @@
     }
  
     /* ALTERADO EM 05/08 DE.... .sticky-header .logo-link img {
-        height: 120px; /* Tamanho da logo desktop*/
+        height: 120px; /* Tamanho da logo desktop
         width: auto;
-        max-width: 380px; /* Garante que a imagem não ultrapasse o tamanho máximo */
-        margin: 0 auto; /* Centraliza a imagem dentro do link */
+        max-width: 380px; /* Garante que a imagem não ultrapasse o tamanho máximo 
+        margin: 0 auto; /* Centraliza a imagem dentro do link 
         display: block;
-        background-color: transparent !important; /* Reforça o fundo transparente */
-        border: none !important; /* Reforça a remoção de bordas */
-        outline: none !important; /* Reforça a remoção de outline */
-        box-shadow: none !important; /* Reforça a remoção de sombra */
+        background-color: transparent !important; /* Reforça o fundo transparente 
+        border: none !important; /* Reforça a remoção de bordas 
+        outline: none !important; /* Reforça a remoção de outline 
+        box-shadow: none !important; /* Reforça a remoção de sombra 
         object-fit: contain; /* Garante que a imagem se ajuste ao espaço sem cortar, mantendo a proporção 
     } PARA... */
 
 
     .sticky-header .logo-link img {
-        width: 100vw;
+        width: auto;
         max-width: 100%;
         height: auto;
+        max-height: 120px; /* Tamanho máximo da logo no desktop */
         display: block;
         margin: 0 auto;
         background-color: transparent !important;
@@ -502,6 +520,12 @@
         justify-content: center;
         align-items: center;
     }    
+
+    /* Esconde a logo quando o cabeçalho está escondido */    
+    .sticky-header.hidden .logo-link {
+        display: none !important;
+    }
+
         
     @media (max-width: 768px) {
         .row.justify-content-center.phase-1:has(.quiz-img),
