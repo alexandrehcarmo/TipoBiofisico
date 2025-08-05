@@ -147,8 +147,8 @@
         margin-top: 30px; 
         display: flex; /* Flexbox para alinhar os botões */
         align-items: stretch; /* Garante que todos os botões tenham a mesma altura */
-        justify-content: center; /* Centraliza os botões horizontalmente */
-        gap: 8px; /* Espaçamento entre os botões - 05/08 AJUSTADO: Reduz o espaçamento entre os botões para telas menores, se necessário */*/
+        justify-content: space-between; /* 05/08 ALTERADO: Alinha "Voltar" à esquerda e "Próxima Pergunta" à direita, o que condiz com o HTML d-flex justify-content-between */
+        gap: 8px; /* Espaçamento entre os botões - 05/08 AJUSTADO: Reduz o espaçamento entre os botões para telas menores, se necessário */
         flex-wrap: nowrap !important; /* REAFIRMADO: Garante que NUNCA quebrem para a linha de baixo */
         text-align: center; /* Garante que o texto dentro dos botões fique centralizado */
         padding: 0 5px; /* 05/08 NOVO: Adiciona um pequeno padding nas laterais do contêiner para não colar nas bordas da tela */
@@ -181,12 +181,10 @@
         align-items: center;
         justify-content: center;
         /* Ajustes de texto e padding mantidos */
-        font-size: 1rem !important;
+        font-size: clamp(0.7rem, 2.8vw, 1rem) !important; /* 05/08 ALTERADO: Aumenta o tamanho mínimo da fonte para melhorar a legibilidade em telas pequenas. */
+        padding: clamp(10px, 2.5vw, 15px) clamp(10px, 3.5vw, 25px) !important; /* 05/08 ALTERADO: Aumenta o padding mínimo para dar mais respiro ao texto e visualmente mais "corpo" aos botões. */
         box-sizing: border-box; /* Garante que padding e border não aumentem a largura total */
         transition: all 0.2s ease-in-out; /* NOVO: Adiciona uma transição suave para os redimensionamentos */
-        /* Redução agressiva de fonte e padding em telas pequenas usando clamp() */
-        font-size: clamp(0.6rem, 2.8vw, 1rem) !important; /* ALTERADO: Mín. 0.6rem, escala até 2.8% da largura da viewport, máx. 1rem */
-        padding: clamp(8px, 2vw, 12px) clamp(8px, 3vw, 20px) !important; /* ALTERADO: Padding responsivo */
     }
 
     #final-resultado {
@@ -477,7 +475,7 @@
         right: 0;        /* <<< ADICIONAR ESTA LINHA: Garante que o cabeçalho se estenda até a borda direita */
         margin: 0 auto;  /* <— centraliza no mobile/desktop */
         background-color: var(--brand-neutral-light); /* Cor de fundo (bege da marca) */
-        padding: 0 !important; /* REMOVE TUDO INDO DE PONTA A PONTA, ERA ASSIM... padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
+        padding: 0 20px !important; /* REMOVE TUDO INDO DE PONTA A PONTA, ERA ASSIM... padding: 0px 10px; /* Espaçamento interno: 10px em cima/baixo, 20px nas laterais */
         box-shadow: none !important; /* Para testar se a sombra é o problema */
         border: none !important;     /* Para testar se alguma borda invisível é o problema */
         z-index: 1000;   /* Garante que o cabeçalho fique acima de outros elementos na página */
@@ -492,7 +490,7 @@
         width: 100%; /* era auto*/
         max-width: 100%; /*a imagem não excede 100% da largura do container*/
         height: auto;
-        max-height: 60px; /* /* AJUSTADO: Limita a altura da logo para caber no cabeçalho de 70px (deixando 5px de padding top/bottom invisível) */
+        max-height: 50px; /* 05/08 AJUSTADO: Limita a altura da logo para caber no cabeçalho de 70px (deixando 5px de padding top/bottom invisível) */
         display: block;
         margin: 0 auto;
         background-color: transparent !important;
@@ -570,7 +568,7 @@
         .sticky-header .logo-link img {
             height: auto; /* 05/08 Mantém auto para proporção */
             max-width: 100%; /*05/08  GARANTIDO: Preenche 100% da largura em mobile */
-            max-height: 70px; /* 05/08 AJUSTADO: Para caber no novo cabeçalho de 80px */
+            max-height: 60px; /* 05/08 AJUSTADO: Para caber no novo cabeçalho de 70px */
             /* height: 120px; 
              max-width: 200px; /* Ajusta o tamanho da logo no mobile para ser mais adequada */
         }
