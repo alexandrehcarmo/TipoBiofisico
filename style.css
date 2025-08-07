@@ -54,6 +54,7 @@ img.section-img,
 #opcoes-visuais img {
   display: block;
   max-width: 100%;
+  max-height: 500px; /* evita “explosão” da imagem */
   height: auto;
   margin: 0 auto 15px;
   border-radius: 8px;
@@ -233,3 +234,31 @@ button:focus {
     }
   }
 
+@media (max-width: 600px) {
+  img.section-img {
+    max-height: 300px;
+  }
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+#imagem-resultado {
+  display: block;
+  max-width: 100%;
+  max-height: 500px;
+  width: auto;
+  height: auto;
+  margin: 20px auto 0;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  #imagem-resultado {
+    max-height: 300px;
+  }
+}
