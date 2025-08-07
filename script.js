@@ -25,10 +25,12 @@ function nextSection() {
     sections[currentSectionIndex].classList.remove("hidden-section");
     sections[currentSectionIndex].classList.add("active-section");
 
-    // Seção com imagens: resetar seleção
+    // Garante que a nova seção comece no topo da visualização
+    window.scrollTo({ top: 0, behavior: "auto" });
+
+    // Se a nova seção contém opções visuais, reseta seleção
     if (sections[currentSectionIndex].querySelector("#opcoes-visuais")) {
       resetOpcaoVisual();
-    }
   }
 }
 
