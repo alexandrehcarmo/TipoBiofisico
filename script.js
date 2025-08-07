@@ -82,40 +82,42 @@ document.addEventListener("DOMContentLoaded", () => {
     exibirResultado(biotipo, origemResultado);
   }
 
-  function exibirResultado(tipo, origem) {
-    const resultadoTexto = document.getElementById("resultado-texto");
-    const imagemResultado = document.getElementById("imagem-resultado");
+function exibirResultado(tipo, origem) {
+  const resultadoTexto = document.getElementById("resultado-texto");
+  const imagemResultado = document.getElementById("imagem-resultado");
 
-    const nomes = {
-      X: "Ampulheta (X)",
-      H: "Retangular (H)",
-      A: "Triangular (A)",
-      V: "Triângulo Invertido (V)",
-      O: "Oval (O)"
-    };
+  const nomes = {
+    X: "Ampulheta (X)",
+    H: "Retangular (H)",
+    A: "Triangular (A)",
+    V: "Triângulo Invertido (V)",
+    O: "Oval (O)"
+  };
 
-    const imagens = {
-      X: "Ampulheta.png",
-      H: "Retangular.png",
-      A: "Triangular.png",
-      V: "Triangular Invertido.png",
-      O: "Oval.png"
-    };
+  const imagensResultadoFinal = {
+    X: "Bonca_Ampulheta.png",
+    H: "Bonca_Retangular.png",
+    A: "Bonca_Triangular.png",
+    V: "Bonca_Triangular Invertido.png",
+    O: "Bonca_Oval.png"
+  };
 
-    let texto = nomes[tipo] || "Não identificado";
+  let texto = nomes[tipo] || "Não identificado";
 
-    if (origem === "visual") {
-      texto += " — resultado baseado na sua percepção visual.";
-    } else {
-      texto += " — resultado calculado com base nas medidas informadas.";
-    }
-
-    resultadoTexto.textContent = texto;
-    imagemResultado.src = `imagens/${imagens[tipo] || 'default.png'}`;
-    imagemResultado.alt = `Imagem do biotipo ${nomes[tipo] || tipo}`;
-
-    nextSection();
+  if (origem === "visual") {
+    texto += " — resultado baseado na sua percepção visual.";
+  } else {
+    texto += " — resultado calculado com base nas medidas informadas.";
   }
+
+  resultadoTexto.textContent = texto;
+
+  imagemResultado.src = `imagens/${imagensResultadoFinal[tipo] || 'default.png'}`;
+  imagemResultado.alt = `Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}`;
+
+  nextSection();
+}
+
 
   function reiniciarTeste() {
     // Oculta a tela atual (resultado)
