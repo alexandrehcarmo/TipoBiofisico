@@ -212,6 +212,7 @@ button:focus {
     max-width: 100%;
   }
 
+
   #opcoes-visuais {
     flex-direction: column;
     gap: 20px;
@@ -223,4 +224,12 @@ button:focus {
     flex-basis: auto;
   }
 }
+
+  @media (max-width: 600px) {
+    button {
+      width: 100%;
+      max-width: 280px;
+      margin: 30px auto 0;
+    }
+  }
 
