@@ -117,6 +117,28 @@ document.addEventListener("DOMContentLoaded", () => {
     nextSection();
   }
 
+  function reiniciarTeste() {
+    // Oculta a tela atual (resultado)
+    sections[currentSectionIndex].classList.remove("active-section");
+    sections[currentSectionIndex].classList.add("hidden-section");
+
+    // Reseta índice e mostra a primeira seção
+    currentSectionIndex = 0;
+    sections[currentSectionIndex].classList.remove("hidden-section");
+    sections[currentSectionIndex].classList.add("active-section");
+
+    // Limpa todos os campos
+    document.getElementById("ombros").value = "";
+    document.getElementById("cintura").value = "";
+    document.getElementById("quadril").value = "";
+    document.getElementById("resultado-texto").textContent = "";
+    document.getElementById("imagem-resultado").src = "";
+    document.getElementById("imagem-resultado").alt = "";
+
+    resetOpcaoVisual();
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
+
   // Inserção dinâmica das imagens e textos da pergunta visual
   const container = document.getElementById("opcoes-visuais");
 
@@ -193,4 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.validarMedidas = validarMedidas;
   window.nextSection = nextSection;
   window.calcularResultado = calcularResultado;
+  window.reiniciarTeste = reiniciarTeste;
+
 });
