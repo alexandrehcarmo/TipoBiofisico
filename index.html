@@ -1,83 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Teste de Estilo Armário Perfeito</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="style.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teste de Biotipo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-        <link rel="icon" href="data:,">
-        <link rel="manifest" href="manifest.json">
-        
-        <script>
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(() => console.log('SW registrado'))
-                    .catch(err => console.error('Erro SW:', err));
-                });
-            }
-        </script>
-    </head>
-    <body>
-        <header class="sticky-header">
-            <a href="#" class="logo-link"> <!-- Opcional: faz a logo ser clicável e não recarregar a página -->
-                <img src="imagens/logoredonda.png" alt="Logo Armário Perfeito" class="logo-topo">
-            </a>
-        </header>
-        <div class="container mt-5">    
-            <div id="intro-section"></div>
+<body>
+  <div class="container"> <main>
+    <!-- Página 1: Boas-vindas -->
+    <section id="page1" class="active-section section">
+      <h1>Teste de Biotipo</h1>
+      <p>
+        Seja bem-vinda ao nosso teste de formatos de corpo, ele foi cuidadosamente desenvolvido por mim, Marina, para que você tenha um resultado eficaz, de forma simples. Esta descoberta é super importante para que você entenda quais as melhores modelagens nas suas roupas e como equilibrar da melhor forma peças que em um primeiro momento parecem não funcionar tão bem assim.
+      </p>
+      <p>
+        A partir deste diagnóstico você vai entender como valorizar a sua beleza ainda mais e aproveitar ao máximo as peças que você tem no armário!
+      </p>
+      <p>
+        Para fazer este teste você precisará de uma <strong>fita métrica</strong> para tirar suas medidas.
+      </p>
+      <p>Vamos lá?</p>
+      <button type="button" onclick="nextSection()">Avançar</button>
+    </section>
 
-            <div id="quiz-section" style="display: none;"></div>
+    <!-- Página 2: Passo 1 e Passo 2 -->
+    <section id="page2" class="hidden-section section">
+      <h2>Passo 1) Tire as suas medidas de ombros, quadril e cintura conforme as instruções abaixo:</h2>
+      <img src="imagens/medidas_p&b.png" alt="Imagem ilustrativa de medidas corporais" class="imagem-ilustrativa" />
 
-            <div id="final-resultado"></div>
-        </div>
-    
-        <div class="modal fade" id="phase-result-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <h2>Passo 2) Preencha aqui qual a sua medida de:</h2>
+        <form id="form-medidas">
+          <label for="ombros">● Ombros:</label>
+          <input type="number" id="ombros" name="ombros" required />
 
-        <!-- <div class="final-title-container">
-        <h2>Diagnóstico de estilo finalizado.</h2>
-        </div> -->
+          <label for="cintura">● Cintura:</label>
+          <input type="number" id="cintura" name="cintura" required />
 
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Fase Concluída!</h5>
-            </div>
-            <div class="modal-body" id="modalBody">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="modal-continue-btn" onclick="proceedToNextStep()">Continuar</button>
-            </div>
-            </div>
-        </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="script.js" type="module" defer></script>
-        <script>
-            // Define a altura da viewport real para lidar com barras de navegação móveis
-            function setVhProperty() {
-                let vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            }
+          <label for="quadril">● Quadril:</label>
+          <input type="number" id="quadril" name="quadril" required />
+          
+          <button onclick="nextSection()">Avançar</button>
+          <button type="button" onclick="validarMedidas()">Avançar</button>
+        </form>
+    </section>
 
-            // Chama a função inicialmente
-            setVhProperty();
+    <!-- Página 3: Imagem Visual -->
+    <section id="page2" class="hidden-section section">
+      <h2>3. Qual imagem seu corpo mais se parece?</h2>
+      <div id="opcoes-visuais"></div>
+      <button onclick="calcularResultado()">Ver resultado</button>
+    </section>
 
-            // Chama a função novamente se a janela for redimensionada (ex: teclado aparece/desaparece, rotação)
-            window.addEventListener('resize', setVhProperty);
-        </script>
-        <script>
-            // Chama a função que esconde a logo ao rolar a tela - add 05/08
-            const header = document.querySelector('.sticky-header');
-            window.addEventListener("scroll", function() {
-                if (window.scrollY > 10) {
-                    header.classList.add("hidden"); // Esconde a logo para sempre
-                }
-            });
-        </script>
-    </body>
+    <!-- Página 4: Resultado Final -->
+    <section id="page2" class="hidden-section section">
+      <h2>Resultado do seu Biotipo</h2>
+      <p id="resultado-texto"></p>
+      <img id="imagem-resultado" alt="Resultado do biotipo" class="imagem-resultado" />
+    </section>
+   </main>
+  </div> 
+  <script src="script.js"></script>
+</body>
+
 </html>
