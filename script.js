@@ -1,22 +1,22 @@
-// === SCRIPT DO TESTE DE BIOTIPO REVISADO ===
+// === SCRIPT DO TESTE DE BIOTIPO FINAL ===
 
-// Variáveis de controle da navegação entre seções
+// Controle de navegação entre seções
 let currentSectionIndex = 0;
-const sections = ["page1","page2","page3","page4"]
-.map(id => document.getElementById(id));
+const sections = ["page1", "page2", "page3", "page4"].map(id => document.getElementById(id));
 
 function validarMedidas() {
   const ombros = +document.getElementById("ombros").value;
   const cintura = +document.getElementById("cintura").value;
   const quadril = +document.getElementById("quadril").value;
+
   if (!ombros || !cintura || !quadril) {
     alert("Preencha todas as medidas antes de prosseguir.");
     return;
   }
+
   nextSection();
 }
 
-// Avança para a próxima seção do teste
 function nextSection() {
   if (currentSectionIndex < sections.length - 1) {
     sections[currentSectionIndex].classList.remove("active-section");
@@ -25,22 +25,20 @@ function nextSection() {
     sections[currentSectionIndex].classList.remove("hidden-section");
     sections[currentSectionIndex].classList.add("active-section");
 
-    // Se a nova seção contém opções visuais, reseta seleção para evitar pré-seleção
+    // Seção com imagens: resetar seleção
     if (sections[currentSectionIndex].querySelector("#opcoes-visuais")) {
       resetOpcaoVisual();
     }
   }
 }
 
-// Função que reseta seleção visual das opções e remove destaque das labels
 function resetOpcaoVisual() {
   document.querySelectorAll("input[name='visual']").forEach(input => input.checked = false);
   document.querySelectorAll('#opcoes-visuais label').forEach(label => {
-    label.style.borderColor = 'transparent';
+    label.classList.remove('selected');
   });
 }
 
-// Calcula o biotipo com base nas medidas e opção visual selecionada
 function calcularResultado() {
   const ombros = parseFloat(document.getElementById("ombros").value);
   const cintura = parseFloat(document.getElementById("cintura").value);
@@ -53,6 +51,7 @@ function calcularResultado() {
   }
 
   let biotipo = "";
+  let origemResultado = "medidas";
 
   const difOmbroQuadril = ombros - quadril;
   const difQuadrilOmbro = quadril - ombros;
@@ -72,14 +71,14 @@ function calcularResultado() {
   } else if (difCinturaOmbro >= 3 && difCinturaQuadril >= 3) {
     biotipo = "O"; // Oval
   } else {
-    biotipo = visual.value; // fallback para percepção visual
+    biotipo = visual.value; // fallback visual
+    origemResultado = "visual";
   }
 
-  exibirResultado(biotipo);
+  exibirResultado(biotipo, origemResultado);
 }
 
-// Exibe o resultado do biotipo com texto e imagem
-function exibirResultado(tipo) {
+function exibirResultado(tipo, origem) {
   const resultadoTexto = document.getElementById("resultado-texto");
   const imagemResultado = document.getElementById("imagem-resultado");
 
@@ -99,14 +98,22 @@ function exibirResultado(tipo) {
     O: "Oval.png"
   };
 
-  resultadoTexto.textContent = nomes[tipo] || "Não identificado";
+  let texto = nomes[tipo] || "Não identificado";
+
+  if (origem === "visual") {
+    texto += " — resultado baseado na sua percepção visual.";
+  } else {
+    texto += " — resultado calculado com base nas medidas informadas.";
+  }
+
+  resultadoTexto.textContent = texto;
   imagemResultado.src = `imagens/${imagens[tipo] || 'default.png'}`;
   imagemResultado.alt = `Imagem do biotipo ${nomes[tipo] || tipo}`;
 
   nextSection();
 }
 
-// === INSERÇÃO DAS IMAGENS E TEXTOS DA QUESTÃO VISUAL ===
+// Inserção dinâmica das imagens e textos na pergunta visual
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("opcoes-visuais");
 
@@ -114,36 +121,34 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       valor: "X",
       imagem: "Ampulheta.png",
-      texto: "A) Sinto que meus ombros e quadris tem medidas próximas ou idênticas e minha cintura é visivelmente mais fina."
+      texto: "A) Sinto que meus ombros e quadris têm medidas próximas ou idênticas e minha cintura é visivelmente mais fina."
     },
     {
       valor: "H",
       imagem: "Retangular.png",
-      texto: "B) Sinto que meus ombros e quadris tem medidas próximas ou idênticas e minha cintura tem pouca ou nenhuma curvatura."
+      texto: "B) Meus ombros e quadris têm medidas próximas e minha cintura tem pouca ou nenhuma curvatura."
     },
     {
       valor: "A",
       imagem: "Triangular.png",
-      texto: "C) Sinto que a circunferência do meu quadril é mais larga que a minha circunferência de ombros, ele é o que mais se destaca no meu corpo e minha cintura é visivelmente mais fina."
+      texto: "C) Meu quadril é mais largo que os ombros e minha cintura é visivelmente mais fina."
     },
     {
       valor: "V",
       imagem: "Triangular Invertido.png",
-      texto: "D) Sinto que a circunferência dos meus ombros é mais larga do que a do meu quadril, eles são a região de maior destaque no meu corpo. Minha cintura é reta ou pouco curva e meu quadril em relação aos ombros é menor, mesmo que não seja pequeno."
+      texto: "D) Meus ombros são mais largos que meu quadril, e minha cintura é reta ou pouco curva."
     },
     {
       valor: "O",
       imagem: "Oval.png",
-      texto: "E) Sinto que a região da minha barriga é visivelmente mais larga do que a minha circunferência de quadril e de ombros, ela é a área que mais se destaca no meu corpo."
+      texto: "E) Minha barriga é visivelmente mais larga que meu quadril e ombros."
     }
   ];
 
-  // Limpa container antes de inserir (caso rode mais de uma vez)
   container.innerHTML = "";
 
   opcoes.forEach((opcao) => {
     const label = document.createElement("label");
-
     label.classList.add("visual-option");
     label.style.cursor = "pointer";
 
@@ -155,8 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const img = document.createElement("img");
     img.src = `imagens/${opcao.imagem}`;
     img.alt = `Imagem ${opcao.valor}`;
-    // Removido estilo inline de largura para deixar CSS controlar
-    // img.style.maxWidth = "200px";
     img.style.display = "block";
     img.style.marginBottom = "10px";
     img.style.borderRadius = "6px";
@@ -173,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(label);
   });
 
-  // Listener para destacar a label da opção selecionada
+  // Destaque da opção visual selecionada
   document.querySelectorAll('#opcoes-visuais input[type="radio"]').forEach(radio => {
     radio.addEventListener('change', (e) => {
       document.querySelectorAll('#opcoes-visuais label').forEach(label => {
