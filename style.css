@@ -236,7 +236,7 @@ button:focus {
 
 @media (max-width: 600px) {
   img.section-img {
-    max-height: 300px;
+    max-height: 320px;
   }
 }
 
@@ -261,4 +261,15 @@ button:focus {
   #imagem-resultado {
     max-height: 300px;
   }
+}
+
+img.section-img {
+  display: block;
+  max-width: 100%;
+  max-height: 500px;
+  height: auto;
+  margin: 0 auto 15px;
+  border-radius: 8px;
+  object-fit: contain;
+  transition: transform var(--transition-speed);
 }

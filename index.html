@@ -31,7 +31,7 @@
     <!-- Página 2: Passo 1 e Passo 2 -->
     <section id="page2" class="hidden-section section">
       <h2>Passo 1) Tire as suas medidas de ombros, quadril e cintura conforme as instruções abaixo:</h2>
-      <img src="imagens/medidas_p&b.png" alt="Imagem ilustrativa de medidas corporais" class="imagem-ilustrativa" />
+      <img src="imagens/medidas_p&b.png" alt="Imagem ilustrativa de medidas corporais" class="section-img" />
 
       <h2>Passo 2) Preencha aqui qual a sua medida de:</h2>
         <form id="form-medidas">
@@ -54,7 +54,9 @@
     <section id="page3" class="hidden-section section">
       <h2>3. Qual imagem seu corpo mais se parece?</h2>
       <div id="opcoes-visuais"></div>
-      <button onclick="calcularResultado()">Ver resultado</button>
+      <div class="btn-wrapper">
+        <button type="button" onclick="calcularResultado()">Ver resultado</button>
+      </div>
     </section>
 
     <!-- Página 4: Resultado Final -->
