@@ -314,3 +314,26 @@ img.section-img {
   max-width: 600px;
   margin: 0.5rem auto;
 }
+
+.descricao-resultado {
+  margin-top: 1.5rem;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.descricao-resultado h2 {
+  font-size: 1.5rem;
+  color: var(--brand-primary);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.descricao-resultado p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 600px;
+  margin: 0.5rem auto;
+}
