@@ -339,10 +339,6 @@ img.section-img {
 }
 
 
-
-
-
-
 /* Estilo para a seção de resultado (page4) ou um contêiner dentro dela */
 #page4 .content-wrapper { /* Use o seletor correto para o contêiner do seu resultado */
     display: flex; /* Habilita o Flexbox */
@@ -416,4 +412,55 @@ button[onclick='reiniciarTeste()']:hover {
 /* Adiciona um espaço específico entre o bloco de descrição e o botão */
 .resultado-descricao {
     margin-bottom: 35px; /* Define um espaço claro entre o texto e o botão abaixo dele */
+}
+
+
+/* --- INÍCIO DA CORREÇÃO DEFINITIVA --- */
+
+/* Garante que o contêiner principal centralize seu conteúdo */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Força o bloco da descrição a ocupar a largura total e centraliza seu texto */
+.resultado-descricao {
+    width: 100%;
+    max-width: 600px; /* Limita a largura para boa legibilidade */
+    text-align: center;
+    margin-bottom: 30px; /* Cria um espaço claro antes do botão */
+}
+
+/* 
+ * A REGRA MAIS IMPORTANTE:
+ * Força o contêiner do botão a ocupar 100% da largura, 
+ * empurrando-o para baixo da descrição.
+*/
+.btn-wrapper {
+    width: 100%;
+    text-align: center; /* Garante que o botão dentro dele fique centralizado */
+}
+
+
+/* --- ESTILOS COMPLEMENTARES PARA UMA BOA APARÊNCIA --- */
+
+.resultado-descricao h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.resultado-descricao p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+}
+
+#imagem-resultado {
+    max-width: 250px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 30px;
 }
