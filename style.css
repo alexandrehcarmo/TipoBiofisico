@@ -403,3 +403,16 @@ button[onclick='reiniciarTeste()'] {
 button[onclick='reiniciarTeste()']:hover {
     background-color: #8B6F43; /* Cor mais escura no hover */
 }
+
+/* Garante que a página de resultado organize tudo em uma coluna centralizada */
+#page4 {
+    display: flex;
+    flex-direction: column; /* A PROPRIEDADE MAIS IMPORTANTE: força os itens a ficarem em coluna */
+    align-items: center;    /* Centraliza tudo horizontalmente */
+    padding: 30px 20px;     /* Adiciona um respiro nas bordas */
+}
+
+/* Adiciona um espaço específico entre o bloco de descrição e o botão */
+.resultado-descricao {
+    margin-bottom: 35px; /* Define um espaço claro entre o texto e o botão abaixo dele */
+}
