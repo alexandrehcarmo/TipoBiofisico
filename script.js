@@ -83,9 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 function exibirResultado(tipo, origem) {
-  const resultadoTexto = document.getElementById("resultado-texto");
-  const imagemResultado = document.getElementById("imagem-resultado");
-
   const nomes = {
     X: "Ampulheta (X)",
     H: "Retangular (H)",
@@ -103,61 +100,50 @@ function exibirResultado(tipo, origem) {
   };
 
   let texto = nomes[tipo] || "Não identificado";
-
   if (origem === "visual") {
     texto += " — resultado baseado na sua percepção visual.";
   } else {
     texto += " — resultado calculado com base nas medidas informadas.";
   }
 
-  // Adiciona o título centralizado "Resultado"
-  resultadoTexto.innerHTML = `<h2 style="margin-bottom:10px;">Resultado</h2>${texto}`;
+  // Dados da descrição detalhada
+  const descricoes = {
+    X: { texto: 'O corpo ampulheta tem ombros e quadris alinhados, com a cintura bem marcada. É uma silhueta proporcional e curvilínea. O foco está em valorizar essas curvas naturais sem esconder a cintura. Peças que acompanham a linha do corpo funcionam muito bem.' },
+    H: { texto: 'O corpo retangular tem medidas dos ombros, cintura e quadril mais alinhadas, com pouca definição de cintura. A silhueta costuma ser reta e proporcional. Looks que criam pontos de foco e marcam a cintura são ótimos aliados.' },
+    A: { texto: 'No corpo triangular, os quadris são mais largos que os ombros, com cintura geralmente marcada. A ideia é equilibrar as proporções, trazendo foco para a parte de cima com cores, detalhes e estruturas.' },
+    V: { texto: 'O corpo triangular invertido tem os ombros mais largos que os quadris, com cintura pouco marcada. O objetivo é equilibrar a silhueta, suavizando os ombros e dando destaque à região inferior com formas, cores ou texturas.' },
+    O: { texto: 'O corpo oval tem o centro do corpo mais evidente, com cintura menos marcada e, geralmente, volume concentrado na região abdominal. O foco está em alongar a silhueta e equilibrar proporções.' }
+  };
+  const info = descricoes[tipo] || { texto: '' };
 
-  resultadoTexto.textContent = texto; // LINHA ALTERADA: 'texto' já contém o nome do biotipo e a origem
-  
-  imagemResultado.src = `imagens/${imagensResultadoFinal[tipo] || 'default.png'}`;
-  imagemResultado.alt = `Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}`;
-
+  // Avança para a tela de resultado (page4)
   nextSection();
 
- // ── INÍCIO: exibe só a descrição do biotipo identificado ── 08/08
- // remove bloco antigo, se existir
- const antigo = document.querySelector('.descricao-resultado');
- if (antigo) antigo.remove();
+  // Garante que a página 4 exista e localiza/ cria o content-wrapper
+  const page4 = document.getElementById('page4');
+  if (!page4) return console.warn('Elemento #page4 não encontrado.');
 
- // mapeia cada tipo ao seu título e texto
- const descricoes = {
-   X: {
-     texto: 'O corpo ampulheta tem ombros e quadris alinhados, com a cintura bem marcada. É uma silhueta proporcional e curvilínea. O foco está em valorizar essas curvas naturais sem esconder a cintura. Peças que acompanham a linha do corpo funcionam muito bem.'
-   },
-   H: {
-     texto: 'O corpo retangular tem medidas dos ombros, cintura e quadril mais alinhadas, com pouca definição de cintura. A silhueta costuma ser reta e proporcional. É um biotipo versátil, que permite criar curvas ou valorizar a estrutura natural com equilíbrio. Looks que criam pontos de foco e marcam a cintura são ótimos aliados.'
-   },
-   A: {
-     texto: 'No corpo triangular, os quadris são mais largos que os ombros, com cintura geralmente marcada. O volume se concentra na parte inferior da silhueta. A ideia é equilibrar as proporções, trazendo foco para a parte de cima com cores, detalhes e estruturas.'
-   },
-   V: {
-     texto: 'O corpo triangular invertido tem os ombros mais largos que os quadris, com cintura pouco marcada. O volume está concentrado na parte superior. O objetivo é equilibrar a silhueta, suavizando os ombros e dando destaque à região inferior com formas, cores ou texturas.'
-   },
-   O: {
-     texto: 'O corpo oval tem o centro do corpo mais evidente, com cintura menos marcada e, geralmente, volume concentrado na região abdominal. Os ombros e quadris tendem a ser mais estreitos em comparação com o centro. O foco está em alongar a silhueta e equilibrar proporções. Peças com linhas verticais e tecidos fluidos funcionam super bem.'
-   }
- };
- const info = descricoes[tipo] || { texto: '' };
+  // Remove botões antigos para evitar duplicação (caso haja)
+  page4.querySelectorAll("button[onclick='reiniciarTeste()']").forEach(b => b.remove());
 
-// Monta HTML com descrição e botão em coluna
-  const html = `
-    <div class="resultado-descricao">
-      <p>${info.texto}</p> 
-    </div>
-    <div class="btn-wrapper">
-      <button onclick="reiniciarTeste()">Refazer o teste</button>
-    </div>
+  let wrapper = page4.querySelector('.content-wrapper');
+  if (!wrapper) {
+    wrapper = document.createElement('div');
+    wrapper.className = 'content-wrapper';
+    page4.appendChild(wrapper);
+  }
+
+  // Monta todo o HTML centralizado da tela de resultado (apenas 1 botão)
+  const imagemSrc = `imagens/${imagensResultadoFinal[tipo] || 'default.png'}`;
+  wrapper.innerHTML = `
+    <h2 class="resultado-title">Resultado</h2>
+    <p id="resultado-texto" class="resultado-resumo">${texto}</p>
+    <img id="imagem-resultado" src="${imagemSrc}" alt="Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}" />
+    <div class="resultado-descricao"><p>${info.texto}</p></div>
+    <div class="btn-wrapper"><button onclick="reiniciarTeste()">Refazer o teste</button></div>
   `;
-
-  // Insere abaixo da imagem
-  imagemResultado.insertAdjacentHTML('afterend', html);
 }
+
 
   function reiniciarTeste() {
     // Oculta a tela atual (resultado)
@@ -260,9 +246,9 @@ function exibirResultado(tipo, origem) {
   window.reiniciarTeste = reiniciarTeste;
 
     // Seleciona o botão pelo atributo onclick
-  const btnRefazer = document.querySelector("button[onclick='reiniciarTeste()']");
-  if (btnRefazer) {
-    btnRefazer.insertAdjacentHTML('beforebegin', descricaoCorpo);
-  }
+  // const btnRefazer = document.querySelector("button[onclick='reiniciarTeste()']");
+  // if (btnRefazer) {
+  //   btnRefazer.insertAdjacentHTML('beforebegin', descricaoCorpo);
+  // }
   
 });

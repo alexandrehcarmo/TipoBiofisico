@@ -244,6 +244,7 @@ button:focus {
   display: flex;
   justify-content: center;
   margin-top: 30px;
+
 }
 
 #imagem-resultado {
@@ -298,6 +299,9 @@ img.section-img {
   padding: 20px;            /* idem às seções brancas */
   border-radius: 12px;      /* idem às seções */
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 720px;
+  margin: 16px auto;
+  text-align: left; /* se preferir parágrafo justificado/central, altere */
 }
 
 .resultado-descricao h2 {
@@ -476,3 +480,18 @@ button[onclick='reiniciarTeste()']:hover {
   max-width: 600px;
   margin-bottom: 20px;
 }
+
+.resultado-title {
+  font-size: 1.6rem;
+  color: var(--brand-primary);
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.resultado-resumo {
+  font-weight: 600;
+  margin: 0 0 18px;
+  text-align: center;
+}
+
+
