@@ -235,11 +235,10 @@ function exibirResultado(tipo, origem) {
       <p>O corpo oval tem o centro do corpo mais evidente, com cintura menos marcada e, geralmente, volume concentrado na região abdominal. Os ombros e quadris tendem a ser mais estreitos em comparação com o centro. O foco está em alongar a silhueta e equilibrar proporções. Peças com linhas verticais e tecidos fluidos funcionam super bem.</p>
     </div>
   `;
+
   const btnRefazer = document.getElementById('refazer-teste');
   if (btnRefazer) {
     btnRefazer.insertAdjacentHTML('beforebegin', descricaoCorpo);
   }
-  // ── FIM: descrição de biotipos ──
-
-
+  
 });
