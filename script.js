@@ -154,7 +154,6 @@ function exibirResultado(tipo, origem) {
 
 }
 
-
   function reiniciarTeste() {
     // Oculta a tela atual (resultado)
     sections[currentSectionIndex].classList.remove("active-section");

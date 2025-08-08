@@ -404,13 +404,14 @@ button[onclick='reiniciarTeste()']:hover {
     background-color: #8B6F43; /* Cor mais escura no hover */
 }
 
-/* Garante que a página de resultado organize tudo em uma coluna centralizada */
-#page4 {
+/* Aplica o layout de coluna flexível APENAS à seção que estiver ATIVA. */
+/* Isso garante que o estilo de uma página não afete as outras. */
+.active-section {
     display: flex;
-    flex-direction: column; /* A PROPRIEDADE MAIS IMPORTANTE: força os itens a ficarem em coluna */
-    align-items: center;    /* Centraliza tudo horizontalmente */
-    padding: 30px 20px;     /* Adiciona um respiro nas bordas */
+    flex-direction: column;
+    align-items: center;
 }
+
 
 /* Adiciona um espaço específico entre o bloco de descrição e o botão */
 .resultado-descricao {
