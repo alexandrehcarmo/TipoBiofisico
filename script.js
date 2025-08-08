@@ -236,7 +236,8 @@ function exibirResultado(tipo, origem) {
     </div>
   `;
 
-  const btnRefazer = document.getElementById('refazer-teste');
+    // Seleciona o botão pelo atributo onclick
+  const btnRefazer = document.querySelector("button[onclick='reiniciarTeste()']");
   if (btnRefazer) {
     btnRefazer.insertAdjacentHTML('beforebegin', descricaoCorpo);
   }
