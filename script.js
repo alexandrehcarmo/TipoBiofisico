@@ -110,7 +110,7 @@ function exibirResultado(tipo, origem) {
     texto += " — resultado calculado com base nas medidas informadas.";
   }
 
-  resultadoTexto.textContent = descricoes[tipo]?.texto || '';
+  resultadoTexto.textContent = texto; // LINHA ALTERADA: 'texto' já contém o nome do biotipo e a origem
 
   imagemResultado.src = `imagens/${imagensResultadoFinal[tipo] || 'default.png'}`;
   imagemResultado.alt = `Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}`;
@@ -150,7 +150,7 @@ function exibirResultado(tipo, origem) {
  const html = `
    <div class="resultado-descricao">
      <h2>${info.titulo}</h2>
-     <p class="page1">${info.texto}</p>
+     <p>${info.texto}</p> // Removendo a classe 'page1'
    </div>
  `;
  const btn = document.querySelector("button[onclick='reiniciarTeste()']");
