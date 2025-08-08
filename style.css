@@ -288,3 +288,29 @@ img.section-img {
 .descricao-corpo p {
   margin: 0.5rem 0;
 }
+
+/* --------------------------------------------------
+   Bloco de resultado (logo acima do botão "Refazer") - 08/08
+   -------------------------------------------------- */
+.resultado-descricao {
+  margin-bottom: 1.5rem;   /* mesmo espaçamento da .descricao-corpo */
+  background: white;        /* opcional: mantém o mesmo fundo das .section */
+  padding: 20px;            /* idem às seções brancas */
+  border-radius: 12px;      /* idem às seções */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.resultado-descricao h2 {
+  font-size: 1.5rem;        /* mesmo tamanho de headings */
+  color: var(--brand-primary);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.resultado-descricao p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 600px;
+  margin: 0.5rem auto;
+}
