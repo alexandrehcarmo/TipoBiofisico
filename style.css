@@ -464,3 +464,15 @@ button[onclick='reiniciarTeste()']:hover {
     border-radius: 8px;
     margin-bottom: 30px;
 }
+
+#page4.active-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultado-descricao {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 20px;
+}

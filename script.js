@@ -110,8 +110,11 @@ function exibirResultado(tipo, origem) {
     texto += " — resultado calculado com base nas medidas informadas.";
   }
 
-  resultadoTexto.textContent = texto; // LINHA ALTERADA: 'texto' já contém o nome do biotipo e a origem
+  // Adiciona o título centralizado "Resultado"
+  resultadoTexto.innerHTML = `<h2 style="margin-bottom:10px;">Resultado</h2>${texto}`;
 
+  resultadoTexto.textContent = texto; // LINHA ALTERADA: 'texto' já contém o nome do biotipo e a origem
+  
   imagemResultado.src = `imagens/${imagensResultadoFinal[tipo] || 'default.png'}`;
   imagemResultado.alt = `Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}`;
 
@@ -142,16 +145,18 @@ function exibirResultado(tipo, origem) {
  };
  const info = descricoes[tipo] || { texto: '' };
 
- // monta e injeta o HTML com a classe .page1 para herdar seu CSS
- const html = `
-   <div class="resultado-descricao">
-     <p>${info.texto}</p> 
-   </div>
- `;
- const btn = document.querySelector("button[onclick='reiniciarTeste()']");
- if (btn) btn.insertAdjacentHTML('beforebegin', html);
- // ── FIM: exibe só a descrição do biotipo identificado ──
+// Monta HTML com descrição e botão em coluna
+  const html = `
+    <div class="resultado-descricao">
+      <p>${info.texto}</p> 
+    </div>
+    <div class="btn-wrapper">
+      <button onclick="reiniciarTeste()">Refazer o teste</button>
+    </div>
+  `;
 
+  // Insere abaixo da imagem
+  imagemResultado.insertAdjacentHTML('afterend', html);
 }
 
   function reiniciarTeste() {
