@@ -219,4 +219,27 @@ function exibirResultado(tipo, origem) {
   window.calcularResultado = calcularResultado;
   window.reiniciarTeste = reiniciarTeste;
 
+
+    // ── INÍCIO: inserir descrição de biotipos antes do botão "Refazer o teste" ── em 08/08
+  const descricaoCorpo = `
+    <div class="descricao-corpo">
+      <h3>Ampulheta</h3>
+      <p>O corpo ampulheta tem ombros e quadris alinhados, com a cintura bem marcada. É uma silhueta proporcional e curvilínea. O foco está em valorizar essas curvas naturais sem esconder a cintura. Peças que acompanham a linha do corpo funcionam muito bem.</p>
+      <h3>Retangular</h3>
+      <p>O corpo retangular tem medidas dos ombros, cintura e quadril mais alinhadas, com pouca definição de cintura. A silhueta costuma ser reta e proporcional. É um biotipo versátil, que permite criar curvas ou valorizar a estrutura natural com equilíbrio. Looks que criam pontos de foco e marcam a cintura são ótimos aliados.</p>
+      <h3>Triangular</h3>
+      <p>No corpo triangular, os quadris são mais largos que os ombros, com cintura geralmente marcada. O volume se concentra na parte inferior da silhueta. A ideia é equilibrar as proporções, trazendo foco para a parte de cima com cores, detalhes e estruturas.</p>
+      <h3>Triangular invertido</h3>
+      <p>O corpo triangular invertido tem os ombros mais largos que os quadris, com cintura pouco marcada. O volume está concentrado na parte superior. O objetivo é equilibrar a silhueta, suavizando os ombros e dando destaque à região inferior com formas, cores ou texturas.</p>
+      <h3>Oval</h3>
+      <p>O corpo oval tem o centro do corpo mais evidente, com cintura menos marcada e, geralmente, volume concentrado na região abdominal. Os ombros e quadris tendem a ser mais estreitos em comparação com o centro. O foco está em alongar a silhueta e equilibrar proporções. Peças com linhas verticais e tecidos fluidos funcionam super bem.</p>
+    </div>
+  `;
+  const btnRefazer = document.getElementById('refazer-teste');
+  if (btnRefazer) {
+    btnRefazer.insertAdjacentHTML('beforebegin', descricaoCorpo);
+  }
+  // ── FIM: descrição de biotipos ──
+
+
 });
