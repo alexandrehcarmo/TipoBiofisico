@@ -99,14 +99,13 @@ function exibirResultado(tipo, origem) {
     O: "Bonca_Oval.png"
   };
 
-  let texto = nomes[tipo] || "Não identificado";
+  let textoResumo = nomes[tipo] || "Não identificado";
   if (origem === "visual") {
-    texto += " — resultado baseado na sua percepção visual.";
+    textoResumo += " — resultado baseado na sua percepção visual.";
   } else {
-    texto += " — resultado calculado com base nas medidas informadas.";
+    textoResumo += " — resultado calculado com base nas medidas informadas.";
   }
 
-  // Dados da descrição detalhada
   const descricoes = {
     X: { texto: 'O corpo ampulheta tem ombros e quadris alinhados, com a cintura bem marcada. É uma silhueta proporcional e curvilínea. O foco está em valorizar essas curvas naturais sem esconder a cintura. Peças que acompanham a linha do corpo funcionam muito bem.' },
     H: { texto: 'O corpo retangular tem medidas dos ombros, cintura e quadril mais alinhadas, com pouca definição de cintura. A silhueta costuma ser reta e proporcional. Looks que criam pontos de foco e marcam a cintura são ótimos aliados.' },
@@ -116,16 +115,15 @@ function exibirResultado(tipo, origem) {
   };
   const info = descricoes[tipo] || { texto: '' };
 
-  // Avança para a tela de resultado (page4)
-  nextSection();
+  nextSection(); // abre page4
 
-  // Garante que a página 4 exista e localiza/ cria o content-wrapper
   const page4 = document.getElementById('page4');
-  if (!page4) return console.warn('Elemento #page4 não encontrado.');
+  if (!page4) return console.warn('Página #page4 não encontrada.');
 
-  // Remove botões antigos para evitar duplicação (caso haja)
-  page4.querySelectorAll("button[onclick='reiniciarTeste()']").forEach(b => b.remove());
+  // remove quaisquer restos antigos dentro de page4 (botões, títulos, etc)
+  page4.querySelectorAll('.resultado-title, #resultado-texto, #imagem-resultado, .resultado-descricao, .btn-wrapper, button[onclick="reiniciarTeste()"]').forEach(el => el.remove());
 
+  // garante content-wrapper único
   let wrapper = page4.querySelector('.content-wrapper');
   if (!wrapper) {
     wrapper = document.createElement('div');
@@ -133,14 +131,14 @@ function exibirResultado(tipo, origem) {
     page4.appendChild(wrapper);
   }
 
-  // Monta todo o HTML centralizado da tela de resultado (apenas 1 botão)
   const imagemSrc = `imagens/${imagensResultadoFinal[tipo] || 'default.png'}`;
+
   wrapper.innerHTML = `
     <h2 class="resultado-title">Resultado</h2>
-    <p id="resultado-texto" class="resultado-resumo">${texto}</p>
+    <p id="resultado-texto" class="resultado-resumo">${textoResumo}</p>
     <img id="imagem-resultado" src="${imagemSrc}" alt="Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}" />
     <div class="resultado-descricao"><p>${info.texto}</p></div>
-    <div class="btn-wrapper"><button onclick="reiniciarTeste()">Refazer o teste</button></div>
+    <div class="btn-wrapper"><button class="btn-refazer" onclick="reiniciarTeste()">Refazer o teste</button></div>
   `;
 }
 
@@ -244,11 +242,5 @@ function exibirResultado(tipo, origem) {
   window.nextSection = nextSection;
   window.calcularResultado = calcularResultado;
   window.reiniciarTeste = reiniciarTeste;
-
-    // Seleciona o botão pelo atributo onclick
-  // const btnRefazer = document.querySelector("button[onclick='reiniciarTeste()']");
-  // if (btnRefazer) {
-  //   btnRefazer.insertAdjacentHTML('beforebegin', descricaoCorpo);
-  // }
   
 });
