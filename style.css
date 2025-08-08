@@ -337,3 +337,69 @@ img.section-img {
   max-width: 600px;
   margin: 0.5rem auto;
 }
+
+
+
+
+
+
+/* Estilo para a seção de resultado (page4) ou um contêiner dentro dela */
+#page4 .content-wrapper { /* Use o seletor correto para o contêiner do seu resultado */
+    display: flex; /* Habilita o Flexbox */
+    flex-direction: column; /* Organiza os itens em uma coluna (um abaixo do outro) */
+    align-items: center; /* Centraliza tudo horizontalmente */
+    text-align: center; /* Centraliza o texto dentro de cada elemento */
+    padding: 20px;
+}
+
+/* Estilo para o parágrafo do resultado (p#resultado-texto) */
+#resultado-texto {
+    font-size: 1.5em; /* Aumenta um pouco o resumo */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px; /* Espaço abaixo do resumo */
+}
+
+/* Estilo para a imagem do resultado */
+#imagem-resultado {
+    max-width: 250px; /* Limita o tamanho da imagem */
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 30px; /* Espaço abaixo da imagem */
+}
+
+/* Estilo para o bloco da descrição detalhada (inserido dinamicamente) */
+.resultado-descricao {
+    max-width: 600px; /* Limita a largura para melhor leitura */
+    margin-bottom: 40px; /* Espaço generoso antes do botão */
+}
+
+.resultado-descricao h2 {
+    color: #8B6F43; /* Cor marrom/dourada como na imagem */
+    margin-bottom: 15px;
+}
+
+.resultado-descricao p {
+    line-height: 1.6; /* Melhora a legibilidade do parágrafo */
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Estilo para o botão "Refazer o teste" */
+button[onclick='reiniciarTeste()'] {
+    /* O 'align-items: center;' do contêiner já o centraliza, */
+    /* não é preciso fazer mais nada para posicioná-lo. */
+    background-color: #A0835D; /* Cor do botão */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button[onclick='reiniciarTeste()']:hover {
+    background-color: #8B6F43; /* Cor mais escura no hover */
+}

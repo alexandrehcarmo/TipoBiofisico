@@ -151,7 +151,7 @@ function exibirResultado(tipo, origem) {
  const html = `
    <div class="resultado-descricao">
      <h2>${info.titulo}</h2>
-     <p>${info.texto}</p> // Removendo a classe 'page1'
+     <p>${info.texto}</p> 
    </div>
  `;
  const btn = document.querySelector("button[onclick='reiniciarTeste()']");
