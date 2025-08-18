@@ -514,4 +514,10 @@ button[onclick='reiniciarTeste()']:hover {
   text-align: center;
 }
 
+.info-envio {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+}
 

@@ -209,6 +209,7 @@ function exibirResultado(tipo, origem) {
     <img id="imagem-resultado" src="${imagemSrc}" alt="Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}" />
     <div class="resultado-descricao"><p>${info.texto}</p></div>
     <div class="btn-wrapper"><button class="btn-refazer" onclick="reiniciarTeste()">Refazer o teste</button></div>
+    <p class="info-envio">📩 Seu resultado foi enviado para o e-mail informado.</p>
   `;
 
   // --- envia resultado + contato ao webhook (n8n) para armazenar e disparar e-mail
