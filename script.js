@@ -32,7 +32,31 @@ document.addEventListener("DOMContentLoaded", () => {
   prepopulateIfAvailable();
 
 
-    function validarMedidas() {
+  function validarDadosCliente() {
+    const nomeInput = document.getElementById('clientName');
+    const emailInput = document.getElementById('clientEmail');
+
+    const nomeVal = nomeInput.value.trim();
+    const emailVal = emailInput.value.trim();
+
+    if (!nomeVal) {
+      alert("Por favor, preencha seu nome.");
+      return;
+    }
+    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      alert("O e-mail informado não parece válido. Verifique e tente novamente.");
+      return;
+    }
+
+    // atualiza objeto global
+    cliente.nome = nomeVal;
+    cliente.email = emailVal;
+
+    nextSection(); // avança para page2
+  }
+
+
+  function validarMedidas() {
     // captura medidas
     const ombros = +document.getElementById("ombros").value;
     const cintura = +document.getElementById("cintura").value;
@@ -210,6 +234,7 @@ function exibirResultado(tipo, origem) {
     // URL do webhook n8n
         
     const N8N_WEBHOOK_URL = 'https://marinanaves.app.n8n.cloud/webhook-test/teste-biotipo';
+    
 
     fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
