@@ -349,6 +349,7 @@ function exibirResultado(tipo, origem) {
   });
 
   // Expor as funções ao escopo global (para os botões funcionarem)
+  window.validarDadosCliente = validarDadosCliente;
   window.validarMedidas = validarMedidas;
   window.nextSection = nextSection;
   window.calcularResultado = calcularResultado;
