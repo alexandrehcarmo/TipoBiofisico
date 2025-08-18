@@ -5,16 +5,62 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentSectionIndex = 0;
   const sections = ["page1", "page2", "page3", "page4"].map(id => document.getElementById(id));
 
-  function validarMedidas() {
+
+  // guarda dados da cliente (nome/email) — será enviado ao final
+  let cliente = { nome: '', email: '' };
+
+  // tenta pré-popular os campos a partir da query string (?name=...&email=...) ou de window.PRELOAD_USER
+  function prepopulateIfAvailable() {
+    // 1) verifica variável global (opcional — backend/integração pode injetar window.PRELOAD_USER)
+    if (window.PRELOAD_USER && typeof window.PRELOAD_USER === 'object') {
+      cliente.nome = window.PRELOAD_USER.name || '';
+      cliente.email = window.PRELOAD_USER.email || '';
+    }
+    // 2) fallback: query string
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('name')) cliente.nome = decodeURIComponent(params.get('name'));
+    if (params.get('email')) cliente.email = decodeURIComponent(params.get('email'));
+
+    // aplica nos inputs, caso existam no DOM
+    const nameInput = document.getElementById('clientName');
+    const emailInput = document.getElementById('clientEmail');
+    if (nameInput && cliente.nome) nameInput.value = cliente.nome;
+    if (emailInput && cliente.email) emailInput.value = cliente.email;
+  }
+
+  // chama pre-população imediatamente (se houver dados)
+  prepopulateIfAvailable();
+
+
+    function validarMedidas() {
+    // captura medidas
     const ombros = +document.getElementById("ombros").value;
     const cintura = +document.getElementById("cintura").value;
     const quadril = +document.getElementById("quadril").value;
 
+    // captura nome/email dos inputs (se existem)
+    const nomeInput = document.getElementById('clientName');
+    const emailInput = document.getElementById('clientEmail');
+
+    const nomeVal = nomeInput ? nomeInput.value.trim() : '';
+    const emailVal = emailInput ? emailInput.value.trim() : '';
+
+    // validação: nome e email opcionais, mas se preenchidos, email deve ser válido
     if (!ombros || !cintura || !quadril) {
       alert("Preencha todas as medidas antes de prosseguir.");
       return;
     }
 
+    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      alert("O e-mail informado não parece válido. Verifique e tente novamente.");
+      return;
+    }
+
+    // atualiza cliente global
+    cliente.nome = nomeVal || cliente.nome || '';
+    cliente.email = emailVal || cliente.email || '';
+
+    // avança
     nextSection();
   }
 
@@ -140,6 +186,46 @@ function exibirResultado(tipo, origem) {
     <div class="resultado-descricao"><p>${info.texto}</p></div>
     <div class="btn-wrapper"><button class="btn-refazer" onclick="reiniciarTeste()">Refazer o teste</button></div>
   `;
+
+  // --- envia resultado + contato ao webhook (n8n) para armazenar e disparar e-mail
+  (function sendToIntegration() {
+    // nome/email preferencialmente da variável cliente, se preenchida; senão tenta pegar dos inputs (backup)
+    const nomeParaEnvio = cliente.nome || document.getElementById('clientName')?.value || '';
+    const emailParaEnvio = cliente.email || document.getElementById('clientEmail')?.value || '';
+
+    // monta payload
+    const payload = {
+      nome: nomeParaEnvio,
+      email: emailParaEnvio,
+      resultado: nomes[tipo] || tipo,
+      origem: origem // 'medidas' ou 'visual'
+    };
+
+    // só envia se houver email (evita chamadas inúteis). Caso queira sempre salvar, remova essa checagem.
+    if (!payload.email) {
+      console.info('Nenhum e-mail disponível — não será enviado ao webhook.');
+      return;
+    }
+
+    // URL do webhook n8n
+        
+    const N8N_WEBHOOK_URL = 'https://marinanaves.app.n8n.cloud/webhook-test/teste-biotipo';
+
+    fetch(N8N_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Falha ao enviar ao webhook: ' + res.status);
+      console.info('Resultado enviado ao webhook com sucesso.');
+    })
+    .catch(err => {
+      console.error('Erro ao enviar resultado ao webhook:', err);
+    });
+  })();
+
+
 }
 
 
