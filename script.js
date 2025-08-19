@@ -162,11 +162,11 @@ function exibirResultado(tipo, origem) {
   };
 
   const imagensResultadoFinal = {
-    X: "Bonca_Ampulheta.png",
-    H: "Bonca_Retangular.png",
-    A: "Bonca_Triangular.png",
-    V: "Bonca_Triangular Invertido.png",
-    O: "Bonca_Oval.png"
+    X: "Bonca_Ampulheta.jpg",
+    H: "Bonca_Retangular.jpg",
+    A: "Bonca_Triangular.jpg",
+    V: "Bonca_Triangular Invertido.jpg",
+    O: "Bonca_Oval.jpg"
   };
 
   let textoResumo = nomes[tipo] || "Não identificado";
@@ -234,7 +234,7 @@ function exibirResultado(tipo, origem) {
 
     // URL do webhook n8n
         
-    const N8N_WEBHOOK_URL = 'https://marinanaves.app.n8n.cloud/webhook-test/teste-biotipo';
+    const N8N_WEBHOOK_URL = 'https://marinanaves.app.n8n.cloud/webhook/teste-biotipo';
     
 
     fetch(N8N_WEBHOOK_URL, {
@@ -283,27 +283,27 @@ function exibirResultado(tipo, origem) {
   const opcoes = [
     {
       valor: "X",
-      imagem: "Ampulheta.png",
+      imagem: "Ampulheta.jpg",
       texto: "A) Sinto que meus ombros e quadris têm medidas próximas ou idênticas e minha cintura é visivelmente mais fina."
     },
     {
       valor: "H",
-      imagem: "Retangular.png",
+      imagem: "Retangular.jpg",
       texto: "B) Meus ombros e quadris têm medidas próximas e minha cintura tem pouca ou nenhuma curvatura."
     },
     {
       valor: "A",
-      imagem: "Triangular.png",
+      imagem: "Triangular.jpg",
       texto: "C) Meu quadril é mais largo que os ombros e minha cintura é visivelmente mais fina."
     },
     {
       valor: "V",
-      imagem: "Triangular Invertido.png",
+      imagem: "Triangular Invertido.jpg",
       texto: "D) Meus ombros são mais largos que meu quadril, e minha cintura é reta ou pouco curva."
     },
     {
       valor: "O",
-      imagem: "Oval.png",
+      imagem: "Oval.jpg",
       texto: "E) Minha barriga é visivelmente mais larga que meu quadril e ombros."
     }
   ];
