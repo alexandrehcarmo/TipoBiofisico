@@ -201,7 +201,7 @@ function exibirResultado(tipo, origem) {
     page4.appendChild(wrapper);
   }
 
-  const imagemSrc = `imagens/${imagensResultadoFinal[tipo] || 'default.png'}`;
+  const imagemSrc = `imagens/${imagensResultadoFinal[tipo] || 'default.jpg'}`;
 
   wrapper.innerHTML = `
     <h2 class="resultado-title">Resultado</h2>
