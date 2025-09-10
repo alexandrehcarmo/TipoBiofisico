@@ -521,3 +521,30 @@ button[onclick='reiniciarTeste()']:hover {
   text-align: center;
 }
 
+/* Espaçamento e visual dos botões no resultado */
+#resultado-container .btn-wrapper {
+  display: flex;
+  gap: 14px;         /* separa os botões */
+  margin-top: 12px;
+  align-items: center;
+}
+#resultado-container .btn-wrapper button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+
+/* === SEPARAÇÃO DOS BOTÕES PARA MOBILE === */
+@media (max-width: 600px) {
+  #resultado-container .btn-wrapper {
+    flex-direction: column;  /* empilha os botões */
+    gap: 18px;               /* aumenta o espaço entre eles */
+  }
+
+  #resultado-container .btn-wrapper button {
+    width: 100%;             /* ocupa toda a largura disponível */
+    max-width: 280px;        /* limite opcional */
+  }
+}
