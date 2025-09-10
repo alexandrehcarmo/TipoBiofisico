@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // guarda dados da cliente (nome/email) — será enviado ao final
-  let cliente = { nome: '', email: '' };
+  
+  window.cliente = { nome: '', email: '' };
+
 
   // tenta pré-popular os campos a partir da query string (?name=...&email=...) ou de window.PRELOAD_USER
   function prepopulateIfAvailable() {
@@ -123,10 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Por favor, preencha todas as medidas e selecione uma opção visual.");
       return;
     }
-
     let biotipo = "";
     let origemResultado = "medidas";
-
     const difOmbroQuadril = ombros - quadril;
     const difQuadrilOmbro = quadril - ombros;
     const difCinturaOmbro = cintura - ombros;
@@ -134,148 +134,119 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (Math.abs(difOmbroQuadril) <= 3 && Math.abs(difQuadrilOmbro) <= 3) {
       if (cintura <= ombros - 10 && cintura <= quadril - 10) {
-        biotipo = "X"; // Ampulheta
+        biotipo = "X";
       } else {
-        biotipo = "H"; // Retângulo
+        biotipo = "H";
       }
     } else if (difOmbroQuadril >= 7) {
-      biotipo = "V"; // Triângulo Invertido
+      biotipo = "V";
     } else if (difQuadrilOmbro >= 7) {
-      biotipo = "A"; // Triangular
+      biotipo = "A";
     } else if (difCinturaOmbro >= 3 && difCinturaQuadril >= 3) {
-      biotipo = "O"; // Oval
+      biotipo = "O";
     } else {
       biotipo = visual.value;
       origemResultado = "visual";
     }
 
+    // chama exibição do resultado (apenas isso)
     exibirResultado(biotipo, origemResultado);
   }
 
+
 function exibirResultado(tipo, origem) {
-  const nomes = {
-    X: "Ampulheta (X)",
-    H: "Retangular (H)",
-    A: "Triangular (A)",
-    V: "Triângulo Invertido (V)",
-    O: "Oval (O)"
-  };
-
-  const imagensResultadoFinal = {
-    X: "Bonca_Ampulheta.jpg",
-    H: "Bonca_Retangular.jpg",
-    A: "Bonca_Triangular.jpg",
-    V: "Bonca_Triangular Invertido.jpg",
-    O: "Bonca_Oval.jpg"
-  };
-
-  let textoResumo = nomes[tipo] || "Não identificado";
-  if (origem === "visual") {
-    textoResumo += " — resultado baseado na sua percepção visual.";
-  } else {
-    textoResumo += " — resultado calculado com base nas medidas informadas.";
-  }
-
-  const descricoes = {
-    X: { texto: 'O corpo ampulheta tem ombros e quadris alinhados, com a cintura bem marcada. É uma silhueta proporcional e curvilínea. O foco está em valorizar essas curvas naturais sem esconder a cintura. Peças que acompanham a linha do corpo funcionam muito bem.' },
-    H: { texto: 'O corpo retangular tem medidas dos ombros, cintura e quadril mais alinhadas, com pouca definição de cintura. A silhueta costuma ser reta e proporcional. Looks que criam pontos de foco e marcam a cintura são ótimos aliados.' },
-    A: { texto: 'No corpo triangular, os quadris são mais largos que os ombros, com cintura geralmente marcada. A ideia é equilibrar as proporções, trazendo foco para a parte de cima com cores, detalhes e estruturas.' },
-    V: { texto: 'O corpo triangular invertido tem os ombros mais largos que os quadris, com cintura pouco marcada. O objetivo é equilibrar a silhueta, suavizando os ombros e dando destaque à região inferior com formas, cores ou texturas.' },
-    O: { texto: 'O corpo oval tem o centro do corpo mais evidente, com cintura menos marcada e, geralmente, volume concentrado na região abdominal. O foco está em alongar a silhueta e equilibrar proporções.' }
-  };
-  const info = descricoes[tipo] || { texto: '' };
-
-  nextSection(); // abre page4
-
-  const page4 = document.getElementById('page4');
-  if (!page4) return console.warn('Página #page4 não encontrada.');
-
-  // remove quaisquer restos antigos dentro de page4 (botões, títulos, etc)
-  page4.querySelectorAll('.resultado-title, #resultado-texto, #imagem-resultado, .resultado-descricao, .btn-wrapper, button[onclick="reiniciarTeste()"]').forEach(el => el.remove());
-
-  // garante content-wrapper único
-  let wrapper = page4.querySelector('.content-wrapper');
-  if (!wrapper) {
-    wrapper = document.createElement('div');
-    wrapper.className = 'content-wrapper';
-    page4.appendChild(wrapper);
-  }
-
-  const imagemSrc = `imagens/${imagensResultadoFinal[tipo] || 'default.jpg'}`;
-
-  wrapper.innerHTML = `
-    <h2 class="resultado-title">Resultado</h2>
-    <p id="resultado-texto" class="resultado-resumo">${textoResumo}</p>
-    <img id="imagem-resultado" src="${imagemSrc}" alt="Imagem ilustrativa do biotipo ${nomes[tipo] || tipo}" />
-    <div class="resultado-descricao"><p>${info.texto}</p></div>
-    <div class="btn-wrapper"><button class="btn-refazer" onclick="reiniciarTeste()">Refazer o teste</button></div>
-    <p class="info-envio">📩 Seu resultado foi enviado para o e-mail informado.</p>
-  `;
-
-  // --- envia resultado + contato ao webhook (n8n) para armazenar e disparar e-mail
-  (function sendToIntegration() {
-    // nome/email preferencialmente da variável cliente, se preenchida; senão tenta pegar dos inputs (backup)
-    const nomeParaEnvio = cliente.nome || document.getElementById('clientName')?.value || '';
-    const emailParaEnvio = cliente.email || document.getElementById('clientEmail')?.value || '';
-
-    // monta payload
-    const payload = {
-      nome: nomeParaEnvio,
-      email: emailParaEnvio,
-      resultado: nomes[tipo] || tipo,
-      origem: origem // 'medidas' ou 'visual'
+    const nomes = {
+      X: "Ampulheta (X)",
+      H: "Retangular (H)",
+      A: "Triangular (A)",
+      V: "Triângulo Invertido (V)",
+      O: "Oval (O)"
     };
 
-    // só envia se houver email (evita chamadas inúteis). Caso queira sempre salvar, remova essa checagem.
-    if (!payload.email) {
-      console.info('Nenhum e-mail disponível — não será enviado ao webhook.');
-      return;
+    const imagensResultadoFinal = {
+      X: "Bonca_Ampulheta.jpg",
+      H: "Bonca_Retangular.jpg",
+      A: "Bonca_Triangular.jpg",
+      V: "Bonca_Triangular Invertido.jpg",
+      O: "Bonca_Oval.jpg"
+    };
+
+    let textoResumo = nomes[tipo] || "Não identificado";
+    if (origem === "visual") {
+      textoResumo += " — resultado baseado na sua percepção visual.";
+    } else {
+      textoResumo += " — resultado calculado com base nas medidas informadas.";
     }
 
-    // URL do webhook n8n
-        
-    const N8N_WEBHOOK_URL = 'https://marinanaves.app.n8n.cloud/webhook/teste-biotipo';
-    
+    const descricoes = {
+      X: { texto: 'O corpo ampulheta tem ombros e quadris alinhados, com a cintura bem marcada. É uma silhueta proporcional e curvilínea. O foco está em valorizar essas curvas naturais sem esconder a cintura. Peças que acompanham a linha do corpo funcionam muito bem.' },
+      H: { texto: 'O corpo retangular tem medidas dos ombros, cintura e quadril mais alinhadas, com definição de cintura pequena ou inexistente. A silhueta costuma ser reta e proporcional. Looks que criam pontos de foco e marcam a cintura são ótimos aliados.' },
+      A: { texto: 'No corpo triangular, os quadris são mais largos que os ombros, com cintura geralmente marcada. A ideia é equilibrar as proporções, trazendo foco para a parte de cima com cores, detalhes e estruturas.' },
+      V: { texto: 'O corpo triangular invertido tem os ombros mais largos que os quadris, com cintura pouco marcada. O objetivo é equilibrar a silhueta, suavizando os ombros e dando destaque à região inferior com formas, cores ou texturas.' },
+      O: { texto: 'O corpo oval tem o centro do corpo mais evidente, com cintura menos marcada e, geralmente, volume concentrado na região abdominal. O foco está em alongar a silhueta e equilibrar proporções.' }
+    };
+    const info = descricoes[tipo] || { texto: '' };
 
-    fetch(N8N_WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(res => {
-      if (!res.ok) throw new Error('Falha ao enviar ao webhook: ' + res.status);
-      console.info('Resultado enviado ao webhook com sucesso.');
-    })
-    .catch(err => {
-      console.error('Erro ao enviar resultado ao webhook:', err);
-    });
-  })();
+    // Abre a página 4
+    nextSection();
 
+    const page4 = document.getElementById('page4');
+    if (!page4) return console.warn('Página #page4 não encontrada.');
+
+    // limpa conteúdo antigo
+    page4.innerHTML = page4.innerHTML; // força remoção de event handlers antigos (seguro)
+
+    // garante content-wrapper e id único para o PDF
+    let wrapper = page4.querySelector('.content-wrapper');
+    if (!wrapper) {
+      wrapper = document.createElement('div');
+      wrapper.className = 'content-wrapper';
+      page4.appendChild(wrapper);
+    }
+    wrapper.id = 'resultado-container';
+
+    const imagemSrc = `imagens/${imagensResultadoFinal[tipo] || 'default.jpg'}`;
+
+    wrapper.innerHTML = `
+      <h2 class="resultado-title" id="resultado-titulo">Resultado</h2>
+      <p id="resultado-texto" class="resultado-resumo">${textoResumo}</p>
+      <img id="imagem-resultado" src="${imagemSrc}" alt="Imagem do biotipo ${nomes[tipo] || tipo}" />
+      <div class="resultado-descricao"><p>${info.texto}</p></div>
+      <div class="btn-wrapper">
+        <button class="btn-refazer" id="btn-refazer">Refazer o teste</button>
+        <button id="btn-download-pdf" type="button">Baixar PDF</button>
+      </div>
+      <p class="info-envio">📩 Seu resultado foi enviado para o e-mail informado.</p>
+    `;
+
+    // listeners após o innerHTML
+    const btnRefazer = document.getElementById('btn-refazer');
+    if (btnRefazer) btnRefazer.addEventListener('click', reiniciarTeste);
+
+    const btnDownload = document.getElementById('btn-download-pdf');
+    if (btnDownload && !btnDownload.dataset.pdfHandled) {
+      btnDownload.dataset.pdfHandled = '1';
+      btnDownload.addEventListener('click', () => {
+        if (window._pdfGenerating) return;
+        const safeName = (cliente && cliente.nome) ? cliente.nome.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_-]/g,'') : 'cliente';
+        generatePdfAndDownload(`resultado_${safeName}.pdf`);
+      });
+    }
+
+    // Disparos silenciosos: enviar para Planilha e gerar PDF automaticamente
+    // (Não bloqueante. use handleResultadoExibicao que você já adicionou)
+    try {
+      if (typeof handleResultadoExibicao === 'function') {
+        handleResultadoExibicao(cliente.nome || '', cliente.email || '', nomes[tipo] || tipo);
+      } else {
+        // fallback removido: não gerar PDF automático
+        console.warn("handleResultadoExibicao não encontrado, mas ignorado para evitar download automático.");
+      }
+    } catch (err) {
+      console.error('Erro ao acionar envio:', err);
+    }
 
 }
-
-
-  function reiniciarTeste() {
-    // Oculta a tela atual (resultado)
-    sections[currentSectionIndex].classList.remove("active-section");
-    sections[currentSectionIndex].classList.add("hidden-section");
-
-    // Reseta índice e mostra a primeira seção
-    currentSectionIndex = 0;
-    sections[currentSectionIndex].classList.remove("hidden-section");
-    sections[currentSectionIndex].classList.add("active-section");
-
-    // Limpa todos os campos
-    document.getElementById("ombros").value = "";
-    document.getElementById("cintura").value = "";
-    document.getElementById("quadril").value = "";
-    document.getElementById("resultado-texto").textContent = "";
-    document.getElementById("imagem-resultado").src = "";
-    document.getElementById("imagem-resultado").alt = "";
-
-    resetOpcaoVisual();
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }
 
   // Inserção dinâmica das imagens e textos da pergunta visual
   const container = document.getElementById("opcoes-visuais");
@@ -349,7 +320,39 @@ function exibirResultado(tipo, origem) {
     });
   });
 
-  // Expor as funções ao escopo global (para os botões funcionarem)
+  function reiniciarTeste() {
+    // oculta a seção atual
+    if (sections[currentSectionIndex]) {
+      sections[currentSectionIndex].classList.remove("active-section");
+      sections[currentSectionIndex].classList.add("hidden-section");
+    }
+
+    // volta para a primeira
+    currentSectionIndex = 0;
+    if (sections[currentSectionIndex]) {
+      sections[currentSectionIndex].classList.remove("hidden-section");
+      sections[currentSectionIndex].classList.add("active-section");
+    }
+
+    // limpa campos
+    const ombrosEl = document.getElementById("ombros");
+    const cinturaEl = document.getElementById("cintura");
+    const quadrilEl = document.getElementById("quadril");
+    if (ombrosEl) ombrosEl.value = "";
+    if (cinturaEl) cinturaEl.value = "";
+    if (quadrilEl) quadrilEl.value = "";
+
+    const textoEl = document.getElementById("resultado-texto");
+    if (textoEl) textoEl.textContent = "";
+
+    const imgEl = document.getElementById("imagem-resultado");
+    if (imgEl) { imgEl.src = ""; imgEl.alt = ""; }
+
+    resetOpcaoVisual();
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
+
+    // Expor as funções ao escopo global (para os botões funcionarem)
   window.validarDadosCliente = validarDadosCliente;
   window.validarMedidas = validarMedidas;
   window.nextSection = nextSection;
@@ -357,3 +360,88 @@ function exibirResultado(tipo, origem) {
   window.reiniciarTeste = reiniciarTeste;
   
 });
+
+
+function sendToGoogleSheet(nomeVal, emailVal, resultado) {
+  try {
+    const base = 'https://script.google.com/macros/s/AKfycbyQ3aZ0dXZtChuFr3J75n5MHTVYQSLsWsbVgGlzVbj8htHxyzseDoyQnZhh5Su6ULyb/exec';
+    const params = new URLSearchParams({
+      nome: nomeVal || '',
+      email: emailVal || '',
+      resultado: resultado || '',
+      data: new Date().toISOString(),
+      secret: 'Armario@2025'
+    }).toString();
+
+    const url = base + '?' + params;
+    // envia via <img> (evita preflight CORS)
+    const img = new Image();
+    img.src = url + '&_t=' + Date.now();
+    return Promise.resolve({ status: 'beacon_sent', url });
+  } catch (err) {
+    return Promise.resolve({ status: 'error', message: String(err) });
+  }
+}
+
+async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
+  console.log("DEBUG: generatePdfAndDownload chamado");
+
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert('Biblioteca jsPDF não carregada. Confirme se o <script> do jsPDF está no HTML.');
+    return;
+  }
+  if (window._pdfGenerating) {
+    console.warn('PDF já em geração');
+    return;
+  }
+  window._pdfGenerating = true;
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const margin = 40;
+    let cursorY = 60;
+
+    // coleta dados do DOM se não vierem por parâmetro
+    const nome = nomeVal || document.getElementById('clientName')?.value || '';
+    const email = emailVal || document.getElementById('clientEmail')?.value || '';
+    const resultado = document.getElementById('resultado-texto')?.innerText || '';
+
+    // título
+    doc.setFontSize(18);
+    doc.text('Resultado do Teste de Biotipo', margin, cursorY);
+    cursorY += 28;
+
+    // corpo
+    doc.setFontSize(12);
+    doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
+    doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 16;
+    doc.text(`Resultado: ${resultado}`, margin, cursorY); cursorY += 28;
+
+    // rodapé
+    const footer = 'Gerado em: ' + new Date().toLocaleString();
+    const footerY = doc.internal.pageSize.getHeight() - 30;
+    doc.setFontSize(10);
+    doc.text(footer, margin, footerY);
+
+    doc.save(filename || 'resultado.pdf');
+  } catch (err) {
+    console.error('generatePdfAndDownload: erro:', err);
+  } finally {
+    window._pdfGenerating = false;
+  }
+}
+
+// Função principal chamada ao exibir resultado
+async function handleResultadoExibicao(nomeVal, emailVal, resultadoTexto) {
+  // envia silencioso (não bloqueante)
+  // const nome_sent = document.getElementById('nome')?.value || '';
+  // const email_sent = document.getElementById('email')?.value || '';
+  const resultado_sent = document.getElementById('resultado-texto')?.innerText || '';
+  sendToGoogleSheet(nomeVal, emailVal, resultado_sent);
+  // console.log('sendToGoogleSheet chamado', { nome, email, resultado });
+  // gera PDF para download
+  const safeName = (nomeVal || 'cliente').replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_-]/g,'');
+  generatePdfAndDownload(`resultado_${safeName}.pdf`, nomeVal, emailVal);
+
+}

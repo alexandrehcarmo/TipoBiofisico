@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Teste de Biotipo</title>
   <link rel="stylesheet" href="style.css" />
+  
 </head>
 
 <body>
@@ -81,14 +82,23 @@
 
       <!-- Página 4: Resultado Final -->
       <section id="page4" class="section hidden-section">
-        <div class="content-wrapper"></div>
+        <div id="resultado-container" class="content-wrapper">
+          <!-- Resultado gerado dinamicamente pelo script.js -->
+          <!-- Ex.: título, imagem, texto explicativo, medidas, etc. -->
+          <h2 id="resultado-titulo"></h2>
+          <div id="resultado-corpo"></div>
+
+          <!-- botão opcional para forçar download manual -->
+          <div style="margin-top:12px;">
+            <button id="btn-download-pdf" type="button">Baixar PDF</button>
+          </div>
+        </div>
       </section>
+
 
     </main>
   </div>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js" defer></script>
-
 </body>
-
 </html>
