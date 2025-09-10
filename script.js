@@ -42,20 +42,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailVal = emailInput.value.trim();
 
     if (!nomeVal) {
-      alert("Por favor, preencha seu nome.");
-      return;
-    }
-    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      alert("O e-mail informado não parece válido. Verifique e tente novamente.");
-      return;
+        alert("Por favor, preencha seu nome.");
+        return;
     }
 
-    // atualiza objeto global
+    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        alert("O e-mail informado não parece válido. Verifique e tente novamente.");
+        return;
+    }
+
+    // Atualiza objeto global
     cliente.nome = nomeVal;
     cliente.email = emailVal;
 
-    nextSection(); // avança para page2
-  }
+    // Avança para próxima seção imediatamente
+    nextSection();
+
+    // Envia os dados para a planilha de forma "silenciosa" e não bloqueante
+    try {
+        if (typeof sendToGoogleSheet === 'function') {
+            sendToGoogleSheet(cliente.nome, cliente.email, '')
+                .catch(err => console.error('Erro no envio para planilha:', err));
+        }
+    } catch (err) {
+        console.error('Erro ao chamar sendToGoogleSheet:', err);
+    }
+}
+
+
 
 
   function validarMedidas() {
@@ -244,6 +258,7 @@ function exibirResultado(tipo, origem) {
       console.error('Erro ao acionar envio:', err);
     }
 
+    sendToGoogleSheet(cliente.nome, cliente.email, nomes[tipo] || tipo);
 
 }
 
@@ -362,24 +377,26 @@ function exibirResultado(tipo, origem) {
 
 
 function sendToGoogleSheet(nomeVal, emailVal, resultado) {
-  try {
-    const base = 'https://script.google.com/macros/s/AKfycbyQ3aZ0dXZtChuFr3J75n5MHTVYQSLsWsbVgGlzVbj8htHxyzseDoyQnZhh5Su6ULyb/exec';
-    const params = new URLSearchParams({
-      nome: nomeVal || '',
-      email: emailVal || '',
-      resultado: resultado || '',
-      data: new Date().toISOString(),
-      secret: 'Armario@2025'
-    }).toString();
+    try {
+        const base = 'https://script.google.com/macros/s/AKfycbyQ3aZ0dXZtChuFr3J75n5MHTVYQSLsWsbVgGlzVbj8htHxyzseDoyQnZhh5Su6ULyb/exec';
+        const params = new URLSearchParams({
+            nome: nomeVal || '',
+            email: emailVal || '',
+            resultado: resultado || '',
+            data: new Date().toISOString(),
+            secret: 'Armario@2025'
+        }).toString();
 
-    const url = base + '?' + params;
-    // envia via <img> (evita preflight CORS)
-    const img = new Image();
-    img.src = url + '&_t=' + Date.now();
-    return Promise.resolve({ status: 'beacon_sent', url });
-  } catch (err) {
-    return Promise.resolve({ status: 'error', message: String(err) });
-  }
+        const url = base + '?' + params + '&_t=' + Date.now();
+
+        // envio "silencioso" usando Image (não bloqueia)
+        const img = new Image();
+        img.src = url;
+
+        console.log('sendToGoogleSheet enviado:', { nomeVal, emailVal, resultado });
+    } catch (err) {
+        console.error('Erro ao enviar para planilha:', err);
+    }
 }
 
 async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
