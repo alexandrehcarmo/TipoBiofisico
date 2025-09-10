@@ -235,16 +235,15 @@ function exibirResultado(tipo, origem) {
 
     // Disparos silenciosos: enviar para Planilha e gerar PDF automaticamente
     // (Não bloqueante. use handleResultadoExibicao que você já adicionou)
+    // Apenas envia os dados para planilha (não gera PDF automaticamente)
     try {
-      if (typeof handleResultadoExibicao === 'function') {
-        handleResultadoExibicao(cliente.nome || '', cliente.email || '', nomes[tipo] || tipo);
-      } else {
-        // fallback removido: não gerar PDF automático
-        console.warn("handleResultadoExibicao não encontrado, mas ignorado para evitar download automático.");
+      if (typeof sendToGoogleSheet === 'function') {
+        sendToGoogleSheet(cliente.nome || '', cliente.email || '', nomes[tipo] || tipo);
       }
     } catch (err) {
       console.error('Erro ao acionar envio:', err);
     }
+
 
 }
 
