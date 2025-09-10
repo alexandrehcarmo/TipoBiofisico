@@ -538,13 +538,17 @@ button[onclick='reiniciarTeste()']:hover {
 
 /* === SEPARAÇÃO DOS BOTÕES PARA MOBILE === */
 @media (max-width: 600px) {
+  /* Mantém os botões lado a lado, mas com gap maior */
   #resultado-container .btn-wrapper {
-    flex-direction: column;  /* empilha os botões */
-    gap: 18px;               /* aumenta o espaço entre eles */
+    flex-direction: row;   /* garante que fiquem lado a lado */
+    gap: 20px;             /* aumenta o espaçamento horizontal */
+    justify-content: center; /* centraliza o grupo */
+    margin-top: 20px;
   }
 
   #resultado-container .btn-wrapper button {
-    width: 100%;             /* ocupa toda a largura disponível */
-    max-width: 280px;        /* limite opcional */
+    padding: 8px 12px;    /* diminui um pouco o tamanho do botão */
+    font-size: 0.95rem;   /* diminui a fonte */
+    min-width: 100px;     /* mantém largura mínima para não ficar pequeno demais */
   }
 }
