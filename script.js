@@ -400,10 +400,10 @@ function sendToGoogleSheet(nomeVal, emailVal, resultado) {
 }
 
 async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
-  console.log("DEBUG: generatePdfAndDownload chamado (force-print v3)");
+  console.log("DEBUG: generatePdfAndDownload chamado (fix-nome-email)");
 
   if (!window.jspdf || !window.jspdf.jsPDF) {
-    alert('jsPDF não carregado.');
+    alert('Biblioteca jsPDF não carregada. Confirme se o <script> do jsPDF está no HTML.');
     return;
   }
   if (window._pdfGenerating) {
@@ -412,128 +412,70 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
   }
   window._pdfGenerating = true;
 
-  const loadScript = (src) => new Promise((res, rej) => {
-    if (document.querySelector(`script[data-src='${src}']`)) return res();
-    const s = document.createElement('script');
-    s.dataset.src = src;
-    s.src = src;
-    s.onload = res;
-    s.onerror = rej;
-    document.head.appendChild(s);
-  });
-
   try {
-    // selectors prováveis para a "última tela"
-    const selectors = ['#resultado-container', '#page4', '.resultado-final', '.resultado-wrapper', '.content-wrapper.active-section'];
-    let wrapper = null;
-    for (const sel of selectors) {
-      wrapper = document.querySelector(sel);
-      if (wrapper) break;
-    }
-    if (!wrapper) {
-      console.warn('Wrapper de resultado não encontrado. Tentando usar body como fallback.');
-      wrapper = document.body;
-    }
-
-    // esconde controles dentro do wrapper para captura
-    const hiddenEls = [];
-    wrapper.querySelectorAll('button, input[type=button], input[type=submit], .no-print, .btn').forEach(el => {
-      hiddenEls.push({ el, disp: el.style.display });
-      el.style.display = 'none';
-    });
-
-    // garante html2canvas
-    if (typeof html2canvas === 'undefined') {
-      try {
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-        if (typeof html2canvas === 'undefined') throw new Error('html2canvas não disponível');
-      } catch (e) {
-        console.warn('Falha ao carregar html2canvas:', e);
-      }
-    }
-
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const margin = 36;
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
-    const margin = 36;
     let cursorY = margin;
 
-    // 1) inserir logo no topo do PDF (tenta carregar imagens/logoredonda.png ou img existente no DOM)
+    // --- captura garantida do nome/email (volta ao comportamento anterior)
+    const nome = nomeVal || document.getElementById('clientName')?.value || '';
+    const email = emailVal || document.getElementById('clientEmail')?.value || '';
+
+    // tentar inserir logo no topo
     try {
-      const logoEl = document.querySelector('img[src*="logoredonda.png"]') || document.querySelector('.logo-top') || null;
-      let logoDataUrl = null;
+      const logoEl = document.querySelector('img[src*="logoredonda.png"]') || document.querySelector('.logo-top');
       if (logoEl && logoEl.src) {
-        // usa a src existente
-        const canvas = document.createElement('canvas');
         const img = new Image();
         img.crossOrigin = 'anonymous';
         await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = logoEl.src; });
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        canvas.getContext('2d').drawImage(img, 0, 0);
-        logoDataUrl = canvas.toDataURL('image/png');
-      } else {
-        // tenta carregar pelo caminho relativo
-        try {
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = 'imagens/logoredonda.png'; });
-          const c = document.createElement('canvas');
-          c.width = img.naturalWidth; c.height = img.naturalHeight;
-          c.getContext('2d').drawImage(img, 0, 0);
-          logoDataUrl = c.toDataURL('image/png');
-        } catch (e) {
-          console.warn('Logo não encontrada em DOM nem em imagens/logoredonda.png:', e);
-        }
-      }
-      if (logoDataUrl) {
-        const imgObj = new Image();
-        imgObj.src = logoDataUrl;
-        await new Promise((res, rej) => { imgObj.onload = res; imgObj.onerror = rej; });
         const maxLogoW = 140;
-        const ratio = imgObj.naturalWidth / imgObj.naturalHeight || 1;
+        const ratio = img.naturalWidth / img.naturalHeight || 1;
         const logoW = Math.min(maxLogoW, pageW - margin * 2);
         const logoH = logoW / ratio;
         const logoX = (pageW - logoW) / 2;
-        doc.addImage(logoDataUrl, 'PNG', logoX, cursorY, logoW, logoH);
+        doc.addImage(img, 'PNG', logoX, cursorY, logoW, logoH);
         cursorY += logoH + 8;
-        console.log('Logo inserida no PDF.');
-      } else {
-        console.log('Logo não disponível para inserir no PDF.');
       }
     } catch (e) {
-      console.warn('Erro ao inserir logo:', e);
+      console.warn('Logo não inserida no PDF:', e);
     }
 
-    // 2) tentar capturar a aparência exata da última tela com html2canvas
-    let addedPreview = false;
-    if (typeof html2canvas !== 'undefined') {
-      try {
-        // clona para não alterar o DOM visível
+    // sempre escrever Nome e E-mail no PDF (garantia textual)
+    doc.setFontSize(12);
+    doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
+    doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 18;
+
+    // tenta captura "print" da última tela via html2canvas e garante que o clone contenha nome/email
+    let previewAdded = false;
+    try {
+      if (typeof html2canvas === 'undefined') {
+        // tenta carregar html2canvas do CDN; se bloqueado, seguirá para fallback
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        document.head.appendChild(s);
+        await new Promise((res, rej) => { s.onload = res; s.onerror = res; });
+      }
+      if (typeof html2canvas !== 'undefined') {
+        // seletores prováveis para a "última tela"
+        const selectors = ['#resultado-container', '#page4', '.resultado-final', '.resultado-wrapper', '.content-wrapper.active-section'];
+        let wrapper = null;
+        for (const sel of selectors) { wrapper = document.querySelector(sel); if (wrapper) break; }
+        if (!wrapper) wrapper = document.body;
+
+        // clona e injeta nome/email no topo do clone para captura
         const clone = wrapper.cloneNode(true);
-        // força que inputs exibam seus valores (clonar não copia value para elementos de formulário)
-        clone.querySelectorAll('input, textarea').forEach(n => {
-          const name = n.getAttribute('name') || n.id;
-          if (name) {
-            const orig = document.querySelector(`#${n.id}`) || document.querySelector(`[name="${name}"]`);
-            if (orig && (orig.value || orig.checked !== undefined)) {
-              if (n.tagName.toLowerCase() === 'input' && (orig.type === 'checkbox' || orig.type === 'radio')) {
-                if (orig.checked) n.setAttribute('checked','checked');
-              } else {
-                n.setAttribute('value', orig.value || '');
-                if (n.tagName.toLowerCase() === 'textarea') n.textContent = orig.value || '';
-              }
-            }
-          }
-        });
+        const infoDiv = document.createElement('div');
+        infoDiv.style.cssText = 'font-size:14px; font-weight:600; text-align:center; margin-bottom:8px; color:#000';
+        infoDiv.textContent = `${nome}${nome && email ? ' — ' : ''}${email}`;
+        clone.prepend(infoDiv);
 
         const off = document.createElement('div');
         off.style.position = 'fixed';
         off.style.left = '-9999px';
         off.style.top = '-9999px';
-        off.style.width = wrapper.offsetWidth + 'px';
-        off.style.height = wrapper.offsetHeight + 'px';
         off.appendChild(clone);
         document.body.appendChild(off);
 
@@ -541,7 +483,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
         const dataUrl = canvas.toDataURL('image/png');
         document.body.removeChild(off);
 
-        // desenha a captura no PDF ajustando escala para largura
+        // desenha a captura no PDF
         const maxW = pageW - margin * 2;
         const img = new Image();
         img.src = dataUrl;
@@ -549,39 +491,20 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
         const ratio = img.naturalWidth / img.naturalHeight || 1;
         let drawW = Math.min(maxW, img.naturalWidth * (72/96));
         let drawH = drawW / ratio;
-        if (cursorY + drawH > pageH - margin) {
-          doc.addPage();
-          cursorY = margin;
-        }
+        if (cursorY + drawH > pageH - margin) { doc.addPage(); cursorY = margin; }
         const x = (pageW - drawW) / 2;
         doc.addImage(dataUrl, 'PNG', x, cursorY, drawW, drawH);
         cursorY += drawH + 12;
-        addedPreview = true;
-        console.log('Preview (captura) adicionado ao PDF.');
-      } catch (e) {
-        console.warn('Falha ao capturar a tela com html2canvas:', e);
+        previewAdded = true;
       }
-    } else {
-      console.log('html2canvas não disponível. Usando fallback textual/imagem.');
+    } catch (e) {
+      console.warn('Falha na captura via html2canvas (seguir para fallback):', e);
     }
 
-    // 3) fallback: se captura falhar, incluir nome, email, resultado e #imagem-resultado separadamente
-    if (!addedPreview) {
-//       const nome = nomeVal || document.getElementById('clientName')?.value || document.getElementById('nome')?.value || '';
-//      const email = emailVal || document.getElementById('clientEmail')?.value || document.getElementById('email')?.value || '';
-
-      const nome = nomeVal || document.getElementById('clientName')?.value || '';
-      const email = emailVal || document.getElementById('clientEmail')?.value || '';
-
-      const resultadoTexto = document.getElementById('resultado-texto')?.innerText || '';
-      doc.setFontSize(18);
-      doc.text('Resultado do Teste de Biotipo', margin, cursorY);
-      cursorY += 22;
-      doc.setFontSize(12);
-      doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
-      doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 16;
-      doc.text(`Resultado: ${resultadoTexto}`, margin, cursorY); cursorY += 18;
-
+    // fallback: se não capturou, incluir imagem do resultado e descrição como antes
+    if (!previewAdded) {
+      const resultado = document.getElementById('resultado-texto')?.innerText || '';
+      doc.text(`Resultado: ${resultado}`, margin, cursorY); cursorY += 18;
       try {
         const imgEl = document.getElementById('imagem-resultado');
         if (imgEl && imgEl.src) {
@@ -589,12 +512,11 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
           tmp.crossOrigin = 'anonymous';
           await new Promise((res, rej) => { tmp.onload = res; tmp.onerror = rej; tmp.src = imgEl.src; });
           const maxW = pageW - margin * 2;
-          const ratio = tmp.naturalWidth / tmp.naturalHeight || 1;
+          const ratio2 = tmp.naturalWidth / tmp.naturalHeight || 1;
           let drawW = Math.min(maxW, tmp.naturalWidth * (72/96));
-          let drawH = drawW / ratio;
+          let drawH = drawW / ratio2;
           if (cursorY + drawH > pageH - margin) { doc.addPage(); cursorY = margin; }
           const x = (pageW - drawW) / 2;
-          // converter para dataURL via canvas
           const cv = document.createElement('canvas');
           cv.width = tmp.naturalWidth; cv.height = tmp.naturalHeight;
           cv.getContext('2d').drawImage(tmp, 0, 0);
@@ -603,9 +525,8 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
           cursorY += drawH + 12;
         }
       } catch (e) {
-        console.warn('Erro ao adicionar imagem do resultado (fallback):', e);
+        console.warn('Erro ao inserir imagem do resultado (fallback):', e);
       }
-
       const descricao = document.querySelector('.resultado-descricao p')?.innerText || '';
       if (descricao) {
         const lines = doc.splitTextToSize(descricao, pageW - margin * 2);
@@ -620,10 +541,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     doc.setFontSize(10);
     doc.text(footer, margin, pageH - 28);
 
-    // restaurar elementos escondidos
-    hiddenEls.forEach(o => { o.el.style.display = o.disp || ''; });
-
-    // abre preview em nova aba (blob). fallback: salvar
+    // salva / preview
     try {
       const blob = doc.output('blob');
       const url = URL.createObjectURL(blob);
@@ -637,7 +555,6 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     window._pdfGenerating = false;
   }
 }
-
 
 // Função principal chamada ao exibir resultado
 async function handleResultadoExibicao(nomeVal, emailVal, resultadoTexto) {
