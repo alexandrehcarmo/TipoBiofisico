@@ -400,10 +400,10 @@ function sendToGoogleSheet(nomeVal, emailVal, resultado) {
 }
 
 async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
-  console.log("DEBUG: generatePdfAndDownload chamado (fix-nome-email)");
+  console.log("DEBUG: generatePdfAndDownload chamado (fix-dup-nome-remove-botoes)");
 
   if (!window.jspdf || !window.jspdf.jsPDF) {
-    alert('Biblioteca jsPDF não carregada. Confirme se o <script> do jsPDF está no HTML.');
+    alert('jsPDF não carregado.');
     return;
   }
   if (window._pdfGenerating) {
@@ -411,6 +411,17 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     return;
   }
   window._pdfGenerating = true;
+
+  const ensureHtml2Canvas = async () => {
+    if (typeof html2canvas !== 'undefined') return;
+    return new Promise((res) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+      s.onload = () => setTimeout(res, 50);
+      s.onerror = () => setTimeout(res, 50);
+      document.head.appendChild(s);
+    });
+  };
 
   try {
     const { jsPDF } = window.jspdf;
@@ -420,11 +431,11 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     const pageH = doc.internal.pageSize.getHeight();
     let cursorY = margin;
 
-    // --- captura garantida do nome/email (volta ao comportamento anterior)
+    // coleta garantida do nome/email (valores reais do formulário)
     const nome = nomeVal || document.getElementById('clientName')?.value || '';
     const email = emailVal || document.getElementById('clientEmail')?.value || '';
 
-    // tentar inserir logo no topo
+    // 1) tentar inserir logo no topo do PDF (se existir)
     try {
       const logoEl = document.querySelector('img[src*="logoredonda.png"]') || document.querySelector('.logo-top');
       if (logoEl && logoEl.src) {
@@ -443,39 +454,54 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
       console.warn('Logo não inserida no PDF:', e);
     }
 
-    // sempre escrever Nome e E-mail no PDF (garantia textual)
-    doc.setFontSize(12);
-    doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
-    doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 18;
-
-    // tenta captura "print" da última tela via html2canvas e garante que o clone contenha nome/email
+    // 2) tentar captura "print" da última tela com html2canvas
     let previewAdded = false;
     try {
-      if (typeof html2canvas === 'undefined') {
-        // tenta carregar html2canvas do CDN; se bloqueado, seguirá para fallback
-        const s = document.createElement('script');
-        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-        document.head.appendChild(s);
-        await new Promise((res, rej) => { s.onload = res; s.onerror = res; });
-      }
+      await ensureHtml2Canvas();
+
       if (typeof html2canvas !== 'undefined') {
-        // seletores prováveis para a "última tela"
-        const selectors = ['#resultado-container', '#page4', '.resultado-final', '.resultado-wrapper', '.content-wrapper.active-section'];
+        // localizar wrapper da última tela
+        const selectors = ['#resultado-container', '#page4', '.resultado-final', '.resultado-wrapper', '.content-wrapper.active-section', '.resultado'];
         let wrapper = null;
-        for (const sel of selectors) { wrapper = document.querySelector(sel); if (wrapper) break; }
+        for (const sel of selectors) {
+          wrapper = document.querySelector(sel);
+          if (wrapper) break;
+        }
         if (!wrapper) wrapper = document.body;
 
-        // clona e injeta nome/email no topo do clone para captura
+        // clona wrapper para captura e remove elementos que não devem aparecer
         const clone = wrapper.cloneNode(true);
+
+        // remover botões/controles/ícones do clone (evita imagens de botões no rodapé)
+        clone.querySelectorAll('button, input[type="button"], input[type="submit"], input[type="image"], .btn, .no-print, .controls, .footer, .footer-controls, .acoes').forEach(n => n.remove());
+
+        // garantir que campos de formulário mantenham valores visíveis no clone
+        clone.querySelectorAll('input, textarea').forEach(n => {
+          const id = n.id;
+          const name = n.name;
+          let orig = null;
+          if (id) orig = document.getElementById(id);
+          if (!orig && name) orig = document.querySelector(`[name="${name}"]`);
+          if (orig) {
+            if (n.tagName.toLowerCase() === 'textarea') n.textContent = orig.value || '';
+            else n.setAttribute('value', orig.value || '');
+            if (orig.checked) n.setAttribute('checked', 'checked');
+          }
+        });
+
+        // injetar nome/email somente no clone (evita duplicação textual no PDF)
         const infoDiv = document.createElement('div');
-        infoDiv.style.cssText = 'font-size:14px; font-weight:600; text-align:center; margin-bottom:8px; color:#000';
+        infoDiv.style.cssText = 'font-size:14px; font-weight:600; text-align:center; margin-bottom:8px; color:#000;';
         infoDiv.textContent = `${nome}${nome && email ? ' — ' : ''}${email}`;
         clone.prepend(infoDiv);
 
+        // offscreen container e render
         const off = document.createElement('div');
         off.style.position = 'fixed';
         off.style.left = '-9999px';
         off.style.top = '-9999px';
+        off.style.width = Math.max(wrapper.offsetWidth, 800) + 'px';
+        off.style.height = Math.max(wrapper.offsetHeight, 600) + 'px';
         off.appendChild(clone);
         document.body.appendChild(off);
 
@@ -483,7 +509,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
         const dataUrl = canvas.toDataURL('image/png');
         document.body.removeChild(off);
 
-        // desenha a captura no PDF
+        // desenhar captura no PDF
         const maxW = pageW - margin * 2;
         const img = new Image();
         img.src = dataUrl;
@@ -501,10 +527,14 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
       console.warn('Falha na captura via html2canvas (seguir para fallback):', e);
     }
 
-    // fallback: se não capturou, incluir imagem do resultado e descrição como antes
+    // 3) fallback textual + imagem do resultado — só usado se captura falhar
     if (!previewAdded) {
+      doc.setFontSize(12);
+      doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
+      doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 18;
       const resultado = document.getElementById('resultado-texto')?.innerText || '';
       doc.text(`Resultado: ${resultado}`, margin, cursorY); cursorY += 18;
+
       try {
         const imgEl = document.getElementById('imagem-resultado');
         if (imgEl && imgEl.src) {
@@ -527,6 +557,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
       } catch (e) {
         console.warn('Erro ao inserir imagem do resultado (fallback):', e);
       }
+
       const descricao = document.querySelector('.resultado-descricao p')?.innerText || '';
       if (descricao) {
         const lines = doc.splitTextToSize(descricao, pageW - margin * 2);
@@ -541,7 +572,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     doc.setFontSize(10);
     doc.text(footer, margin, pageH - 28);
 
-    // salva / preview
+    // preview em nova aba (blob) com fallback para salvar
     try {
       const blob = doc.output('blob');
       const url = URL.createObjectURL(blob);
@@ -555,6 +586,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     window._pdfGenerating = false;
   }
 }
+
 
 // Função principal chamada ao exibir resultado
 async function handleResultadoExibicao(nomeVal, emailVal, resultadoTexto) {
