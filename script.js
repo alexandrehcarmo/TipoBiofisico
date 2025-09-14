@@ -573,12 +573,43 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     doc.text(footer, margin, pageH - 28);
 
     // preview em nova aba (blob) com fallback para salvar
+   
+   
+    // tentativa de download direto em mobile e preview em desktop
     try {
       const blob = doc.output('blob');
       const url = URL.createObjectURL(blob);
-      window.open(url, '_blank');
+      const filenameToUse = filename || 'resultado.pdf';
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+      const triggerAnchorDownload = (href, name) => {
+        const a = document.createElement('a');
+        a.href = href;
+        a.download = name;
+        // alguns navegadores móveis exigem append antes do click
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+
+      if (isMobile) {
+        try {
+          triggerAnchorDownload(url, filenameToUse);
+          // liberar o objeto após curto delay
+          setTimeout(() => URL.revokeObjectURL(url), 1500);
+        } catch (e) {
+          // fallback: abrir em nova aba se o download falhar
+          window.open(url, '_blank');
+        }
+      } else {
+        // desktop: abrir preview em nova aba
+        window.open(url, '_blank');
+        // liberar depois
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      }
     } catch (e) {
-      doc.save(filename || 'resultado.pdf');
+      // último recurso: forçar download via jsPDF
+      try { doc.save(filename || 'resultado.pdf'); } catch (err) { console.error(err); }
     }
   } catch (err) {
     console.error('generatePdfAndDownload: erro:', err);
