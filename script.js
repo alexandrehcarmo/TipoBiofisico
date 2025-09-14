@@ -567,8 +567,12 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
 
     // 3) fallback: se captura falhar, incluir nome, email, resultado e #imagem-resultado separadamente
     if (!addedPreview) {
-      const nome = nomeVal || document.getElementById('clientName')?.value || document.getElementById('nome')?.value || '';
-      const email = emailVal || document.getElementById('clientEmail')?.value || document.getElementById('email')?.value || '';
+//       const nome = nomeVal || document.getElementById('clientName')?.value || document.getElementById('nome')?.value || '';
+//      const email = emailVal || document.getElementById('clientEmail')?.value || document.getElementById('email')?.value || '';
+
+      const nome = nomeVal || document.getElementById('clientName')?.value || '';
+      const email = emailVal || document.getElementById('clientEmail')?.value || '';
+
       const resultadoTexto = document.getElementById('resultado-texto')?.innerText || '';
       doc.setFontSize(18);
       doc.text('Resultado do Teste de Biotipo', margin, cursorY);
