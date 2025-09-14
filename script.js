@@ -416,27 +416,97 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
     const margin = 40;
-    let cursorY = 60;
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    let cursorY = margin;
+
+    // helpers: carrega imagem e retorna dataURL + elemento img
+    const loadImageAsDataURL = (src) => new Promise((res, rej) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        try {
+          const c = document.createElement('canvas');
+          c.width = img.naturalWidth;
+          c.height = img.naturalHeight;
+          const ctx = c.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          const data = c.toDataURL('image/png');
+          res({ data, img });
+        } catch (e) {
+          rej(e);
+        }
+      };
+      img.onerror = (e) => rej(e);
+      img.src = src;
+    });
 
     // coleta dados do DOM se não vierem por parâmetro
     const nome = nomeVal || document.getElementById('clientName')?.value || '';
     const email = emailVal || document.getElementById('clientEmail')?.value || '';
     const resultado = document.getElementById('resultado-texto')?.innerText || '';
+    const descricao = document.querySelector('.resultado-descricao p')?.innerText || '';
 
-    // título
+    // 1) logo no topo (se existir)
+    try {
+      const logo = await loadImageAsDataURL('imagens/logoredonda.png');
+      const logoMaxW = 120; // pontos
+      const ratio = logo.img.naturalWidth / logo.img.naturalHeight;
+      const logoW = Math.min(logoMaxW, pageW - margin * 2);
+      const logoH = logoW / ratio;
+      const logoX = (pageW - logoW) / 2;
+      doc.addImage(logo.data, 'PNG', logoX, cursorY, logoW, logoH);
+      cursorY += logoH + 10;
+    } catch (err) {
+      console.warn('Logo não pôde ser carregada para o PDF:', err);
+    }
+
+    // 2) título
     doc.setFontSize(18);
     doc.text('Resultado do Teste de Biotipo', margin, cursorY);
-    cursorY += 28;
+    cursorY += 26;
 
-    // corpo
+    // 3) nome / email / resultado curto
     doc.setFontSize(12);
     doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
     doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 16;
-    doc.text(`Resultado: ${resultado}`, margin, cursorY); cursorY += 28;
+    doc.text(`Resultado: ${resultado}`, margin, cursorY); cursorY += 20;
+
+    // 4) imagem do resultado (se houver #imagem-resultado no DOM)
+    try {
+      const imgEl = document.getElementById('imagem-resultado');
+      if (imgEl && imgEl.src) {
+        const resImg = await loadImageAsDataURL(imgEl.src);
+        const maxImgW = pageW - margin * 2;
+        const ratio2 = resImg.img.naturalWidth / resImg.img.naturalHeight;
+        let drawW = Math.min(maxImgW, resImg.img.naturalWidth);
+        let drawH = drawW / ratio2;
+        if (cursorY + drawH > pageH - 120) { // nova página se estourar
+          doc.addPage();
+          cursorY = margin;
+        }
+        const x = (pageW - drawW) / 2;
+        doc.addImage(resImg.data, 'PNG', x, cursorY, drawW, drawH);
+        cursorY += drawH + 12;
+      }
+    } catch (err) {
+      console.warn('Imagem do resultado não pôde ser adicionada ao PDF:', err);
+    }
+
+    // 5) descrição do resultado (quebra automática)
+    if (descricao) {
+      const descLines = doc.splitTextToSize(descricao, pageW - margin * 2);
+      if (cursorY + descLines.length * 14 > pageH - 100) {
+        doc.addPage();
+        cursorY = margin;
+      }
+      doc.text(descLines, margin, cursorY);
+      cursorY += descLines.length * 14 + 10;
+    }
 
     // rodapé
     const footer = 'Gerado em: ' + new Date().toLocaleString();
-    const footerY = doc.internal.pageSize.getHeight() - 30;
+    const footerY = pageH - 30;
     doc.setFontSize(10);
     doc.text(footer, margin, footerY);
 
