@@ -230,7 +230,7 @@ function exibirResultado(tipo, origem) {
         <button class="btn-refazer" id="btn-refazer">Refazer o teste</button>
         <button id="btn-download-pdf" type="button">Baixar PDF</button>
       </div>
-      <p class="info-envio">📩 Seu resultado foi enviado para o e-mail informado.</p>
+      <!-- <p class="info-envio">📩 Seu resultado foi enviado para o e-mail informado.</p> -->
     `;
 
     // listeners após o innerHTML
@@ -420,7 +420,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     const pageH = doc.internal.pageSize.getHeight();
     let cursorY = margin;
 
-    // helpers: carrega imagem e retorna dataURL + elemento img
+    // helper: carrega imagem e retorna dataURL + elemento img
     const loadImageAsDataURL = (src) => new Promise((res, rej) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
@@ -450,13 +450,13 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     // 1) logo no topo (se existir)
     try {
       const logo = await loadImageAsDataURL('imagens/logoredonda.png');
-      const logoMaxW = 120; // pontos
+      const logoMaxW = 140; // pontos
       const ratio = logo.img.naturalWidth / logo.img.naturalHeight;
       const logoW = Math.min(logoMaxW, pageW - margin * 2);
       const logoH = logoW / ratio;
       const logoX = (pageW - logoW) / 2;
       doc.addImage(logo.data, 'PNG', logoX, cursorY, logoW, logoH);
-      cursorY += logoH + 10;
+      cursorY += logoH + 12;
     } catch (err) {
       console.warn('Logo não pôde ser carregada para o PDF:', err);
     }
@@ -510,13 +510,22 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     doc.setFontSize(10);
     doc.text(footer, margin, footerY);
 
-    doc.save(filename || 'resultado.pdf');
+    // preview em nova aba (sem forçar download)
+    try {
+      const blob = doc.output('blob');
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    } catch (err) {
+      // fallback para salvar direto
+      doc.save(filename || 'resultado.pdf');
+    }
   } catch (err) {
     console.error('generatePdfAndDownload: erro:', err);
   } finally {
     window._pdfGenerating = false;
   }
 }
+
 
 // Função principal chamada ao exibir resultado
 async function handleResultadoExibicao(nomeVal, emailVal, resultadoTexto) {
