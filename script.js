@@ -400,7 +400,7 @@ function sendToGoogleSheet(nomeVal, emailVal, resultado) {
 }
 
 async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
-  console.log("DEBUG: generatePdfAndDownload chamado");
+  console.log("DEBUG: generatePdfAndDownload chamado (v2: captura estilo 'print')");
 
   if (!window.jspdf || !window.jspdf.jsPDF) {
     alert('Biblioteca jsPDF não carregada. Confirme se o <script> do jsPDF está no HTML.');
@@ -412,111 +412,168 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
   }
   window._pdfGenerating = true;
 
+  // helper para carregar script externo (html2canvas) dinamicamente
+  const loadScript = (src) => new Promise((res, rej) => {
+    if (document.querySelector(`script[data-src='${src}']`)) return res();
+    const s = document.createElement('script');
+    s.dataset.src = src;
+    s.src = src;
+    s.onload = res;
+    s.onerror = rej;
+    document.head.appendChild(s);
+  });
+
   try {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
-    const margin = 40;
-    const pageW = doc.internal.pageSize.getWidth();
-    const pageH = doc.internal.pageSize.getHeight();
-    let cursorY = margin;
-
-    // helper: carrega imagem e retorna dataURL + elemento img
-    const loadImageAsDataURL = (src) => new Promise((res, rej) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        try {
-          const c = document.createElement('canvas');
-          c.width = img.naturalWidth;
-          c.height = img.naturalHeight;
-          const ctx = c.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-          const data = c.toDataURL('image/png');
-          res({ data, img });
-        } catch (e) {
-          rej(e);
-        }
-      };
-      img.onerror = (e) => rej(e);
-      img.src = src;
-    });
-
-    // coleta dados do DOM se não vierem por parâmetro
-    const nome = nomeVal || document.getElementById('clientName')?.value || '';
-    const email = emailVal || document.getElementById('clientEmail')?.value || '';
-    const resultado = document.getElementById('resultado-texto')?.innerText || '';
-    const descricao = document.querySelector('.resultado-descricao p')?.innerText || '';
-
-    // 1) logo no topo (se existir)
-    try {
-      const logo = await loadImageAsDataURL('imagens/logoredonda.png');
-      const logoMaxW = 140; // pontos
-      const ratio = logo.img.naturalWidth / logo.img.naturalHeight;
-      const logoW = Math.min(logoMaxW, pageW - margin * 2);
-      const logoH = logoW / ratio;
-      const logoX = (pageW - logoW) / 2;
-      doc.addImage(logo.data, 'PNG', logoX, cursorY, logoW, logoH);
-      cursorY += logoH + 12;
-    } catch (err) {
-      console.warn('Logo não pôde ser carregada para o PDF:', err);
+    // elemento que representa a última página / resultado
+    const wrapper = document.getElementById('resultado-container') || document.getElementById('page4') || document.querySelector('#page4 .content-wrapper');
+    if (!wrapper) {
+      console.warn('Elemento de resultado não encontrado. Abortando geração "print".');
     }
 
-    // 2) título
-    doc.setFontSize(18);
-    doc.text('Resultado do Teste de Biotipo', margin, cursorY);
-    cursorY += 26;
+    // esconde temporariamente botões que não devem aparecer no "print"
+    const btns = wrapper ? wrapper.querySelectorAll('button, input[type="button"], input[type="submit"]') : [];
+    const prevDisplay = [];
+    btns.forEach((b,i) => { prevDisplay[i]=b.style.display; b.style.display='none'; });
 
-    // 3) nome / email / resultado curto
-    doc.setFontSize(12);
-    doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
-    doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 16;
-    doc.text(`Resultado: ${resultado}`, margin, cursorY); cursorY += 20;
+    // garante que html2canvas esteja disponível
+    if (typeof html2canvas === 'undefined') {
+      try {
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+      } catch (e) {
+        console.warn('Falha ao carregar html2canvas:', e);
+      }
+    }
 
-    // 4) imagem do resultado (se houver #imagem-resultado no DOM)
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 36;
+    let cursorY = margin;
+
+    // 1) desenha logo no topo se existir
     try {
-      const imgEl = document.getElementById('imagem-resultado');
-      if (imgEl && imgEl.src) {
-        const resImg = await loadImageAsDataURL(imgEl.src);
-        const maxImgW = pageW - margin * 2;
-        const ratio2 = resImg.img.naturalWidth / resImg.img.naturalHeight;
-        let drawW = Math.min(maxImgW, resImg.img.naturalWidth);
-        let drawH = drawW / ratio2;
-        if (cursorY + drawH > pageH - 120) { // nova página se estourar
+      const logoEl = document.querySelector('img[src*="logoredonda.png"]') || document.querySelector('.logo-top') || document.querySelector('#page1 .logo-top');
+      if (logoEl && logoEl.src) {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        await new Promise((res,rej)=>{
+          img.onload = res;
+          img.onerror = rej;
+          img.src = logoEl.src;
+        });
+        const maxLogoW = 140;
+        const ratio = img.naturalWidth / img.naturalHeight || 1;
+        const logoW = Math.min(maxLogoW, pageW - margin*2);
+        const logoH = logoW / ratio;
+        const logoX = (pageW - logoW)/2;
+        doc.addImage(img, 'PNG', logoX, cursorY, logoW, logoH);
+        cursorY += logoH + 8;
+      }
+    } catch (e) {
+      console.warn('Não foi possível incluir logo no topo do PDF:', e);
+    }
+
+    // 2) se html2canvas disponível e wrapper encontrado, captura a aparência da última página
+    let previewAdded = false;
+    if (typeof html2canvas !== 'undefined' && wrapper) {
+      try {
+        // clona wrapper para evitar alterações visuais no original
+        const clone = wrapper.cloneNode(true);
+        clone.querySelectorAll('[data-pdf-handled]').forEach(n=>n.removeAttribute('data-pdf-handled'));
+        const off = document.createElement('div');
+        off.style.position = 'fixed';
+        off.style.left = '-9999px';
+        off.style.top = '-9999px';
+        off.style.width = wrapper.offsetWidth + 'px';
+        off.style.height = wrapper.offsetHeight + 'px';
+        off.appendChild(clone);
+        document.body.appendChild(off);
+
+        // renderiza usando html2canvas com escala para maior resolução
+        const canvas = await html2canvas(clone, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+        const dataUrl = canvas.toDataURL('image/png');
+
+        document.body.removeChild(off);
+
+        // calcula dimensões de desenho no PDF
+        const maxW = pageW - margin*2;
+        const img = new Image();
+        img.src = dataUrl;
+        await new Promise((res,rej)=>{ img.onload=res; img.onerror=rej; });
+        const ratio = img.naturalWidth / img.naturalHeight;
+        let drawW = Math.min(maxW, img.naturalWidth * (72/96));
+        let drawH = drawW / ratio;
+        if (cursorY + drawH > pageH - margin) {
           doc.addPage();
           cursorY = margin;
         }
-        const x = (pageW - drawW) / 2;
-        doc.addImage(resImg.data, 'PNG', x, cursorY, drawW, drawH);
+        const x = (pageW - drawW)/2;
+        doc.addImage(dataUrl, 'PNG', x, cursorY, drawW, drawH);
         cursorY += drawH + 12;
+        previewAdded = true;
+      } catch (e) {
+        console.warn('Erro ao capturar a página via html2canvas:', e);
       }
-    } catch (err) {
-      console.warn('Imagem do resultado não pôde ser adicionada ao PDF:', err);
     }
 
-    // 5) descrição do resultado (quebra automática)
-    if (descricao) {
-      const descLines = doc.splitTextToSize(descricao, pageW - margin * 2);
-      if (cursorY + descLines.length * 14 > pageH - 100) {
-        doc.addPage();
-        cursorY = margin;
+    // 3) fallback textual + imagem existente se captura não foi possível
+    if (!previewAdded) {
+      doc.setFontSize(18);
+      doc.text('Resultado do Teste de Biotipo', margin, cursorY);
+      cursorY += 22;
+      const nome = nomeVal || document.getElementById('clientName')?.value || '';
+      const email = emailVal || document.getElementById('clientEmail')?.value || '';
+      const resultadoTexto = document.getElementById('resultado-texto')?.innerText || '';
+      doc.setFontSize(12);
+      doc.text(`Nome: ${nome}`, margin, cursorY); cursorY += 16;
+      doc.text(`E-mail: ${email}`, margin, cursorY); cursorY += 16;
+      doc.text(`Resultado: ${resultadoTexto}`, margin, cursorY); cursorY += 18;
+
+      try {
+        const imgEl = document.getElementById('imagem-resultado');
+        if (imgEl && imgEl.src) {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          await new Promise((res,rej)=>{ img.onload=res; img.onerror=rej; img.src=imgEl.src; });
+          const maxW = pageW - margin*2;
+          const ratio = img.naturalWidth / img.naturalHeight || 1;
+          let drawW = Math.min(maxW, img.naturalWidth * (72/96));
+          let drawH = drawW / ratio;
+          if (cursorY + drawH > pageH - margin) {
+            doc.addPage(); cursorY = margin;
+          }
+          const x = (pageW - drawW)/2;
+          doc.addImage(img, 'PNG', x, cursorY, drawW, drawH);
+          cursorY += drawH + 12;
+        }
+      } catch (e) {
+        console.warn('Não foi possível adicionar imagem do resultado no PDF (fallback):', e);
       }
-      doc.text(descLines, margin, cursorY);
-      cursorY += descLines.length * 14 + 10;
+
+      const descricao = document.querySelector('.resultado-descricao p')?.innerText || '';
+      if (descricao) {
+        const lines = doc.splitTextToSize(descricao, pageW - margin*2);
+        if (cursorY + lines.length*14 > pageH - margin) { doc.addPage(); cursorY = margin; }
+        doc.text(lines, margin, cursorY);
+        cursorY += lines.length*14 + 8;
+      }
     }
 
     // rodapé
     const footer = 'Gerado em: ' + new Date().toLocaleString();
-    const footerY = pageH - 30;
     doc.setFontSize(10);
-    doc.text(footer, margin, footerY);
+    doc.text(footer, margin, pageH - 28);
 
-    // preview em nova aba (sem forçar download)
+    // restaura botões
+    btns.forEach((b,i)=>{ b.style.display = prevDisplay[i] || ''; });
+
+    // abre preview em nova aba (blob) e fallback para salvar
     try {
       const blob = doc.output('blob');
       const url = URL.createObjectURL(blob);
       window.open(url, '_blank');
-    } catch (err) {
-      // fallback para salvar direto
+    } catch (e) {
       doc.save(filename || 'resultado.pdf');
     }
   } catch (err) {
@@ -525,6 +582,7 @@ async function generatePdfAndDownload(filename, nomeVal = '', emailVal = '') {
     window._pdfGenerating = false;
   }
 }
+
 
 
 // Função principal chamada ao exibir resultado
