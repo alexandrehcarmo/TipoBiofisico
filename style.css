@@ -21,12 +21,41 @@ body {
   color: var(--brand-neutral-dark);
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
   line-height: 1.5;
 }
+
+/* INÍCIO DA ALTERAÇÃO: Estilos da logo replicados do index1509.txt */
+.sticky-header {
+  background-color: var(--brand-neutral-light); /* Use a cor de fundo do seu projeto */
+   padding: 10px 0; /* Espaçamento interno superior e inferior */
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave para destacar */
+  position: fixed; /* Fixa o header no topo da tela */
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Garante que o header fique acima de outros elementos */
+  transition: transform 0.3s ease-in-out; /* Adicione se for implementar o JS de esconder ao rolar */ 
+ }
+
+.sticky-header.hidden {
+   transform: translateY(-100%);
+} 
+
+.logo-link {
+   display: inline-block; /* Garante que a imagem seja tratada como um bloco inline */
+}
+.logo-topo {
+  max-width: 180px; /* Tamanho máximo da sua logo. Ajuste conforme necessário */
+  height: auto; /* Mantém a proporção da imagem */
+}
+/* Para garantir que o conteúdo principal não fique escondido atrás do header fixo */
+main {
+  padding-top: 100px; /* Ajuste este valor. Deve ser um pouco maior que a altura do seu header */
+  /* Se o .container tem um margin-top, você pode precisar ajustar ou remover o padding-top aqui */
+}
+/* FIM DA ALTERAÇÃO */
 
 .container {
   width: 100%;
@@ -39,15 +68,6 @@ h1, h2 {
   color: var(--brand-primary);
   text-align: center;
   margin-top: 0;
-}
-
-/* logo no topo das páginas (centralizada) */
-.logo-top {
-  display: block;
-  margin: 0 auto 14px;
-  max-width: 140px;
-  width: 25%;
-  height: auto;
 }
 
 p {
