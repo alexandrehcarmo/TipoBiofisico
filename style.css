@@ -581,3 +581,69 @@ button[onclick='reiniciarTeste()']:hover {
     min-width: 100px;     /* mantém largura mínima para não ficar pequeno demais */
   }
 }
+
+
+/* ============================ */
+/* Correção de centragem desktop */
+/* ============================ */
+@media (min-width: 992px) {
+  /* 1) Defina um container central com largura máxima */
+  .container {
+    max-width: 960px;           /* ajuste para 980/1040 se preferir */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    /* Se o .container estiver como flex e isso for necessário para outras partes,
+       você pode manter. Caso esteja empurrando o conteúdo para a esquerda, comente a linha abaixo
+       OU ajuste justify-content para center. */
+    /* display: block; */
+    /* justify-content: center; */
+  }
+
+  /* 2) Garanta que o bloco branco (o "cartão" do texto) também fique centralizado */
+  .content-wrapper,
+  .content-card,
+  .section .content,
+  .page-card,
+  .card {
+    max-width: 800px;           /* largura visual do cartão no desktop */
+    margin-left: auto;
+    margin-right: auto;
+    float: none;                 /* evita desalinhamento por float */
+    position: static;            /* evita deslocamentos absolutos */
+    box-sizing: border-box;
+    width: 100%;                 /* ocupa a largura do container até 800px */
+  }
+
+  /* 3) Se existir algum empurrão lateral prévio, neutralize */
+  .content-wrapper,
+  .content-card,
+  .section .content {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* 4) Evite que o pai "puxe" para a esquerda via flex-start */
+  main {
+    /* Se o main estiver como flex e alinhando à esquerda, centralize-o,
+       ou simplesmente force a renderização em bloco para não depender de flex. */
+    /* descomente UMA das abordagens abaixo, se necessário: */
+
+    /* Abordagem A (recomendada se você não precisa de flex no main):
+    display: block !important;
+    */
+
+    /* Abordagem B (se o main precisa continuar com flex por outros motivos): */
+    display: flex;
+    justify-content: center;
+
+    /* Em ambos os casos, o que importa é o conteúdo principal ficar centralizado. */
+  }
+}
+
+/* Opcional: se houver barra horizontal indesejada, evite deslocamentos visuais */
+html, body {
+  overflow-x: hidden;
+}
